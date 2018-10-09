@@ -26,4 +26,3 @@ int main(void){
 
 	printf("%d\n",two);
 }
-
