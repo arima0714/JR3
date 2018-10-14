@@ -134,7 +134,7 @@ int main(){
 			}else{
 				// printf("numbers[%d][%d] = %d\n",i,j,numbers[i][j]);
 				if(numbers[i][j] < 0){
-					printf("\0");
+					printf(" ");
 				}else{
 					printf("#");
 				}
