@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
-int number = 0;
+int add_number = 0;
+int mult_number = 0;
 
 struct golden{
 	long long int a;
@@ -23,10 +24,11 @@ struct golden add_golden(struct golden x, struct golden y){
 }
 
 struct golden mult_golden(struct golden x, struct golden y){
-	number += 1;
 	struct golden z;
 	z.a = x.a * y.a + x.b * y.b;
 	z.b = x.a * y.b + y.a * x.b + x.b * y.b;
+	add_number++;
+	mult_number++;
 	return z;
 }
 
@@ -47,12 +49,24 @@ struct golden power_golden(struct golden x,int n){
 }
 
 int main(){
-	struct golden x;
 	int n;
-	scanf("%lld %lld",&x.a,&x.b);
-	scanf("%d",&n);	
-	x = power_golden(x,n);
-	printf("%lld %lld\n",x.a, x.b);
-	printf("%d\n",number);
+	scanf("%d",&n);
+
+	struct golden n_minus_one;
+	struct golden n;
+
+	struct golden x;
+
+	x.a = 1;
+	x.b = -1;
+
+	n_minus_one = power_golden(x,n);
+	n = mult_golden(n_minus_one,x);
+
+	printf("%d\n",n.a - n_minus_one.b);
+	printf("%d\n",add_number);
+	printf("%d\n",mult_number);
+
+	printf("%d",n);
 	return 0;
 }
