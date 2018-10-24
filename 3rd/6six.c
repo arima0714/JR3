@@ -9,26 +9,26 @@ struct golden{
 	long long int b;
 };
 
-struct golden double_golden(struct golden x){
-	struct golden y;
-	y.a = x.a * 2;
-	y.b = x.b * 2;	
-	return y; 
-}
+// struct golden double_golden(struct golden x){
+// 	struct golden y;
+// 	y.a = x.a * 2;
+// 	y.b = x.b * 2;	
+// 	return y; 
+// }
 
-struct golden add_golden(struct golden x, struct golden y){
-	struct golden z;
-	z.a = x.a + y.a;
-	z.b = x.b + y.b;
-	return z;
-}
+// struct golden add_golden(struct golden x, struct golden y){
+// 	struct golden z;
+// 	z.a = x.a + y.a;
+// 	z.b = x.b + y.b;
+// 	return z;
+// }
 
 struct golden mult_golden(struct golden x, struct golden y){
 	struct golden z;
 	z.a = x.a * y.a + x.b * y.b;
 	z.b = x.a * y.b + y.a * x.b + x.b * y.b;
-	add_number++;
-	mult_number++;
+	add_number += 3;
+	mult_number += 5;
 	return z;
 }
 
@@ -50,23 +50,17 @@ struct golden power_golden(struct golden x,int n){
 
 int main(){
 	int n;
-	scanf("%d",&n);
-
 	struct golden n_minus_one;
-	struct golden n;
-
 	struct golden x;
-
+	scanf("%d",&n);
+	
 	x.a = 1;
 	x.b = -1;
 
-	n_minus_one = power_golden(x,n);
-	n = mult_golden(n_minus_one,x);
+	n_minus_one = power_golden(x,n-1);
 
-	printf("%d\n",n.a - n_minus_one.b);
+	printf("%lld\n",n_minus_one.a);
 	printf("%d\n",add_number);
 	printf("%d\n",mult_number);
-
-	printf("%d",n);
 	return 0;
 }
