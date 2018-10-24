@@ -35,11 +35,15 @@ struct golden power_golden(struct golden x,int n){
 	if(n == 0){
 		z.a = 1;
 		z.b = 0;
-	}else{
+	}else if(n%2 == 1){
 		z = mult_golden(x,power_golden(x,n-1));
+	}else if(n%2 == 0){
+		struct golden y;
+		y = power_golden(x,n/2);
+		z = mult_golden(y,y);
+
 	}
 	return z;
->>>>>>> refs/remotes/origin/master
 }
 
 int main(){
