@@ -32,8 +32,11 @@ struct golden mult_golden(struct golden x, struct golden y){
 
 struct golden power_golden(struct golden x,int n){
 	struct golden z;
-
-	return z;
+	if(n == 0){
+		return z;
+	}else{
+		z = mult_golden(x,x);
+		golden power_golden(z,n - number);	
 }
 
 int main(){
