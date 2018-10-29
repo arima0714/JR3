@@ -49,10 +49,16 @@ struct golden power_golden(struct golden x,int n){
 	return z;
 }
 
-float size_of_golden(struct golden x){
+int size_of_golden(struct golden x, struct golden y){
     float root_five = pow(5,0.5);
     float phi = (1+root_five)/2;
-    return x.a + x.b * phi;
+    if(x.a + x.b * phi > y.a + y.b * phi){
+	return 1;
+    }else if(x.a + x.b * phi == y.a + y.b * phi){
+	return 0;
+    }else{
+	return -1;
+    }
 }
 
 int main(){
@@ -62,11 +68,5 @@ int main(){
     scanf("%lld%lld",&one.a,&one.b);
     scanf("%lld%lld",&two.a,&two.b);
 	
-    if(size_of_golden(one) > size_of_golden(two)){
-        printf("1\n");
-    }else if(size_of_golden(one) < size_of_golden(two)){
-        printf("-1\n");
-    }else{
-        printf("0\n");
-    }
+    printf("%d\n",size_of_golden(one, two));
 }
