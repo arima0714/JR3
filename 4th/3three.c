@@ -13,27 +13,15 @@ struct stack{
 };
 
 void initstack(struct stack *p){
-	(*p).top = 0;
+	(*p).top = -1;
 }
 
 
 int stackempty(struct stack *p){
-	if((*p).top == 0){
+	if((*p).top == -1){
 		return 1;
 	}else{
 		return 0;
-	}
-}
-
-elementtype pop(struct stack *p){
-
-}
-
-void push(struct stack *p, elementtype e){
-	if(p->top == MAXSTACK){
-		printf("Overflow\n");
-	}else{
-	
 	}
 }
 
@@ -45,14 +33,41 @@ void print_stacks(struct stack *p){
 	printf("\n");
 }
 
+elementtype pop(struct stack *p){
+	int return_num = 0;
+	if(p->top == -1){
+		printf("Underflow\n");
+		exit(1);
+	}else{
+		return_num = p->contents[p->top];
+		p->top--;
+		print_stacks(p);
+		return return_num;
+	}
+}
+
+void push(struct stack *p, elementtype e){
+	if(p->top == MAXSTACK){
+		printf("Overflow\n");
+		exit(1);
+	}else{
+		p->top++;
+		p->contents[p->top] = e;
+		print_stacks(p);
+	}
+}
+
+
 int main(){
 	struct stack s;
 	int i;
+	initstack(&s);
 	while(fgets(buf, sizeof(buf), stdin) != NULL){
 		if(buf[0] == 'p'){
-			
+			pop(&s);
 		}else{
 			sscanf(buf,"%d",&i);
+			push(&s, i);
 		}
 	}
 }
