@@ -1,7 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define MAXSTACK 128;	
+#define MAXSTACK 128
+
+char buf[MAXSTACK];
 
 typedef int elementtype;
 
@@ -35,7 +37,7 @@ void push(struct stack *p, elementtype e){
 	}
 }
 
-void print_stacks(*p){
+void print_stacks(struct stack *p){
 	int i;
 	for(i = 0;i < p->top;i++){
 		printf("[%d]",p->contents[i]);		
@@ -43,18 +45,14 @@ void print_stacks(*p){
 	printf("\n");
 }
 
-
 int main(){
 	struct stack s;
 	int i;
-	/* スタック s の初期化 */
-	while(fgets(buf,sizeof(buf),stdin) != NULL) {
-		if(buf[0]==’p’) {
-		/* スタック s からのポップ操作 */
-		} else {
-		sscanf(buf,"%d", &i);
-		/* スタック s への i のプッシュ操作 */
+	while(fgets(buf, sizeof(buf), stdin) != NULL){
+		if(buf[0] == 'p'){
+			
+		}else{
+			sscanf(buf,"%d",&i);
 		}
-	/* スタック s の中身を指定された形式で出力 */
 	}
 }
