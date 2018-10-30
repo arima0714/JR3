@@ -27,7 +27,7 @@ int stackempty(struct stack *p){
 
 void print_stacks(struct stack *p){
 	int i;
-	for(i = 0;i < p->top;i++){
+	for(i = 0;i <= p->top;i++){
 		printf("[%d]",p->contents[i]);		
 	}
 	printf("\n");
@@ -47,7 +47,7 @@ elementtype pop(struct stack *p){
 }
 
 void push(struct stack *p, elementtype e){
-	if(p->top == MAXSTACK){
+	if(p->top == MAXSTACK-1){
 		printf("Overflow\n");
 		exit(1);
 	}else{
