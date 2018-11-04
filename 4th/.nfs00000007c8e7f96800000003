@@ -28,26 +28,23 @@ int queueempty(struct queue *p){
 }
 
 void print_queue(struct queue *p){
-	if(p->front > p->rear ){
+	if(p->rear == 0){
 		for(int i = p->front;i < MAXQUEUE;i++){
-			printf("[%d]",p->contents[i]);
-		}
-		for(int i = 0;i< p->rear;i++){
 			printf("[%d]",p->contents[i]);
 		}
 	}else{
 		for(int i = p->front; i < p->rear; i++){
 			printf("[%d]",p->contents[i]);
-			//printf("Overflow\n");
-			//exit(1);
+			printf("Overflow\n");
+			exit(1);
 		}
 	}
 	if(p->rear < p->front){
-		//printf("[%d]",p->contents[127]);
+		printf("[%d]",p->contents[127]);
 	}
 	printf("\n");
 	//printf("p->front = %d, p->rear = %d\n",p->front , p->rear);
-	if((p->front == 0 && p->rear == MAXQUEUE - 1) || (p->front == 1 && p->rear == 0)){
+	if((p->front == 0 && p->rear == MAXQUEUE - 1) ){
 		printf("Overflow\n");
 		exit(1);
 	}
