@@ -75,7 +75,7 @@ void func(struct stack *p){
 
 		zahyo = pop(p);
 		if(canvas[zahyo.x][zahyo.y+1] == ' '){
-			printf("here\n");
+			//printf("here\n");
 			e.x = zahyo.x;
 			e.y = zahyo.y + 1;
 			push(p,e);
@@ -153,7 +153,7 @@ int main(){
 	func(&s);
 
 	//ここを埋める↑
-
+    canvas[N/2][N/2] = '.';
 	//canvasの出力
     for (i = 0; i < N;++i){
         for (j = 0; j < N;++j){
