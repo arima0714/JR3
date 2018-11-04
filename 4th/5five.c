@@ -99,30 +99,6 @@ void func(struct stack *p){
 			push(p,e);
 			canvas[zahyo.x-1][zahyo.y] = '.';
 		}
-		// if(canvas[zahyo.x+1][zahyo.y+1] == ' '){
-		// 	e.x = zahyo.x + 1;
-		// 	e.y = zahyo.y + 1;
-		// 	push(p,e);
-		// 	canvas[zahyo.x+1][zahyo.y+1] = '.';
-		// }
-		// if(canvas[zahyo.x-1][zahyo.y+1] == ' '){
-		// 	e.x = zahyo.x - 1;
-		// 	e.y = zahyo.y + 1;
-		// 	push(p,e);
-		// 	canvas[zahyo.x-1][zahyo.y+1] = '.';
-		// }
-		// if(canvas[zahyo.x-1][zahyo.y-1] == ' '){
-		// 	e.x = zahyo.x - 1;
-		// 	e.y = zahyo.y - 1;
-		// 	push(p,e);
-		// 	canvas[zahyo.x-1][zahyo.y-1] = '.';
-		// }
-		// if(canvas[zahyo.x+1][zahyo.y-1] == ' '){
-		// 	e.x = zahyo.x + 1;
-		// 	e.y = zahyo.y - 1;
-		// 	push(p,e);
-		// 	canvas[zahyo.x+1][zahyo.y-1] = '.';
-		// }
 		func(p);
 	}
 
