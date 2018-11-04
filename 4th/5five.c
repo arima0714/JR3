@@ -1,16 +1,21 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define MAXSTACK 512
+#define MAXSTACK 128
+#define N 11
 
-char buf[MAXSTACK];
+
+char buf[N+2];
+char canvas[N][N];
 char inputs[MAXSTACK];
 
-typedef int elementtype;
+struct zahyo {
+    int x, y;
+};
 
 struct stack{
 	int top;
-	elementtype contents[MAXSTACK];
+	struct zahyo contents[MAXSTACK];
 };
 
 void initstack(struct stack *p){
@@ -34,8 +39,8 @@ void print_stacks(struct stack *p){
 	//printf("\n");
 }
 
-elementtype pop(struct stack *p){
-	int return_num = 0;
+struct zahyo pop(struct stack *p){
+	struct zahyo return_num;
 	if(p->top == -1){
 		printf("Bad\n");
 		exit(1);
@@ -48,7 +53,7 @@ elementtype pop(struct stack *p){
 	}
 }
 
-void push(struct stack *p, elementtype e){
+void push(struct stack *p, struct zahyo e){
 	if(p->top == MAXSTACK-1){
 		printf("Overflow\n");
 		exit(1);
@@ -59,47 +64,102 @@ void push(struct stack *p, elementtype e){
 	}
 }
 
+void func(struct stack *p){
+
+	struct zahyo zahyo;
+	struct zahyo e;
+
+	if(stackempty(p)){
+		;
+    }else{
+
+		zahyo = pop(p);
+		if(canvas[zahyo.x][zahyo.y+1] == ' '){
+			printf("here\n");
+			e.x = zahyo.x;
+			e.y = zahyo.y + 1;
+			push(p,e);
+			canvas[zahyo.x][zahyo.y+1] = '.';
+		}
+		if(canvas[zahyo.x+1][zahyo.y] == ' '){
+			e.x = zahyo.x + 1;
+			e.y = zahyo.y;
+			push(p,e);
+			canvas[zahyo.x+1][zahyo.y] = '.';
+		}
+		if(canvas[zahyo.x][zahyo.y-1] == ' '){
+			e.x = zahyo.x;
+			e.y = zahyo.y - 1;
+			push(p,e);
+			canvas[zahyo.x][zahyo.y-1] = '.';
+		}
+		if(canvas[zahyo.x-1][zahyo.y] == ' '){
+			e.x = zahyo.x - 1;
+			e.y = zahyo.y;
+			push(p,e);
+			canvas[zahyo.x-1][zahyo.y] = '.';
+		}
+		// if(canvas[zahyo.x+1][zahyo.y+1] == ' '){
+		// 	e.x = zahyo.x + 1;
+		// 	e.y = zahyo.y + 1;
+		// 	push(p,e);
+		// 	canvas[zahyo.x+1][zahyo.y+1] = '.';
+		// }
+		// if(canvas[zahyo.x-1][zahyo.y+1] == ' '){
+		// 	e.x = zahyo.x - 1;
+		// 	e.y = zahyo.y + 1;
+		// 	push(p,e);
+		// 	canvas[zahyo.x-1][zahyo.y+1] = '.';
+		// }
+		// if(canvas[zahyo.x-1][zahyo.y-1] == ' '){
+		// 	e.x = zahyo.x - 1;
+		// 	e.y = zahyo.y - 1;
+		// 	push(p,e);
+		// 	canvas[zahyo.x-1][zahyo.y-1] = '.';
+		// }
+		// if(canvas[zahyo.x+1][zahyo.y-1] == ' '){
+		// 	e.x = zahyo.x + 1;
+		// 	e.y = zahyo.y - 1;
+		// 	push(p,e);
+		// 	canvas[zahyo.x+1][zahyo.y-1] = '.';
+		// }
+		func(p);
+	}
+
+}
+
 
 int main(){
 	struct stack s;
-	int i;
-	char comp_char;
-	scanf("%s",inputs);
-	initstack(&s);
+	int i,j;
+	//char comp_char;
+    struct zahyo zahyo;
+    zahyo.x = N / 2;
+    zahyo.y = N / 2;
 
-	for(i = 0; i < MAXSTACK; i++){
-		if(inputs[i] == '(' || inputs[i] == '{' || inputs[i] == '[' || inputs[i] == '<'){
-			push(&s, inputs[i]);
-		}else if(inputs[i] == ')' || inputs[i] == '}' || inputs[i] == ']' || inputs[i] == '>'){
-			comp_char = pop(&s);
-			if(comp_char == '('){
-				if(inputs[i] != ')'){
-					printf("Bad\n");
-					return 0;
-				}
-			}else if(comp_char == '{'){
-				if(inputs[i] != '}'){
-					printf("Bad\n");
-					return 0;
-				}
-			}else if(comp_char == '['){
-				if(inputs[i] != ']'){
-					printf("Bad\n");
-					return 0;
-				}
-			}else{
-				if(inputs[i] != '>'){
-					printf("Bad\n");
-					return 0;
-				}
-			}
-		}
-	}
-	if(stackempty(&s)){
-		printf("Good\n");
-	}else{
-		printf("Bad\n");
-	}
-	return 0;
 
+    i = 0;
+    initstack(&s);
+    while (fgets(buf, sizeof(buf), stdin) != NULL) {
+            for (j = 0; j < N; ++j) {
+                canvas[i][j] = buf[j];
+            }
+            ++i;
+    }
+
+	//ここを埋める↓
+
+	push(&s, zahyo);
+	func(&s);
+
+	//ここを埋める↑
+
+	//canvasの出力
+    for (i = 0; i < N;++i){
+        for (j = 0; j < N;++j){
+            printf("%c", canvas[i][j]);
+        }
+        printf("\n");
+    }
+    return 0;
 }
