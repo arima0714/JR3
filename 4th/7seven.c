@@ -64,7 +64,6 @@ void putq(struct queue *p, elementtype e){
 		}
 		if(p->rear == p->front || (p->rear == MAXQUEUE-1 && p->front == 0)){
 			printf("Overflow\n");
-			printf("p->rear = %d, p->front = %d\n",p->rear,p->front);
 			exit(0);
 		}
 	//}	
