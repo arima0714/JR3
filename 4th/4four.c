@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define MAXSTACK 512
+#define MAXSTACK 1024 
 
 char buf[MAXSTACK];
 char inputs[MAXSTACK];
@@ -64,14 +64,16 @@ int main(){
 	struct stack s;
 	int i;
 	char comp_char;
-	scanf("%s",inputs);
+	fgets(inputs,sizeof(inputs),stdin);
 	initstack(&s);
 
 	for(i = 0; i < MAXSTACK; i++){
+		//printf("%c\n",inputs[i]);
 		if(inputs[i] == '(' || inputs[i] == '{' || inputs[i] == '[' || inputs[i] == '<'){
 			push(&s, inputs[i]);
 		}else if(inputs[i] == ')' || inputs[i] == '}' || inputs[i] == ']' || inputs[i] == '>'){
 			comp_char = pop(&s);
+			//printf("comp_char = %c, inputs[%d] = %c\n",comp_char,i,inputs[i]);
 			if(comp_char == '('){
 				if(inputs[i] != ')'){
 					printf("Bad\n");
