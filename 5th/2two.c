@@ -13,16 +13,16 @@ typedef struct node *list;
 list cons(elementtype e,list l){
 	struct node *first;
 	first = (struct node *)malloc(sizeof(struct node));
+	first->next = l;
 	first->element = e;
-	first->next = l->next;
-	l->next = first;
-	return l;
+	return first;
 }
 
 int length(list l){
 	int len_list = 0;
 	struct node *temp = (struct node *)malloc(sizeof(struct node));
 	temp->next = l;
+	temp->next = temp->next->next;
 
 	while(temp->next != NULL){
 		len_list++;
@@ -32,6 +32,7 @@ int length(list l){
 }
 
 void print_int_list(list l){
+	l = l->next;
 	while(l != NULL){
 		printf("[%d]",l->element);
 		l = l->next;
@@ -46,13 +47,12 @@ int main(){
 	list l;
 	list last;
 	last = (struct node *)malloc(sizeof(struct node));
-	l->next = last;
-	printf("here1\n");
-	
-	printf("here2\n");
+	last->next = last;
+	l = last;
 	while(fgets(buf,sizeof(buf),stdin) != NULL){
 		sscanf(buf, "%d", &i);
-		l = cons(i,l);
+		last->next = cons(i,NULL);
+		last = last->next;
 	}
 	printf("length=%d\n",length(l));
 	print_int_list(l);
