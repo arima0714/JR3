@@ -36,7 +36,7 @@ int length(list l){
 void print_int_list(list l){
 	l = l->next;
 	while(l != NULL){
-		printf("[%d]",l->element);
+		printf("%d\n",l->element);
 		l = l->next;
 	}
 	printf("\n");
@@ -91,14 +91,14 @@ int main(){
 		}
 		else{
 			while(1){
-				printf("max = %d, j = %d, temp->element = %d, i = %d\n",max,j,temp->element,i);
+				//printf("max = %d, j = %d, temp->element = %d, i = %d\n",max,j,temp->element,i);
 				if(j < max){
-					printf("j > max\n");
+					//printf("j > max\n");
 					if(abs(temp->next->element) < abs(i)){
 						if(temp->element == i){
 							break;
 						}
-						printf("here!\n");
+						//printf("here!\n");
 						insert(temp, i);
 						break;
 					}
