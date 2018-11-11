@@ -41,7 +41,6 @@ void print_int_list(list l)
         printf("%d\n", l->element);
         l = l->next;
     }
-    printf("\n");
 }
 
 void insert(list l, elementtype e)
@@ -114,7 +113,7 @@ int main()
             }
         }
         max++;
-        print_int_list(l);
     }
+    print_int_list(l);
     return 0;
 }
