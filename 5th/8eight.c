@@ -36,7 +36,7 @@ int length(list l){
 void print_int_list(list l){
 	l = l->next;
 	while(l != NULL){
-		printf("%d",l->element);
+		printf("[%d]",l->element);
 		l = l->next;
 	}
 	printf("\n");
@@ -54,7 +54,7 @@ void insert(list l, elementtype e){
 	// print_int_list(l);
 }
 
-int abs(int i){
+int abs(elementtype i){
 	if(i < 0){
 		return i * -1;
 	}else{
@@ -65,34 +65,54 @@ int abs(int i){
 //struct node *
 
 int main(){
-	int i,j;
+	int i;
+	int max;
 	char buf[128];
-	int c;
 	list l;
 	list last;
 	list temp;
+	max = 0;
 	last = (struct node *)malloc(sizeof(struct node));
 	last->next = last;
 	l = last;
-	//fgets(buf,sizeof(buf),stdin);
 	// printf("here\n");
 	//for(i = 0;(c = buf[i])!= '\n';++i){
 	//	last->next = cons(c,NULL);
 	//	last = last->next;
 	//}
-	scanf("%d",&c);
-	last->next = cons(c,NULL);
-	last = last->next;
-	//print_int_list(l);
 	while(fgets(buf,sizeof(buf),stdin) != NULL){
+		int j = 0;
 		sscanf(buf,"%d",&i);
-		printf("i = %d\n",i);
-		last->next = cons(*i,NULL);
-		last = last->next;
-		//ここでリストの中身を出力
-		//print_int_list(l);
+		//printf("i = %d\n",i);
+		struct node *temp;
+		temp = last;
+		if(max == 0){
+			temp->next = cons(i,NULL);
+		}
+		else{
+			while(1){
+				printf("max = %d, j = %d, temp->element = %d, i = %d\n",max,j,temp->element,i);
+				if(j < max){
+					printf("j > max\n");
+					if(abs(temp->next->element) < abs(i)){
+						if(temp->element == i){
+							break;
+						}
+						printf("here!\n");
+						insert(temp, i);
+						break;
+					}
+				}else if(max == j){
+					temp->next = cons(i,NULL);
+					break;
+					}
+			    j++;
+				temp = temp->next;
+			}
+		}
+		max++;
+		print_int_list(l);
 	}
-	print_int_list(l);
 	return 0;
 
 }
