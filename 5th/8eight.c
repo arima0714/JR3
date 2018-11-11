@@ -43,6 +43,16 @@ void print_int_list(list l)
     }
 }
 
+void print_int_list_d(list l)
+{
+    l = l->next;
+    while (l != NULL) {
+        printf("[%d]", l->element);
+        l = l->next;
+    }
+	printf("\n");
+}
+
 void insert(list l, elementtype e)
 {
     struct node* new = (struct node*)malloc(sizeof(struct node));
@@ -98,7 +108,7 @@ int main()
                     //printf("j > max\n");
                    
 					if(abs(temp->next->element) == abs(i) && temp->next->element < i){
-						//printf("here!\n");
+						printf("here!\n");
 						insert(temp,i);
 						break;
 					}
@@ -106,11 +116,12 @@ int main()
                         if (temp->element == i) {
                             break;
                         }
-                        //printf("here!\n");
+                        printf("here!\n");
                         insert(temp, i);
                         break;
 					}
                 } else if (max == j) {
+					//printf("here@\n");
                     temp->next = cons(i, NULL);
                     break;
                 }
@@ -118,9 +129,10 @@ int main()
                 temp = temp->next;
             }
         }
-    	//print_int_list(l);
+    	print_int_list_d(l);
         max++;
     }
+	printf("hreadsf\n");
     print_int_list(l);
     return 0;
 }
