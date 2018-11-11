@@ -93,12 +93,12 @@ int main()
             temp->next = cons(i, NULL);
         } else {
             while (1) {
-                printf("max = %d, j = %d, temp->element = %d, i = %d\n",max,j,temp->element,i);
+                //printf("max = %d, j = %d, temp->element = %d, i = %d\n",max,j,temp->element,i);
                 if (j < max) {
                     //printf("j > max\n");
                    
 					if(abs(temp->next->element) == abs(i) && temp->next->element < i){
-						printf("here!\n");
+						//printf("here!\n");
 						insert(temp,i);
 						break;
 					}
