@@ -93,17 +93,23 @@ int main()
             temp->next = cons(i, NULL);
         } else {
             while (1) {
-                //printf("max = %d, j = %d, temp->element = %d, i = %d\n",max,j,temp->element,i);
+                printf("max = %d, j = %d, temp->element = %d, i = %d\n",max,j,temp->element,i);
                 if (j < max) {
                     //printf("j > max\n");
-                    if (abs(temp->next->element) < abs(i)) {
+                   
+					if(abs(temp->next->element) == abs(i) && temp->next->element < i){
+						printf("here!\n");
+						insert(temp,i);
+						break;
+					}
+					else if (abs(temp->next->element) < abs(i)) {
                         if (temp->element == i) {
                             break;
                         }
                         //printf("here!\n");
                         insert(temp, i);
                         break;
-                    }
+					}
                 } else if (max == j) {
                     temp->next = cons(i, NULL);
                     break;
@@ -112,6 +118,7 @@ int main()
                 temp = temp->next;
             }
         }
+    	//print_int_list(l);
         max++;
     }
     print_int_list(l);
