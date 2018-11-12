@@ -10,19 +10,17 @@ struct node{
 
 typedef struct node *list;
 
-list cons(elementtype e,list l,list max){
+list cons(elementtype e,list l){
 	struct node *temp_one;
 	temp_one = (struct node *)malloc(sizeof(struct node));
 	struct node *temp_two;
 	temp_two = (struct node *)malloc(sizeof(struct node));
 	struct node *content;
 	content = (struct node *)malloc(sizeof(struct node));
+
 	content->element = e;
 	content->next = NULL;
-	if(max->element <= content->element){
-		max->next = content->next;
-		max->element = content->element;
-	}
+	
 	//temp->next = l;
 	//temp->element = e;
 	temp_one = l;
@@ -47,9 +45,11 @@ int length(list l){
 }
 
 void print_int_list(list l){
-	while(l != NULL){
-		printf("[%d]",l->element);
-		l = l->next;
+	struct node *temp;
+	temp = l;
+	while(temp != NULL){
+		printf("[%d]",temp->element);
+		temp = temp->next;
 	}
 	printf("\n");
 }
@@ -64,46 +64,58 @@ list func(list max, list l){
 	temp_two = (struct node *)malloc(sizeof(struct node));
 	temp_three = (struct node *)malloc(sizeof(struct node));
 	
-	temp_one = l;
+	temp_one = max;
+	//printf("here!\n");
 	while(temp_one->next != NULL){
 		temp_one = temp_one->next;
 	}
 	temp_one->next = l;
-
-	while((l->next != max->next)&&(l->element != max->element)){
-		l = l->next;
+	
+	temp_two = max;
+	//printf("here@\n");
+	while(1){
+		if(temp_two->next == max){
+			temp_two->next = NULL;
+			break;
+		}else{
+			temp_two = temp_two->next;
+		}
 	}
-
-	//return l;
-
-	printf("[%d]",l->element);
-	l = l->next;
-
-	while((l->next != max->next)&&(l->element != max->element)){
-		printf("[%d]",l->element);
-		l = l->next;
-	}
-	printf("\n");
-	exit(1);
+	
+	return max;
 }
-
 
 int main(){
 	int i;
+	int f = 0;
 	char buf[128];
 	struct node *l;
+	struct node *temp;
 	l = (struct node *)malloc(sizeof(struct node));
 	struct node *max;
 	max = (struct node*)malloc(sizeof(struct node));
 	max->element = -10000;
 	while(fgets(buf,sizeof(buf),stdin) != NULL){
 		sscanf(buf, "%d", &i);
-		cons(i,l,max);
+		cons(i,l);
+	}
+	temp = l;
+	//printf("here!\n");
+	while(temp != NULL){
+		if(f == 0){
+			f++;
+		}
+		else if(temp->element >= max->element){
+			max = temp;
+		}
+		temp = temp->next;
 	}
 	l = l->next;
 	//printf("length=%d\n",length(l));
 	//print_int_list(l);
+	//printf("max->element = %d\n",max->element);
+	//printf("max->next->element = %d\n",max->next->element);
 	l = func(max,l);
-	//print_int_list(l);
+	print_int_list(l);
 	return 0;
 }

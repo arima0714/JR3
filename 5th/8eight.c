@@ -19,6 +19,13 @@ list cons(elementtype e, list l)
     return first;
 }
 
+void delete(list l){
+	// printf("before\n");
+	free(l->next);
+	// printf("after\n");
+	l->next = l->next->next;
+}
+
 int length(list l)
 {
     int len_list = 0;
@@ -99,29 +106,48 @@ int main()
         //printf("i = %d\n",i);
         struct node* temp;
         temp = last;
-        if (max == 0) {
+        if (max == 0) {//最初にリストに入れる際の処理
             temp->next = cons(i, NULL);
         } else {
             while (1) {
-                //printf("max = %d, j = %d, temp->element = %d, i = %d\n",max,j,temp->element,i);
+                //printf("max = %d, j = %d, temp->element = %d, i = %d, temp->next->element = %d\n",max,j,temp->element,i,temp->next->element);
                 if (j < max) {
-                    //printf("j > max\n");
-                   
-					if(abs(temp->next->element) == abs(i) && temp->next->element < i){
-						printf("here!\n");
-						insert(temp,i);
-						break;
-					}
-					else if (abs(temp->next->element) < abs(i)) {
-                        if (temp->element == i) {
+                    if(abs(temp->next->element) == abs(i)){
+                        printf("================here=================\n");
+                        if(temp->next->element == i){
+                            max--;
                             break;
                         }
-                        printf("here!\n");
-                        insert(temp, i);
+                        else if(temp->element == i){
+                            max--;
+                            break;
+                        }
+                        else if(abs(temp->element) > abs(i) && abs(i) > abs(temp->next->element)){
+                            insert(temp,i);
+                            printf("temp->element > i && i > temp->next->element, temp->element = %d\n",temp->element);
+                            break;
+                        }
+                    }
+                    else if(abs(temp->next->element) <= abs(i)){
+                        if(temp->element == i || temp->next->element == i){
+                            max--;
+                            break;
+                        }
+                        else if(temp->next->element > i){
+                            insert(temp->next->memor)
+                        }
+                        insert(temp,i);
+                        printf("abs(temp->next->element) <= abs(i)\n");
                         break;
-					}
+                    }
                 } else if (max == j) {
-					//printf("here@\n");
+                // }else{
+					printf("temp->element = %d, i = %d\n",temp->element,i);
+                    if(temp->element == i){
+                        max--;
+                        break;
+                    }
+                    
                     temp->next = cons(i, NULL);
                     break;
                 }
@@ -132,7 +158,7 @@ int main()
     	print_int_list_d(l);
         max++;
     }
-	printf("hreadsf\n");
-    print_int_list(l);
+    temp = l;
+    print_int_list(temp);
     return 0;
 }
