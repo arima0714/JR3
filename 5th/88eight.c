@@ -118,30 +118,32 @@ int main()
                         }
                     }
                     else if(i != 0){
-                        if(temp->element == i){
+                        if(temp->element == i){//重複除け
                             max--;
                             break;
                         }
-                        else if(temp->next->element == i){
+                        else if(temp->next->element == i){//重複除け
                             max--;
                             break;
                         }
-                        if(abs(i) > abs(temp->next->element)){
+                        if(abs(i) > abs(temp->next->element)){//基本的な順番を作成する
                             //printf("abs(i) > abs(temp->element)\n");
                             insert(i, temp);
                             break;
                         }
                         if(abs(i) == abs(temp->next->element)){
                             if(i < temp->next->element){
-                                max--;
+                                //printf("here\n");
+                                ;
+                            }
+                            else{
+                                //printf("abs(i) == abs(temp->element)\n");
+                                insert(i, temp);
                                 break;
                             }
-                            //printf("abs(i) == abs(temp->element)\n");
-                            insert(i, temp);
-                            break;
                         }
                     }
-                    if(abs(temp->element) >= abs(i) && abs(i) >= abs(temp->next->element)){
+                    if(abs(temp->element) >= abs(i) && abs(i) > abs(temp->next->element)){
                         //printf("abs(temp->element) >= abs(i) && abs(i) >= abs(temp->next->element)\n");
                         insert(i,temp->next);
                         break;
