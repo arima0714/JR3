@@ -54,16 +54,25 @@ void func(char* buf_one, char* buf_two) {
 		;
 	}
 	for (l = 0;l < len_one;l++) {
-		for (m = 0; m < len_two; m++) {
+		for (m = 0; m <= len_two; m++) {
 			temp_num = arr_one[l] * arr_two[m] + carry;
-			//計算結果の一桁目をarr_temp[m]に格納
-			arr_temp[m] = temp_num % 10;
-			temp_num /= 10;
-			//計算結果の二桁目をcarryに格納
-			carry = temp_num % 10;
+			if (temp_num >= 10) {
+				//計算結果の一桁目をarr_temp[m]に格納
+				arr_temp[m] = temp_num % 10;
+				temp_num /= 10;
+				//計算結果の二桁目をcarryに格納
+				carry = temp_num % 10;
+			}
+			else {
+				arr_temp[m] = temp_num;
+				carry = 0;
+			}
 		}
-		carry = 0;
+		//if (carry != 0) {
+		//	arr_temp[m] = carry;
+		//}
 		//arr_tempの値をarr_ansに入れる
+		carry = 0;
 		for (int n = k,o = 0;n < DIGITS + DIGITS;n++, o++) {
 			temp_num = arr_ans[n] + arr_temp[o] + carry;
 			arr_ans[n] = temp_num % 10;
@@ -74,7 +83,6 @@ void func(char* buf_one, char* buf_two) {
 	}
 
 }
-
 
 int main() {
 	//入力される2値を改行まで取得・格納
