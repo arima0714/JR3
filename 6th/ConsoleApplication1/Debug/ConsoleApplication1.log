@@ -1,0 +1,4 @@
+﻿  ConsoleApplication1.cpp
+d:\consoleapplication1\consoleapplication1.cpp(30): warning C4101: 'len_three': ローカル変数は 1 度も使われていません。
+d:\consoleapplication1\consoleapplication1.cpp(27): warning C4101: 'num': ローカル変数は 1 度も使われていません。
+  ConsoleApplication1.vcxproj -> D:\ConsoleApplication1\Debug\ConsoleApplication1.exe
