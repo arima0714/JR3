@@ -183,11 +183,21 @@ int main()
 
 	struct node* to_output;
 	to_output = init_node();
-
+	
+	int bit = 0;
 	while (output != NULL) {
+		if(output->element > 0){
+			bit = 1;
+		}
 		add_node(to_output, output->element);
 		output = output->next;
 	}
+
+	if(bit == 0){
+		printf("%d\n",0);
+		return 0;
+	}
+	
 
 	print_node(to_output);
 
