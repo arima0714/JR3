@@ -139,8 +139,8 @@ int main()
 	}
 
 	//入力された2値を出力
-	print_node(input_one);
-	print_node(input_two);
+	//print_node(input_one);
+	//print_node(input_two);
 
 	//d は桁数をカウントする
 	d = 0;
