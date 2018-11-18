@@ -169,7 +169,7 @@ int main()
 			add_last_node(temp, carry);
 			carry = 0;
 		}
-		for (int i = 0;i != d;i++) {
+		for (int i = d;i != 0;--i) {
 			add_node(temp, 0);
 		}
 		d++;
