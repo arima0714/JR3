@@ -7,53 +7,48 @@ struct point {
 
 int compare_by(struct point p1, struct point p2, char c){
 	//ここを埋める
-	if(c == 'X'){
-		printf("X\n");
-		if(p1.x == p2.x && p1.y == p2.y){
-			return 0;
-		}
-		else if(p1.x > p2.x){
+	if(p1.x == p2.x && p1.y == p2.y){
+		return 0;
+	}
+	else if(c == 'X'){//Xの処理
+		if(p1.x > p2.x){
 			return 1;
-		}else if(p1.x == p2.x){
-			if(p1.y > p1.y){
-				return 1;
-			}else{
-				return -1;
-			}
-		}else{
-			return -1;
 		}
-	}else if(c == 'Y'){
-		printf("Y\n");
-		if(p1.x == p2.x && p1.y == p2.y){
-			return 0;
+		else if(p1.x < p2.x){
+			return -1;
 		}
 		else if(p1.y > p2.y){
 			return 1;
-		}else if(p1.y == p2.y){
-			if(p1.x > p2.x){
-				return 1;
-			}else{
-				return -1;
-			}
-		}else{
+		}
+		else{
 			return -1;
 		}
-	}else{
-		printf("D\n");
-		if(p1.x == p2.x && p1.y == p2.y){
-			return 0;
-		}
-		else if(p1.x * p1.x + p1.y * p1.y > p2.x * p2.x + p2.y * p2.y){
+	}else if(c == 'Y'){//Yの処理
+		if(p1.y > p2.y){
 			return 1;
 		}
-		else if(p2.x * p2.x + p2.y * p2.y > p1.x * p1.x + p1.y * p1.y){
+		else if(p1.y < p2.y){
 			return -1;
+		}	
+		else if(p1.x > p2.x){
+			return 1;
+		}
+		else{
+			return -1;
+		}
+	}else{//Dの処理
+		int p1xy = p1.x * p1.x + p1.y * p1.y;
+		int p2xy = p2.x * p2.x + p2.y * p2.y;
+		if(p1xy > p2xy){
+			return p1xy;
+		}
+		else if(p1xy < p2xy){
+			return p2xy;
 		}
 		else if(p1.x > p2.x){
 			return 1;
 		}
-		else if(p2.x > p1.x){
+		else if(p1.x < p2.x){
 			return -1;
 		}
 		else if(p1.y > p2.y){
@@ -72,7 +67,7 @@ int max_index_by(struct point a[], int n, char c){
 	max_p = a[i];
 	i++;
 	for(;i < n;i++){
-		if(compare_by(a[i] , max_p, c)){
+		if(compare_by(a[i] , max_p, c) == 1){
 				max_p = a[i];
 				max_i = i;
 		}
