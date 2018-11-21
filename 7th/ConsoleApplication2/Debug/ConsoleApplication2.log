@@ -1,0 +1,2 @@
+﻿  pch.cpp
+c1xx : fatal error C1083: ソース ファイルを開けません。'pch.cpp':No such file or directory
