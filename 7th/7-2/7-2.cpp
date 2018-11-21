@@ -49,10 +49,10 @@ int compare_by(struct point p1, struct point p2, char c) {
 		int p1xy = p1.x * p1.x + p1.y * p1.y;
 		int p2xy = p2.x * p2.x + p2.y * p2.y;
 		if (p1xy > p2xy) {
-			return p1xy;
+			return 1;
 		}
 		else if (p1xy < p2xy) {
-			return p2xy;
+			return -1;
 		}
 		else if (p1.x > p2.x) {
 			return 1;
