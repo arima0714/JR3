@@ -72,9 +72,15 @@ int compare_by(struct point p1, struct point p2, char c) {
 int max_index_by(struct point a[], int n, char c) {
 	int max_i = 1;
 	struct point max_p;
+	int result = 0;
 	max_p = a[1];
 	for (int i = 1;i < n;i++) {
-		if (compare_by(a[i], max_p,  c) == 1) {
+		result = compare_by(a[i], max_p, c);
+		if (result == 1) {
+			max_p = a[i];
+			max_i = i;
+		}
+		else if (result == 0) {
 			max_p = a[i];
 			max_i = i;
 		}
