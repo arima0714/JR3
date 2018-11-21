@@ -84,7 +84,7 @@ int max_index_by(struct point a[], int n, char c) {
 
 int main()
 {
-	//printf("hello wordd\n");
+	printf("hello wordd\n");
 
 	char c;
 	char buf[128];
