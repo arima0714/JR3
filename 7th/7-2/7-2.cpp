@@ -1,7 +1,7 @@
 ﻿// 7-2.cpp : このファイルには 'main' 関数が含まれています。プログラム実行の開始と終了がそこで行われます。
 //
 
-#include "pch.h"
+//#include "pch.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 
