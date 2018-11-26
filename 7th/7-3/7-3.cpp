@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+﻿//#include "pch.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -12,7 +12,7 @@ struct point {
 };
 
 int compare_by(struct point p1, struct point p2, char c) {
-	++count;
+	count++;
 	//ここを埋める
 	if (p1.x == p2.x && p1.y == p2.y) {
 		return 0;
@@ -70,11 +70,11 @@ int compare_by(struct point p1, struct point p2, char c) {
 }
 
 int max_index_by(struct point a[], int n, char c) {
-	int max_i = 1;
+	int max_i = 0;
 	struct point max_p;
 	int result = 0;
-	max_p = a[1];
-	for (int i = 1;i < n;i++) {
+	max_p = a[0];
+	for (int i = 1;i < n;++i) {
 		result = compare_by(a[i], max_p, c);
 		if (result == 1) {
 			max_p = a[i];
@@ -90,10 +90,9 @@ int max_index_by(struct point a[], int n, char c) {
 
 void selection_sort(struct point a[], int n, char c) {
 	int i = 0;
-	n--;
 	struct point temp;
-	for (int k = n;k > 2;k--) {
-		i = max_index_by(a, n, c);
+	for (int k = n;k >= 2;k--) {
+		i = max_index_by(a, k, c);
 		temp = a[i];
 		a[i] = a[k - 1];
 		a[k - 1] = temp;
