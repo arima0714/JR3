@@ -89,7 +89,15 @@ int max_index_by(struct point a[], int n, char c) {
 }
 
 void selection_sort(struct point a[], int n, char c) {
-	;
+	int i = 0;
+	n--;
+	struct point temp;
+	for (int k = n;k > 2;k--) {
+		i = max_index_by(a, n, c);
+		temp = a[i];
+		a[i] = a[k - 1];
+		a[k - 1] = temp;
+	}
 }
 
 int main()
@@ -101,14 +109,19 @@ int main()
 	struct point p;
 	struct point arr[128];
 	int i = 0;
-	scanf("%c", &c);
+	int n;
+	scanf("%c ", &c);
 	while (fgets(buf, sizeof(buf), stdin) != NULL && i < 128) {
 		sscanf(buf, "%d %d", &p.x, &p.y);
 		arr[i] = p;
 		++i;
 	}
-	printf("%d\n", max_index_by(arr, i, c) - 1);
-
+	n = i;
+	selection_sort(arr, n, c);
+	printf("%d\n", count);
+	for (i = 0;i < n;++i) {
+		printf("%d %d\n", arr[i].x, arr[i].y);
+	}
 	return 0;
 }
 

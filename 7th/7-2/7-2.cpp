@@ -70,7 +70,7 @@ int compare_by(struct point p1, struct point p2, char c) {
 }
 
 int max_index_by(struct point a[], int n, char c) {
-	int max_i = 1;
+	int max_i = 0;
 	struct point max_p;
 	int result = 0;
 	max_p = a[1];
@@ -85,7 +85,7 @@ int max_index_by(struct point a[], int n, char c) {
 			max_i = i;
 		}
 	}
-	return max_i - 1;
+	return max_i;
 }
 
 int main()
@@ -97,7 +97,7 @@ int main()
 	struct point p;
 	struct point arr[128];
 	int i = 0;
-	scanf("%c", &c);
+	scanf("%c ", &c);
 	while (fgets(buf, sizeof(buf), stdin) != NULL && i < 128) {
 		sscanf(buf, "%d %d", &p.x, &p.y);
 		arr[i] = p;
