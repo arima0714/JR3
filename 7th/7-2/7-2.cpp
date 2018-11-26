@@ -85,7 +85,7 @@ int max_index_by(struct point a[], int n, char c) {
 			max_i = i;
 		}
 	}
-	return max_i;
+	return max_i - 1;
 }
 
 int main()
@@ -103,7 +103,7 @@ int main()
 		arr[i] = p;
 		++i;
 	}
-	printf("%d\n", max_index_by(arr, i, c) - 1);
+	printf("%d\n", max_index_by(arr, i, c));
 
 	return 0;
 }
