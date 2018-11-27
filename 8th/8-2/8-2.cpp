@@ -6,6 +6,7 @@
 #include <stdio.h>
 
 char kijun;
+int count = 0;
 
 struct point {
 	int x;
@@ -13,6 +14,7 @@ struct point {
 };
 
 int compare_by(struct point p1, struct point p2) {
+	++count;
 	//ここを埋める
 	if (p1.x == p2.x && p1.y == p2.y) {
 		return 0;
@@ -105,7 +107,15 @@ int partition(struct point a[], int m, int n) {
 }
 
 void quicksort(struct point a[], int m, int n) {
-	;
+	int p = 0;
+	if (m < n) {
+		p = partition(a, m, n);
+		quicksort(a, m, p - 1);
+		quicksort(a, p + 1, n);
+	}
+	else {
+		;
+	}
 }
 
 int main()
@@ -122,7 +132,8 @@ int main()
 		++i;
 	}
 	n = i;
-	printf("%d\n", partition(arr, 0, n - 2));
+	quicksort(arr, 0, n - 1);
+	printf("%d\n", count);
 	for (i = 0;i < n;++i) {
 		printf("%d %d\n", arr[i].x, arr[i].y);
 	}
