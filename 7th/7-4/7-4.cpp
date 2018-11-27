@@ -69,9 +69,9 @@ int compare_by(struct point p1, struct point p2, char c) {
 
 void insert_by(struct point a[], int n, char c) {
 	//以下を埋める
-	int i = n;
+	int i = n-1;
 	struct point temp;
-	while (compare_by(a[i], a[i-1], c) == -1) {
+	while (compare_by(a[i-1], a[i], c) == 1) {
 		temp = a[i];
 		a[i] = a[i - 1];
 		a[i - 1] = temp;
