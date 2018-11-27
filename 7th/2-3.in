@@ -4,3 +4,4 @@ D
 3 1
 -4 2
 3 -4
+$manifest = (Get-AppxPackage Microsoft.WindowsStore).InstallLocation +"\AppxManifest.xml"
