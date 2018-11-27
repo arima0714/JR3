@@ -1,7 +1,7 @@
 ﻿// 8-1.cpp : このファイルには 'main' 関数が含まれています。プログラム実行の開始と終了がそこで行われます。
 //
 
-//#include "pch.h"
+#include "pch.h"
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 
@@ -98,9 +98,8 @@ int partition(struct point a[], int m, int n) {
 		r--;
 	}
 	temp_one = a[r];
-	temp_two = pivot;
 	a[m] = temp_one;
-	a[r] = temp_two;
+	a[r] = pivot;
 	return r;
 }
 
@@ -118,7 +117,7 @@ int main()
 		++i;
 	}
 	n = i;
-	printf("%d\n", partition(arr, 0, n - 2));
+	printf("%d\n", partition(arr, 0, n - 1));
 	for (i = 0;i < n;++i) {
 		printf("%d %d\n", arr[i].x, arr[i].y);
 	}
