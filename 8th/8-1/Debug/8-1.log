@@ -1,2 +1,3 @@
 ﻿  8-1.cpp
+c:\for_git\jr3\8th\8-1\8-1.cpp(76): warning C4101: 'temp_two': ローカル変数は 1 度も使われていません。
   8-1.vcxproj -> C:\for_git\JR3\8th\8-1\Debug\8-1.exe
