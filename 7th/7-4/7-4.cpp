@@ -1,6 +1,6 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
+﻿//#define _CRT_SECURE_NO_WARNINGS
 
-#include "pch.h"
+//#include "pch.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -71,7 +71,12 @@ void insert_by(struct point a[], int n, char c) {
 	//以下を埋める
 	int i = n-1;
 	struct point temp;
-	while (compare_by(a[i-1], a[i], c) == 1) {
+	while (compare_by(a[i-1], a[i], c)) {
+		if(i < 0){
+			printf("here\n");
+			break;
+		}
+		//printf("i = %d\n",i);
 		temp = a[i];
 		a[i] = a[i - 1];
 		a[i - 1] = temp;
