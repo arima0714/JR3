@@ -1,5 +1,1 @@
-﻿  7-4.cpp
-c:\for_git\jr3\7th\7-4\7-4.cpp(1): warning C4603: '_CRT_SECURE_NO_WARNINGS': マクロが定義されていないか、プリコンパイル済みヘッダーが使用している定義とは異なります
-  c:\for_git\jr3\7th\7-4\7-4.cpp(1): note: ここで定義するのではなくプリコンパイル済みヘッダーにマクロを追加します
-  c:\for_git\jr3\7th\7-4\7-4.cpp(3): note: プリコンパイル済みヘッダーの使用
-  7-4.vcxproj -> C:\for_git\JR3\7th\7-4\Debug\7-4.exe
+﻿  7-4.vcxproj -> C:\for_git\JR3\7th\7-4\Debug\7-4.exe
