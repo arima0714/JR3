@@ -74,6 +74,9 @@ void insert_by(struct point a[], int n, char c) {
 	struct point temp;
 	while (1) {
 		result = compare_by(a[i], a[i-1], c);
+		if(i == 0){
+			break;
+		}
 		if (result==-1) {
 			temp = a[i];
 			a[i] = a[i - 1];
