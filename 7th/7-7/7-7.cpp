@@ -1,21 +1,57 @@
-﻿// 7-7.cpp : このファイルには 'main' 関数が含まれています。プログラム実行の開始と終了がそこで行われます。
-//
+﻿#include "pch.h"
 
-#include "pch.h"
-#include <iostream>
+#define _CRT_SECURE_NO_WARNINGS
 
-int main()
-{
-    std::cout << "Hello World!\n"; 
+#include <stdio.h>
+
+struct point {
+	int x;
+	int y;
+};
+
+struct point_loc {
+	int loc;
+	struct point p;
+};
+
+int compare_by(struct point p1, struct point p2, char c) {
+	if (c == 'x') {
+		if (p1.x > p2.x) {
+			return 1;
+		}
+		else if (p1.x == p2.y) {
+			return 0;
+		}
+		else {
+			return -1;
+		}
+	}
+	else if (c == 'y') {
+		if (p1.y > p2.y) {
+			return 1;
+		}
+		else if (p1.y == p2.y) {
+			return 0;
+		}
+		else {
+			return -1;
+		}
+	}
+	else {
+		int p1_len = p1.x * p1.x + p1.y * p1.y;
+		int p2_len = p2.x * p2.x + p2.y * p2.y;
+		if (p1_len > p2_len) {
+			return 1;
+		}
+		else if (p1_len == p2_len) {
+			return 0;
+		}
+		else {
+			return -1;
+		}
+	}
 }
 
-// プログラムの実行: Ctrl + F5 または [デバッグ] > [デバッグなしで開始] メニュー
-// プログラムのデバッグ: F5 または [デバッグ] > [デバッグの開始] メニュー
+void stable_selection_sort(struct point a[], int n, char c) {
 
-// 作業を開始するためのヒント: 
-//    1. ソリューション エクスプローラー ウィンドウを使用してファイルを追加/管理します 
-//   2. チーム エクスプローラー ウィンドウを使用してソース管理に接続します
-//   3. 出力ウィンドウを使用して、ビルド出力とその他のメッセージを表示します
-//   4. エラー一覧ウィンドウを使用してエラーを表示します
-//   5. [プロジェクト] > [新しい項目の追加] と移動して新しいコード ファイルを作成するか、[プロジェクト] > [既存の項目の追加] と移動して既存のコード ファイルをプロジェクトに追加します
-//   6. 後ほどこのプロジェクトを再び開く場合、[ファイル] > [開く] > [プロジェクト] と移動して .sln ファイルを選択します
+}
