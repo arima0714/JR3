@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 #include <stdio.h>
+#include <stdbool.h>
 
 int count = 0;
 char kijun;
@@ -66,7 +67,30 @@ int compare_by(struct point p1, struct point p2) {
 }
 
 void merge(struct point a[], int m, int n, int h) {
-	;
+	//前半の配列はa[m]〜a[h]
+	//後半の配列はa[h+1]〜a[n]
+	int i;
+	int before;
+	int after;
+	struct point tmp[128];
+	before = m;
+	after = h+1;
+	i = 0;
+	while(true){
+//		beforeがh以下 かつ afterがn以下 の場合
+//			a[before] と a[after] で大きい方を tmp[i] にいれる
+//			入れた方の before もしくは after を1加算
+//		beforeがh以下の場合
+//			a[before] を tmp[i] にいれる
+//			before を1加算
+//		afterがn以下の場合
+//			a[after] を tmp[i] にいれる
+//			after を1加算
+//		上の３条件を満たさない時(= else)
+//			break
+	}
+
+//	並べ終えた tmp[] を a[] に入れ直す
 }
 
 int main() {
