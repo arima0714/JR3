@@ -1,9 +1,9 @@
 ﻿#include "pch.h"
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
+#include <stdlib.h>
 
 char kijun;
-int count = 0;
 
 struct point {
 	int x;
@@ -11,7 +11,6 @@ struct point {
 };
 
 int compare_by(struct point p1, struct point p2) {
-	++count;
 	//ここを埋める
 	if (p1.x == p2.x && p1.y == p2.y) {
 		return 0;
@@ -75,6 +74,9 @@ int partition(struct point a[], int m, int n) {
 	struct point temp_two;
 	int l;
 	int r;
+	if (m <= n) {
+		pivot = a[m + rand() % (n - m + 1)];
+	}
 	pivot = a[m];
 	l = m + 1;
 	r = n;
@@ -130,7 +132,6 @@ int main()
 	}
 	n = i;
 	quicksort(arr, 0, n - 1);
-	printf("%d\n", count);
 	for (i = 0;i < n;++i) {
 		printf("%d %d\n", arr[i].x, arr[i].y);
 	}
