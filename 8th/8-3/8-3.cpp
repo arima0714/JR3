@@ -1,4 +1,5 @@
 ﻿#include "pch.h"
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -10,6 +11,7 @@ struct point {
 };
 
 int compare_by(struct point p1, struct point p2) {
+	count++;
 	//ここを埋める
 	if (p1.x == p2.x && p1.y == p2.y) {
 		return 0;
@@ -72,25 +74,56 @@ void merge(struct point a[], int m, int n, int h) {
 	int i;
 	int before;
 	int after;
+	int result = 0;
 	struct point tmp[128];
 	before = m;
 	after = h+1;
 	i = 0;
 	while(true){
 //		beforeがh以下 かつ afterがn以下 の場合
-//			a[before] と a[after] で大きい方を tmp[i] にいれる
-//			入れた方の before もしくは after を1加算
+		if (before <= h && after <= n) {
+			//			a[before] と a[after] で小さい方を tmp[i] にいれる
+			//			入れた方の before もしくは after を1加算
+			result = compare_by(a[before], a[after]);
+			if (result == -1) {
+				tmp[i] = a[before];
+				before++;
+			}
+			else if (result == 0) {
+				tmp[i] = a[before];
+				before++;
+			}
+			else {
+				tmp[i] = a[after];
+				after++;
+			}
+		}
 //		beforeがh以下の場合
+		else if (before <= h) {
 //			a[before] を tmp[i] にいれる
 //			before を1加算
+			tmp[i] = a[before];
+			before++;
+		}
 //		afterがn以下の場合
+		else if (after <= n) {
 //			a[after] を tmp[i] にいれる
 //			after を1加算
+			tmp[i] = a[after];
+			after++;
+		}
 //		上の３条件を満たさない時(= else)
+		else {
 //			break
+			break;
+		}
+		i++;
 	}
 
 //	並べ終えた tmp[] を a[] に入れ直す
+	for (int i = m; i < n;i++) {
+		a[i] = tmp[i];
+	}
 }
 
 int main() {
