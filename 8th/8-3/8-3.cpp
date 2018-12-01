@@ -121,7 +121,7 @@ void merge(struct point a[], int m, int n, int h) {
 	}
 
 //	並べ終えた tmp[] を a[] に入れ直す
-	for (int i = m; i < n;i++) {
+	for (int i = m; i <= n;i++) {
 		a[i] = tmp[i];
 	}
 }
