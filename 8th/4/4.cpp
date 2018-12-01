@@ -71,6 +71,7 @@ int compare_by(struct point p1, struct point p2) {
 		}
 	}
 }
+
 void merge(struct point a[], int m, int n, int h) {
 	//前半の配列はa[m]〜a[h]
 	//後半の配列はa[h+1]〜a[n]
@@ -81,7 +82,7 @@ void merge(struct point a[], int m, int n, int h) {
 	struct point tmp[128];
 	before = m;
 	after = h + 1;
-	i = 0;
+	i = m;
 	while (true) {
 		//		beforeがh以下 かつ afterがn以下 の場合
 		if (before <= h && after <= n) {
@@ -143,10 +144,10 @@ void merge_sort(struct point a[], int m, int n) {
 		//	関数mergeにより，配列aのm番めからh番めまでとh + 1番めからn番めまでを併合する
 		merge(a, m, n, h);
 	}
-	//mがn以上なら何もしない(配列のうち長さが1以下の部分の整列であるため)
-	else if (m >= n) {
-		;
-	}
+	////mがn以上なら何もしない(配列のうち長さが1以下の部分の整列であるため)
+	//else if (m >= n) {
+	//	;
+	//}
 }
 
 int main()
@@ -168,5 +169,5 @@ int main()
 	for (i = 0; i < n; ++i) {
 		printf("%d %d\n", arr[i].x, arr[i].y);
 	}
-	return 0;
+ 	return 0;
 }
