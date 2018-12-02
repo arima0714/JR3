@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+﻿//#include "pch.h"
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,7 +18,6 @@ struct node {
 };
 typedef struct node* list;
 
-//p1,p2を比較する関数. p1>p2 => 1,p1==p2 => 0, p1<p2 => -1
 int compare_by(struct point p1, struct point p2) {
 	count++;
 	//ここを埋める
@@ -77,7 +76,6 @@ int compare_by(struct point p1, struct point p2) {
 	}
 }
 
-//l1で渡されるリストを1l,l2に分割する関数（出来ていると思われる）
 void split(list l1, list l2) {
 	//以下を埋める
 
@@ -86,14 +84,14 @@ void split(list l1, list l2) {
 	struct node* p2;
 	p1 = l1;
 	p2 = l1;
-	while ((p2 == NULL || p2->next == NULL ||p2->next->next == NULL) != 1) {
+	while (p2 != NULL || p2->next->next != NULL) {
 		//p2が2つnextをたどるたびにp1が1つnextをたどる
 		p2 = p2->next->next;
 		p1 = p1->next;
 	}
 	//p2が2つnextをたどれなくなった時点（p2==NULL || p2->next->next==NULL）
 	//	でのp1の指す接点のnextが後半のリストの頭のnextとなるようにし、p1が指す接点のnextをNULLとする
-	l2->next = p1->next;
+	p2->next = p1->next;
 	p1->next = NULL;
 }
 
@@ -102,20 +100,23 @@ void merge(list l1, list l2) {
 	struct node* return_list;
 	struct node* return_list_last;
 	int result = 0;
-	l1 = l1->next;
-	l2 = l2->next;
 	return_list = return_list_last = (struct node*)malloc(sizeof(struct node));
-	while (l1 != NULL && l2 != NULL) {
+	while (l1 != NULL || l2 != NULL) {
 		result = compare_by(l1->element, l2->element);
-		if(result != 1){
+		if (result == 1) {
+			return_list_last = return_list_last->next = (list)malloc(sizeof(struct node));
+			return_list_last->element = l2->element;
+			l2 = l2->next;
+		}
+		else if (result == 0) {
 			return_list_last = return_list_last->next = (list)malloc(sizeof(struct node));
 			return_list_last->element = l1->element;
 			l1 = l1->next;
 		}
 		else {
 			return_list_last = return_list_last->next = (list)malloc(sizeof(struct node));
-			return_list_last->element = l2->element;
-			l2 = l2->next;
+			return_list_last->element = l1->element;
+			l1 = l1->next;
 		}
 	}
 	if (l1 == NULL) {
@@ -126,21 +127,19 @@ void merge(list l1, list l2) {
 		return_list_last = return_list_last->next = (list)malloc(sizeof(struct node));
 		return_list_last = l1;
 	}
-	l1 = return_list;
 }
 
 void merge_sort(list l) {
 	//以下を埋める
-	if (l != NULL && l->next != NULL && l->next->next != NULL){
-		struct node* l1;
-		struct node* l2;
-		l1 = l;
-		l2 = (struct node*)malloc(sizeof(struct node));
-		split(l1, l2);
+	struct node* l1;
+	struct node* l2;
+	l1 = l;
+	l2 = (struct node*)malloc(sizeof(struct node));
+	split(l1, l2);
+	if (true) {
 		merge_sort(l1);
 		merge_sort(l2);
 		merge(l1, l2);
-		l = l1;
 	}
 }
 
