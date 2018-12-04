@@ -1,5 +1,5 @@
-﻿#include "pch.h"
-#define _CRT_SECURE_NO_WARNINGS
+﻿//#include "pch.h"
+//#define _CRT_SECURE_NO_WARNINGS
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -69,7 +69,7 @@ int compare_by(struct point p1, struct point p2) {
 
 int is_heap(struct point a[], int n) {
 	int i = 0;
-	for (i = 0;2 * i + 2 <= n;i++) {
+	for (i = 0;2 * i + 2 < n;i++) {
 		if (compare_by(a[2 * i + 1], a[i]) == 1) {
 			return 0;
 		}
