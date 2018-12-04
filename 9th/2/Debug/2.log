@@ -1,6 +1,3 @@
 ﻿  2.cpp
-c:\for_git\jr3\9th\2\2.cpp(77): warning C4101: 'result': ローカル変数は 1 度も使われていません。
-c:\for_git\jr3\9th\2\2.cpp(139): error C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 'scanf' の宣言を確認してください
-c:\for_git\jr3\9th\2\2.cpp(141): error C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(2263): note: 'sscanf' の宣言を確認してください
+c:\for_git\jr3\9th\2\2.cpp(75): warning C4101: 'result': ローカル変数は 1 度も使われていません。
+  2.vcxproj -> C:\for_git\JR3\9th\2\Debug\2.exe
