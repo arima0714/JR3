@@ -120,11 +120,11 @@ void merge(list l1, list l2) {
 	}
 	if (l1 == NULL) {
 		return_list_last = return_list_last->next = (list)malloc(sizeof(struct node));
-		return_list_last = l2;
+		return_list_last->next = l2;
 	}
 	else {
 		return_list_last = return_list_last->next = (list)malloc(sizeof(struct node));
-		return_list_last = l1;
+		return_list_last->next = l1;
 	}
 	l1 = return_list;
 }
