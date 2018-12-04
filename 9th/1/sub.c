@@ -68,12 +68,17 @@ int compare_by(struct point p1, struct point p2) {
 }
 
 int is_heap(struct point a[], int n) {
-	int i = 0;
-	for (i = 0;2 * i + 2 < n;i++) {
-		if (compare_by(a[2 * i + 1], a[i]) == 1) {
+	//printf("n = %d\n",n);
+	int result;
+	for (int i = 0;2*i< n-1;i++) {
+		//printf("i = %d, 2*i+1 = %d, 2*i+2 = %d\n",i,2*i+1,2*i+2);
+		// printf("a[%d] = %d %d ",i,a[i].x,a[i].y);
+		// printf("a[%d] = %d %d ",2*i+1,a[2*i+1].x,a[2*i+1].y);
+		// printf("a[%d] = %d %d\n",2*i+2,a[2*i+2].x,a[2*i+2].y);
+		if (compare_by(a[2 * i + 1], a[i]) == 1 && 2*i +1 < n) {
 			return 0;
 		}
-		if (compare_by(a[2 * i + 2], a[i]) == 1) {
+		if (compare_by(a[2 * i + 2], a[i]) == 1&& 2*i +2 < n){
 			return 0;
 		}
 	}
