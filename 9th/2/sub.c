@@ -89,29 +89,33 @@ int is_heap(struct point a[], int n) {
 }
 
 void pushdown(struct point a[], int m, int n){
-	int i;
-	struct point temp;
-	if(2*m+2<=n){
-		if(compare_by(a[2*m+2],a[2*m+1])>=0){
-			i = 2*m+2;
-		}else{
-			i = 2*m+2;
-		}
-		if(compare_by(a[i],a[m])){
-			temp = a[i];
-			a[i] = a[m];
-			a[m] = temp;
-		}
-	}
-	else if(2*m+1 == n){
-		if(compare_by(a[2*m+1],a[m])){
-			temp = a[m];
-			a[m] = a[2*m+1];
-			a[2*m+1] = a[m];
-		}
-	}
-	else if(2*m+1>n){
+	if(is_heap(a,n)){
 		;
+	}else{
+		int i;
+		struct point temp;
+		if(2*m+2<=n){
+			if(compare_by(a[2*m+2],a[2*m+1])>=0){
+				i = 2*m+2;
+			}else{
+				i = 2*m+2;
+			}
+			if(compare_by(a[i],a[m])){
+				temp = a[i];
+				a[i] = a[m];
+				a[m] = temp;
+			}
+		}
+		else if(2*m+1 == n){
+			if(compare_by(a[2*m+1],a[m])){
+				temp = a[m];
+				a[m] = a[2*m+1];
+				a[2*m+1] = a[m];
+			}
+		}
+		else if(2*m+1>n){
+			;
+		}
 	}
 }
 
