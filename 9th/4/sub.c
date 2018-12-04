@@ -13,6 +13,7 @@ void bucket_sort(struct point a[], int n) {
 	//もともとの順番を崩さないようにする
 	//並び替え方法は x の値で昇順
 	// 0 <= x <= 99 の範囲で x が与えられる
+	//printf("n = %d\n", n);
 	int i;
 	//9ページ目の(1)
 	int hairetu_c[100] = {};
@@ -30,9 +31,9 @@ void bucket_sort(struct point a[], int n) {
 		hairetu_b[i] = a[i];
 	}
 	//10ページ目の(5)
-	for (i = 127;i >= 0;--i) {
+	for (i = n-1;i >= 0;--i) {
 		hairetu_c[hairetu_b[i].x]--;
-		a[hairetu_c[i]] = hairetu_b[i];
+		a[hairetu_c[hairetu_b[i].x]] = hairetu_b[i];
 	}
 }
 

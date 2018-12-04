@@ -33,7 +33,7 @@ void bucket_sort(struct point a[], int n) {
 	//10ページ目の(5)
 	for (i = n-1;i >= 0;--i) {
 		hairetu_c[hairetu_b[i].x]--;
-		a[hairetu_c[i]] = hairetu_b[i];
+		a[hairetu_c[hairetu_b[i].x]] = hairetu_b[i];
 	}
 }
 
