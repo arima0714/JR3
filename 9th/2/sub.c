@@ -13,61 +13,73 @@ struct point {
 };
 
 int compare_by(struct point p1, struct point p2) {
-	//ここを埋める
 	count++;
-	if (p1.x == p2.x && p1.y == p2.y) {
-		return 0;
-	}
-	else if (kijun == 'X') {//Xの処理
+	if (kijun == 'X') {
 		if (p1.x > p2.x) {
 			return 1;
 		}
-		else if (p1.x < p2.x) {
-			return -1;
-		}
-		else if (p1.y > p2.y) {
-			return 1;
+		else if (p1.x == p2.x) {
+			if (p1.y > p2.y) {
+				return 1;
+			}
+			else if (p1.y == p2.y) {
+				return 0;
+			}
+			else {
+				return -1;
+			}
 		}
 		else {
 			return -1;
 		}
 	}
-	else if (kijun == 'Y') {//Yの処理
+	else if (kijun == 'Y') {
 		if (p1.y > p2.y) {
 			return 1;
 		}
-		else if (p1.y < p2.y) {
-			return -1;
-		}
-		else if (p1.x > p2.x) {
-			return 1;
-		}
-		else {
-			return -1;
-		}
-	}
-	else {//Dの処理
-		int p1xy = p1.x * p1.x + p1.y * p1.y;
-		int p2xy = p2.x * p2.x + p2.y * p2.y;
-		if (p1xy > p2xy) {
-			return 1;
-		}
-		else if (p1xy < p2xy) {
-			return -1;
-		}
-		else if (p1.x > p2.x) {
-			return 1;
-		}
-		else if (p1.x < p2.x) {
-			return -1;
-		}
-		else if (p1.y > p2.y) {
-			return 1;
+		else if (p1.y == p2.y) {
+			if (p1.x > p2.x) {
+				return 1;
+			}
+			else if (p1.x == p2.x) {
+				return 0;
+			}
+			else {
+				return -1;
+			}
 		}
 		else {
 			return -1;
 		}
 	}
+	else if (kijun == 'D') {
+		if (((p1.x)*(p1.x) + (p1.y)*(p1.y)) > ((p2.x)*(p2.x) + (p2.y)*(p2.y))) {
+			return 1;
+		}
+		else if (((p1.x)*(p1.x) + (p1.y)*(p1.y)) == ((p2.x)*(p2.x) + (p2.y)*(p2.y))) {
+			if (p1.x > p2.x) {
+				return 1;
+			}
+			else if (p1.x == p2.x) {
+				if (p1.y > p2.y) {
+					return 1;
+				}
+				else if (p1.y == p2.y) {
+					return 0;
+				}
+				else {
+					return -1;
+				}
+			}
+			else {
+				return -1;
+			}
+		}
+		else {
+			return -1;
+		}
+	}
+
 }
 
 int is_heap(struct point a[], int n) {
@@ -89,34 +101,30 @@ int is_heap(struct point a[], int n) {
 }
 
 void pushdown(struct point a[], int m, int n){
-	if(is_heap(a,n)){
-		;
-	}else{
 		int i;
 		struct point temp;
+
+		//printf("2*m+2 = %d, n = %d\n",2*m+2,n);
 		if(2*m+2<=n){
 			if(compare_by(a[2*m+2],a[2*m+1])>=0){
 				i = 2*m+2;
 			}else{
-				i = 2*m+2;
+				i = 2*m+1;
 			}
-			if(compare_by(a[i],a[m])){
+			if(compare_by(a[i],a[m])==1){
 				temp = a[i];
 				a[i] = a[m];
 				a[m] = temp;
+				pushdown(a,i,n);
 			}
 		}
 		else if(2*m+1 == n){
-			if(compare_by(a[2*m+1],a[m])){
+			if(compare_by(a[2*m+1],a[m])==1){
 				temp = a[m];
 				a[m] = a[2*m+1];
-				a[2*m+1] = a[m];
+				a[2*m+1] = temp;
 			}
 		}
-		else if(2*m+1>n){
-			;
-		}
-	}
 }
 
 int main() {
