@@ -3,14 +3,28 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include <math.h>
 
 struct point {
 	int x;
 	int y;
 };
 
-
+double pow(double x, int n) {
+	double bufx;
+	int bufn;
+	int i;
+	if (!x)return 0;
+	if (!n)return 1;
+	bufn = (n < 0) ? (-1)*n : n;
+	bufx = 1.0;
+	for (i = 0;i < bufn;i++) {
+		bufx *= x;
+	}
+	if (n < 0) {
+		bufx = 1 / bufx;
+	}
+	return bufx;
+}
 
 void radix_sort(struct point a[], int n, int r, int dmax) {
 	//for(int i = 0;i<dmax;i++)//桁の移動用（＝０桁目からdmax桁目まで）
