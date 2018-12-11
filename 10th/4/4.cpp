@@ -21,11 +21,42 @@ struct node {
 };
 
 int hash(char *s) {
-	//問題3と同じ
+	//埋める
+	int i = 0;
+	int S = 0;
+	int base = 1;
+	S = s[i] % SIZE;
+	while (s[i] != 0) {
+		if (i != 0) {
+			S = (S * 128 + s[i]) % SIZE;
+		}
+		else if (i == 0) {
+			S = s[i] % SIZE;
+		}
+		i++;
+	}
+	return S;
 }
 
 void set_data(struct node *table[], struct student st) {
-	//埋める
+	int hs = hash(st.name);
+	//ハッシュ値を求める
+	struct node* A;
+	struct node* B;
+	struct node* N;
+	struct node* tmp;
+	B = (struct node*)malloc(sizeof(struct node));
+	//ここで　すでにある末尾ノードをA、付けたいノードをB、NULLノードをNとすると
+	//A　→　B　→　N　となるようにつなげる
+	tmp = table[hs];
+	while (tmp->next != NULL) {
+		tmp = tmp->next;
+	}
+	A = tmp;
+	N = tmp->next;
+	B->data = st;
+	A->next = B;
+	B->next = N;
 }
 
 int main()
