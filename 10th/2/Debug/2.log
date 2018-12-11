@@ -1,0 +1,4 @@
+﻿  pch.cpp
+  2.cpp
+c:\for_git\jr3\10th\2\2.cpp(37): warning C4715: 'binary_search': 値を返さないコントロール パスがあります。
+  2.vcxproj -> C:\for_git\JR3\10th\2\Debug\2.exe
