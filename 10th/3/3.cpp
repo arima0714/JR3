@@ -6,15 +6,30 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#define SIZE 101
 
 int hash(char *s) {
 	//埋める
+	int i = 0;
+	int S = 0;
+	int base = 1;
+	S = s[i] % SIZE;
+	while (s[i] != 0) {
+		if (i != 0) {
+			S = (S * 128 + s[i]) % SIZE;
+		}
+		else if(i == 0){
+			S = s[i] % SIZE; 
+		}
+		i++;
+	}
+	return S;
 }
 
 int main()
 {
 	char s[32];
-	scanf("%d[^\n]", s);
+	scanf("%[^\n]", s);
 	printf("%d\n", hash(s));
 	return 0;
 }
