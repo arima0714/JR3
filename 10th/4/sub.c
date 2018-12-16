@@ -44,19 +44,18 @@ void set_data(struct node *table[], struct student st) {
 	struct node* B;
 	B = (struct node*)malloc(sizeof(struct node));
 	B->data = st;
-	//ここで　すでにある末尾ノードをA、付けたいノードをB、NULLノードをNとすると
-	//A　→　B　→　N　となるようにつなげる
 	//データを挿入する場所がNULLの場合
 	if (table[hs] == NULL) {
 		//printf("NULLの場合です\n");
 		table[hs] = B;
+		B->next = NULL;
 	}
 	//NULLでない場合
 	else {
-		//printf("NULLでない場合です\n");
-		table[hs]->next = B;
+		//printf("NULLでない場合です\n%d,%s,%d\n", st.id, st.name, st.score);
+		B->next = table[hs];
+		table[hs] = B;
 	}
-	B->next = NULL;
 }
 
 int main()
