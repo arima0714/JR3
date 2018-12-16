@@ -24,7 +24,7 @@ int hash(char *s) {
 	//埋める
 	int i = 0;
 	int S = 0;
-	int base = 1;
+	//int base = 1;
 	S = s[i] % SIZE;
 	while (s[i] != 0) {
 		if (i != 0) {
@@ -48,12 +48,12 @@ void set_data(struct node *table[], struct student st) {
 	//A　→　B　→　N　となるようにつなげる
 	//データを挿入する場所がNULLの場合
 	if (table[hs] == NULL) {
-		printf("NULLの場合です\n");
+		//printf("NULLの場合です\n");
 		table[hs] = B;
 	}
 	//NULLでない場合
 	else {
-		printf("NULLでない場合です\n");
+		//printf("NULLでない場合です\n");
 		table[hs]->next = B;
 	}
 	B->next = NULL;
