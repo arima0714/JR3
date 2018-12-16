@@ -11,7 +11,6 @@
 #define SIZE 101
 
 struct student {
-	int id;
 	char name[32];
 	int score;
 };
@@ -39,10 +38,31 @@ int hash(char *s) {
 	return S;
 }
 
+//一致する場合は加算する関数
+int add_score(struct node *table[], char *s, struct student st) {
+	//埋める
+	struct node* target;
+	target = table[hash(s)];
+	while (target != NULL) {
+		//検索文字列と同じとき
+		if (strcmp(s, target->data.name) == 0) {
+			target->data.score += st.score;
+			return 1;
+		}
+		//検索文字列と異なる時
+		else {
+			target = target->next;
+		}
+	}
+	return 0;
+}
+
+
 void set_data(struct node *table[], struct student st) {
 	int hs = hash(st.name);
 	//ハッシュ値を求める
 	struct node* B;
+	struct node* temp;
 	B = (struct node*)malloc(sizeof(struct node));
 	B->data = st;
 	//データを挿入する場所がNULLの場合
@@ -53,29 +73,15 @@ void set_data(struct node *table[], struct student st) {
 	}
 	//NULLでない場合
 	else {
+		temp = table[hs];
 		//printf("NULLでない場合です\n%d,%s,%d\n", st.id, st.name, st.score);
 		B->next = table[hs];
-		table[hs] = B;
-	}
-}
-
-int find_score(struct node *table[], char *s) {
-	//埋める
-	struct node* target;
-	target = table[hash(s)];
-	while (target != NULL) {
-		//検索文字列と同じとき
-		if (strcmp(s, target->data.name) == 0) {
-			return target->data.score;
-		}
-		//検索文字列と異なる時
-		else {
-			target = target->next;
+		//検索してなければ先頭に挿入
+		if (add_score(table, st.name, st)==0) {
+			table[hs] = B;
 		}
 	}
-	return -1;
 }
-
 int main()
 {
 	int i;
@@ -84,26 +90,22 @@ int main()
 	char name[32];
 	struct student st;
 	struct node *table[SIZE];
+	struct node* p;
 
 	for (i = 0;i < SIZE;i++) {
 		table[i] = NULL;
 	}
 	while (fgets(buf, sizeof(buf), stdin) != NULL) {
-		sscanf(buf, "%d,", &v);
-		if (v > 0) {
-			sscanf(buf, "%d,%[^,],%d", &st.id, &st.name, &st.score);
+			sscanf(buf, "%[^,],%d",&st.name, &st.score);
 			set_data(table, st);
-		}
-		else {
-			sscanf(buf, "0,%[^,\n]", name);
-		}
 	}
-	v = find_score(table, name);
-	if (v < 0) {
-		printf("Not found.\n");
-	}
-	else {
-		printf("%d\n", v);
+	for (i = 0;i < SIZE;++i) {
+		p = table[i];
+		while (p != NULL) {
+			st = p->data;
+			printf("%s,%d\n",st.name, st.score);
+			p = p->next;
+		}
 	}
 	return 0;
 }
