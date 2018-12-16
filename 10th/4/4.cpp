@@ -41,22 +41,22 @@ int hash(char *s) {
 void set_data(struct node *table[], struct student st) {
 	int hs = hash(st.name);
 	//ハッシュ値を求める
-	struct node* A;
 	struct node* B;
-	struct node* N;
-	struct node* tmp;
 	B = (struct node*)malloc(sizeof(struct node));
+	B->data = st;
 	//ここで　すでにある末尾ノードをA、付けたいノードをB、NULLノードをNとすると
 	//A　→　B　→　N　となるようにつなげる
-	tmp = table[hs];
-	while (tmp->next != NULL) {
-		tmp = tmp->next;
+	//データを挿入する場所がNULLの場合
+	if (table[hs] == NULL) {
+		printf("NULLの場合です\n");
+		table[hs] = B;
 	}
-	A = tmp;
-	N = tmp->next;
-	B->data = st;
-	A->next = B;
-	B->next = N;
+	//NULLでない場合
+	else {
+		printf("NULLでない場合です\n");
+		table[hs]->next = B;
+	}
+	B->next = NULL;
 }
 
 int main()
