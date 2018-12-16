@@ -100,7 +100,7 @@ int main()
 	}
 	v = find_score(table, name);
 	if (v < 0) {
-		printf("Not found\n");
+		printf("Not found.\n");
 	}
 	else {
 		printf("%d\n", v);
