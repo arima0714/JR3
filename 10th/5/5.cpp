@@ -73,6 +73,7 @@ int find_score(struct node *table[], char *s) {
 			target = target->next;
 		}
 	}
+	return -1;
 }
 
 int main()
