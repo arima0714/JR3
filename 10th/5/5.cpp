@@ -61,6 +61,18 @@ void set_data(struct node *table[], struct student st) {
 
 int find_score(struct node *table[], char *s) {
 	//埋める
+	struct node* target;
+	target = table[hash(s)];
+	while (target != NULL) {
+		//検索文字列と同じとき
+		if (strcmp(s, target->data.name) == 0) {
+			return target->data.score;
+		}
+		//検索文字列と異なる時
+		else {
+			target = target->next;
+		}
+	}
 }
 
 int main()
