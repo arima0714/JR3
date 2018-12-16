@@ -1,4 +1,4 @@
 ﻿  6.cpp
-c:\for_git\jr3\10th\6\6.cpp(90): warning C4101: 'name': ローカル変数は 1 度も使われていません。
-c:\for_git\jr3\10th\6\6.cpp(88): warning C4101: 'v': ローカル変数は 1 度も使われていません。
+c:\for_git\jr3\10th\6\6.cpp(94): warning C4101: 'name': ローカル変数は 1 度も使われていません。
+c:\for_git\jr3\10th\6\6.cpp(92): warning C4101: 'v': ローカル変数は 1 度も使われていません。
   6.vcxproj -> C:\for_git\JR3\10th\6\Debug\6.exe

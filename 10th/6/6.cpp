@@ -78,7 +78,11 @@ void set_data(struct node *table[], struct student st) {
 		B->next = table[hs];
 		//検索してなければ先頭に挿入
 		if (add_score(table, st.name, st)==0) {
-			table[hs] = B;
+			while (temp->next != NULL) {
+				temp = temp->next;
+			}
+			temp->next = B;
+			B->next = NULL;
 		}
 	}
 }
