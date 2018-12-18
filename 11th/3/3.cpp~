@@ -1,0 +1,146 @@
+サソ				// 3.cpp : 縺薙繝輔ぃ繧、繝ォ縺ォ縺ッ 'main' 髢「謨ー縺悟性縺セ繧後※縺∪縺吶プログラム実行の開始と終了がそこで行われます。
+//
+    
+#include "pch.h"
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+
+char buf[128];
+
+ 
+typedef char datatype;
+
+ 
+struct node {
+	
+datatype data;
+	
+struct node *left;
+	
+struct node *right;
+
+};
+
+ 
+struct node *get_tree()
+{
+	
+struct node *t;
+	
+if (fgets(buf, sizeof(buf), stdin) == NULL || buf[0] == '.') {
+		
+return NULL;
+	
+}
+	
+	else {
+		
+t = (struct node *)malloc(sizeof(struct node));
+		
+sscanf(buf, "%c ", &t->data);
+		
+t->left = get_tree();
+		
+t->right = get_tree();
+		
+return t;
+	
+}
+
+}
+
+
+ 
+void print_preorder(struct node *t)
+{
+	
+if (t == NULL) {
+		
+;
+	
+}
+	
+	else {
+		
+printf("%c", t->data);
+		
+print_preorder(t->left);
+		
+print_preorder(t->right);
+	
+}
+
+}
+
+
+ 
+void print_inorder(struct node *t)
+{
+	
+if (t == NULL) {
+	} else {
+		
+print_inorder(t->left);
+		
+printf("%c", t->data);
+		
+print_inorder(t->right);
+	}
+
+}
+
+
+ 
+void print_postorder(struct node *t)
+{
+	
+if (t == NULL) {
+	} else {
+		
+print_postorder(t->left);
+		
+print_postorder(t->right);
+		
+printf("%c", t->data);
+	}
+
+}
+
+
+ 
+int main() 
+{
+	
+struct node *t = get_tree();
+	
+print_preorder(t);
+	
+printf("\n");
+	
+print_inorder(t);
+	
+printf("\n");
+	
+print_postorder(t);
+	
+printf("\n");
+	
+return 0;
+
+}
+
+
+ 
+// プログラムの実行: Ctrl + F5 または [デバッグ] > [デバッグなしで開始] メニュー
+// プログラムのデバッグ: F5 または [デバッグ] > [デバッグの開始] メニュー
+    
+// 作業を開始するためのヒント: 
+//    1. ソリューション エクスプローラー ウィンドウを使用してファイルを追加/管理します 
+//   2. チーム エクスプローラー ウィンドウを使用してソース管理に接続します
+//   3. 出力ウィンドウを使用して、ビルド出力とその他のメッセージを表示します
+//   4. エラー一覧ウィンドウを使用してエラーを表示します
+//   5. [プロジェクト] > [新しい項目の追加] と移動して新しいコード ファイルを作成するか、[プロジェクト] > [既存の項目の追加] と移動して既存のコード ファイルをプロジェクトに追加します
+//   6. 後ほどこのプロジェクトを再び開く場合、[ファイル] > [開く] > [プロジェクト] と移動して .sln ファイルを選択します
