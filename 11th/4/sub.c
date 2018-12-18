@@ -44,7 +44,7 @@ void find_info(struct node *t, int id) {
 	}
 	else {
 		if (t->data.id == id) {
-			printf("%s,%d\n", t->data.name,t->data.id);
+			printf("%s,%d\n", t->data.name,t->data.score);
 			exit(0);
 		}
 		else {
@@ -60,7 +60,7 @@ int main()
 	struct node *t = get_tree();
 	scanf("%d ", &id);
 	find_info(t, id);
-	printf("not found\n");
+	printf("Not found.\n");
 	return 0;
 }
 
