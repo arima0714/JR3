@@ -1,2 +1,3 @@
 ﻿  4.cpp
-  4.vcxproj -> C:\for_git\JR3\11th\4\Debug\4.exe
+c:\for_git\jr3\11th\4\4.cpp(45): error C2562: 'find_info': 関数は 'void' 型として宣言されていますが、値を返しました。
+  c:\for_git\jr3\11th\4\4.cpp(41): note: 'find_info' の宣言を確認してください
