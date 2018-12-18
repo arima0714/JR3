@@ -48,19 +48,13 @@ void print_tree(struct node* t) {
 int size(struct node* t){
 	int l = 0;
 	int r = 0;
-	int answer = 1;
 	if (t == NULL) {
 		return 0;
 	}
 	else {
-		if (t->left != NULL) {
-			l = size(t->left) + 1;
-		}
-		else {
-			r = size(t->right) + 1;
-		}
-		answer += r + l;
-		return answer;
+		l = size(t->left);
+		r = size(t->right);
+		return l + r + 1;
 	}
 }
 
@@ -68,7 +62,6 @@ int height(struct node* t){
 	//一番上(根)から先端(葉までの節の個数)
 	int left = 0;
 	int right = 0;
-	static int i = 0;
 	if (t == NULL) {
 		return 0;
 	}
@@ -84,14 +77,20 @@ int height(struct node* t){
 }
 
 int sum(struct node *t){
-	return 0;
+	int answer = 0;
+	if (t == NULL) {
+		return 0;
+	}
+	else {
+		return answer = sum(t->left) + sum(t->right) + t->data;
+	}
 }
 
 int main(){
     struct node *t = get_tree();
-    printf("size = %d\n",size(t));
-    printf("height = %d\n",height(t));
-    printf("sum = %d\n",sum(t));
+    printf("%d\n",size(t));
+    printf("%d\n",height(t));
+    printf("%d\n",sum(t));
     return 0;
 }
 
