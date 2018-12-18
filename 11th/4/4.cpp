@@ -42,7 +42,7 @@ void find_info(struct node *t, int id) {
 	while (t != NULL) {
 		if (t->data.id == id) {
 			printf("%s,%d\n", t->data.name, t->data.id);
-			return 0;
+			break;
 		}
 		else if (id < t->data.id) {
 			t = t->left;
