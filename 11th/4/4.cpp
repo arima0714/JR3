@@ -44,7 +44,7 @@ void find_info(struct node *t, int id) {
 	}
 	else {
 		if (t->data.id == id) {
-			printf("%s,%d\n", t->data.id);
+			printf("%s,%d\n", t->data.name,t->data.id);
 			exit(0);
 		}
 		else {

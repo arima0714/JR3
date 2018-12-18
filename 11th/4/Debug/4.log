@@ -1,7 +1,2 @@
-﻿  pch.cpp
-  4.cpp
-c:\for_git\jr3\11th\4\4.cpp(47): warning C4477: 'printf' : 書式文字列 '%s' には、型 'char *' の引数が必要ですが、可変個引数 1 は型 'int' です
-c:\for_git\jr3\11th\4\4.cpp(47): warning C4473: 'printf': 書式文字列として渡された引数が不足しています
-  c:\for_git\jr3\11th\4\4.cpp(47): note: プレースホルダーとそのパラメーターには 2 の可変個引数が必要ですが、1 が指定されています。
-  c:\for_git\jr3\11th\4\4.cpp(47): note: 不足している可変個引数 2 が書式文字列 '%d' に必要です
+﻿  4.cpp
   4.vcxproj -> C:\for_git\JR3\11th\4\Debug\4.exe
