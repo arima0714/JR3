@@ -21,6 +21,20 @@ struct node {
 	struct node *right;
 };
 
+void print_tree(struct node* t) {
+	//うめる
+	if (t == NULL) {
+		printf("-");
+	}
+	else {
+		printf("%d(",t->data.id);
+		print_tree(t->left);
+		printf(",");
+		print_tree(t->right);
+		printf(")");
+	}
+}
+
 struct node *get_tree()
 {
 	struct node *t;
@@ -77,6 +91,7 @@ int main()
 	scanf("%d,%[^,],%d ", &d.id, &d.name, &d.score);
 	t = bst_insert(t, d);
 	print_bst(t);
+	print_tree(t);
 	return 0;
 }
 
