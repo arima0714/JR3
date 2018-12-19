@@ -1,0 +1,9 @@
+﻿  5.cpp
+c:\for_git\jr3\11th\5\5.cpp(1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\for_git\jr3\11th\5\5.cpp(52): error C2181: else 文が if と一致しません。
+c:\for_git\jr3\11th\5\5.cpp(57): error C2059: 構文エラー: 'return'
+c:\for_git\jr3\11th\5\5.cpp(58): error C2059: 構文エラー: '}'
+c:\for_git\jr3\11th\5\5.cpp(58): error C2143: 構文エラー: ';' が '}' の前にありません。
+c:\for_git\jr3\11th\5\5.cpp(61): error C2143: 構文エラー: ';' が '{' の前にありません。
+c:\for_git\jr3\11th\5\5.cpp(61): error C2447: '{': 対応する関数ヘッダーがありません (旧形式の仮引数リスト?)
+c:\for_git\jr3\11th\5\5.cpp(77): error C3861: 'print_bst': 識別子が見つかりませんでした
