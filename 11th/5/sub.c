@@ -91,7 +91,7 @@ int main()
 	scanf("%d,%[^,],%d ", &d.id, &d.name, &d.score);
 	t = bst_insert(t, d);
 	print_bst(t);
-	print_tree(t);
+	//print_tree(t);
 	return 0;
 }
 
