@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdlib.h>
 #include <stdio.h>
@@ -56,20 +56,34 @@ struct node *bst_insert(struct node *t, struct student d)
 	struct node *node;
 	//nodeのアドレスtの指す接点を根とする二分探索木に、構造体studentの値dをメンバdataとする接点を追加
 	node = t;
-	while(node != NULL){
-		if(node->data.id < d.id){
-			node = node->right;
-		}else{
-			node = node->left;
-		}
-	}
 	temp = (struct node *)malloc(sizeof(struct node));
 	temp->data = d;
 	temp->left = NULL;
 	temp->right = NULL;
-	t = temp;
+	while(true){
+		if (node == NULL) {
+			t = temp;
+			return t;
+		}
+		if(node->data.id < d.id){
+			if(node->right != NULL){
+				node = node->right;
+			}
+			else {
+				node->right = temp;
+				return t;
+			}
+		}else{
+			if (node->left != NULL) {
+				node = node->left;
+			}
+			else {
+				node->left = temp;
+				return t;
+			}
+		}
+	}
 	//得られた二分探索木の根の接点のアドレスを返す
-	return t;
 }
 
 void print_bst(struct node *t)
@@ -90,7 +104,6 @@ int main()
 	scanf("%d,%[^,],%d ", &d.id, d.name, &d.score);
 	t = bst_insert(t, d);
 	print_bst(t);
-	//print_tree(t);
 	return 0;
 }
 
