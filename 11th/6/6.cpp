@@ -97,7 +97,7 @@ struct node* bst_delete(struct node *t,int id){
 		n = tmp;
 		tmp = tmp->right;
 	}
-	free(deleted);
+	//free(deleted);
 	return t;
 	
 }
