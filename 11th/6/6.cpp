@@ -50,6 +50,9 @@ void print_bst(struct node *t)
 struct node* bst_delete(struct node *t,int id){
 	struct node *n;
 	struct node *tmp;
+	struct node *deleted;
+	struct node *left;
+	struct node *right;
 	tmp = t;
 	while (true) {
 		if (tmp->data.id == id) {
@@ -64,12 +67,39 @@ struct node* bst_delete(struct node *t,int id){
 			}
 		}
 	}
-	printf("%d,%s,%d\n", tmp->data.id, tmp->data.name, tmp->data.score);
-	return t;
+	deleted = tmp;
     //削除すべきデータをnとする
-    //nの右の子が葉であるとき、nがあったところにnの左の子がそのまま入る
-    //nの右の子の左の子が葉であるとき、nがあったところにはnの右の子の節点が入り、その左の子としてnの左の子が、右の子としてnの右の子の右の子が入る
-    //そうでなければ、n
+	if (tmp->right == NULL) {
+		//nの右の子が葉であるとき、
+		//nがあったところにnの左の子がそのまま入る
+		tmp = tmp->left;
+	}
+	else if (tmp->right->left == NULL) {
+		//nの右の子の左の子が葉であるとき、
+		//nがあったところにはnの右の子の節点が入り、その左の子としてnの左の子が、右の子としてnの右の子の右の子が入る
+		left = tmp->left;
+		right = tmp->right->right;
+		tmp = tmp->right;
+	}
+    else{
+		//そうでなければ、n->right->left...->left == NULLとなる直前まで探索し、
+		//そのデータをnがあったところに入れ、そのデータがあったところにはその右の子を入れる
+		n = tmp;
+		if (tmp->right == NULL) {
+			;
+		}
+		else {
+			tmp = tmp->right;
+		}
+		while (tmp->left == NULL) {
+			tmp = tmp->left;
+		}
+		n = tmp;
+		tmp = tmp->right;
+	}
+	free(deleted);
+	return t;
+	
 }
 
 int main()
