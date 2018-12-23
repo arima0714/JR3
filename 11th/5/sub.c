@@ -53,22 +53,21 @@ struct node *get_tree()
 struct node *bst_insert(struct node *t, struct student d)
 {
 	struct node *temp;
+	struct node *node;
 	//nodeのアドレスtの指す接点を根とする二分探索木に、構造体studentの値dをメンバdataとする接点を追加
-	if (t == NULL) {
-		//tがNULLの時
-		temp = (struct node *)malloc(sizeof(struct node));
-		temp->data = d;
-		temp->left = NULL;
-		temp->right = NULL;
-		t = temp;
-	} else {
-		//tがNULLでないとき
-		if (t->data.id > d.id) {
-			bst_insert(t->left, d);
-		} else {
-			bst_insert(t->right, d);
+	node = t;
+	while(node != NULL){
+		if(node->data.id < d.id){
+			node = node->right;
+		}else{
+			node = node->left;
 		}
 	}
+	temp = (struct node *)malloc(sizeof(struct node));
+	temp->data = d;
+	temp->left = NULL;
+	temp->right = NULL;
+	t = temp;
 	//得られた二分探索木の根の接点のアドレスを返す
 	return t;
 }

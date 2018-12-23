@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdlib.h>
 #include <stdio.h>
@@ -21,13 +21,13 @@ struct node {
 	struct node *right;
 };
 
-void print_tree(struct node* t) {
+void print_tree(struct node *t)
+{
 	//うめる
 	if (t == NULL) {
 		printf("-");
-	}
-	else {
-		printf("%d(",t->data.id);
+	} else {
+		printf("%d(", t->data.id);
 		print_tree(t->left);
 		printf(",");
 		print_tree(t->right);
@@ -42,7 +42,7 @@ struct node *get_tree()
 		return NULL;
 	} else {
 		t = (struct node *)malloc(sizeof(struct node));
-		sscanf(buf, "%d,%[^,],%d", &t->data.id, &t->data.name,
+		sscanf(buf, "%d,%[^,],%d", &t->data.id, t->data.name,
 		       &t->data.score);
 		t->left = get_tree();
 		t->right = get_tree();
@@ -53,24 +53,33 @@ struct node *get_tree()
 struct node *bst_insert(struct node *t, struct student d)
 {
 	struct node *temp;
+	struct node *node;
+	//nodeのアドレスtの指す接点を根とする二分探索木に、構造体studentの値dをメンバdataとする接点を追加
+	node = t;
 	temp = (struct node *)malloc(sizeof(struct node));
 	temp->data = d;
 	temp->left = NULL;
 	temp->right = NULL;
-	//nodeのアドレスtの指す接点を根とする二分探索木に、構造体studentの値dをメンバdataとする接点を追加
-	if (t == NULL) {
-		//tがNULLの時
-		t = temp;
-	} else {
-		//tがNULLでないとき
-		if (t->data.id > d.id) {
-			t->left = temp;
-		} else {
-			t->right = temp;
+	while(true){
+		if(node->data.id < d.id){
+			if(node->right != NULL){
+				node = node->right;
+			}
+			else {
+				node->right = temp;
+				return t;
+			}
+		}else{
+			if (node->left != NULL) {
+				node = node->left;
+			}
+			else {
+				node->left = temp;
+				return t;
+			}
 		}
 	}
 	//得られた二分探索木の根の接点のアドレスを返す
-	return t;
 }
 
 void print_bst(struct node *t)
@@ -88,10 +97,9 @@ int main()
 {
 	struct node *t = get_tree();
 	struct student d;
-	scanf("%d,%[^,],%d ", &d.id, &d.name, &d.score);
+	scanf("%d,%[^,],%d ", &d.id, d.name, &d.score);
 	t = bst_insert(t, d);
 	print_bst(t);
-	//print_tree(t);
 	return 0;
 }
 
