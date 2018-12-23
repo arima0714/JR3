@@ -61,6 +61,10 @@ struct node *bst_insert(struct node *t, struct student d)
 	temp->left = NULL;
 	temp->right = NULL;
 	while(true){
+		if (node == NULL) {
+			t = temp;
+			return t;
+		}
 		if(node->data.id < d.id){
 			if(node->right != NULL){
 				node = node->right;
