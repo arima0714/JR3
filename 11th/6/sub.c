@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#define LEFT 0
+#define RIGHT 1
 
 char buf[128];
 
@@ -48,58 +50,79 @@ void print_bst(struct node *t)
 }
 //tの指す節点を根とする二分探索木から、学籍番号がidと一致する学生の節点を削除し、得られた二分探索木の根の節点のアドレスを返す関数
 struct node* bst_delete(struct node *t,int id){
-	struct node *n;
-	struct node *tmp;
-	struct node *deleted;
-	struct node *left;
-	struct node *right;
-	tmp = t;
-	while (true) {
-		if (tmp->data.id == id) {
-			break;
-		}
-		else {
-			if (tmp->data.id < id) {
-				tmp = tmp->right;
+    int direction;//探したnodeの方向
+    struct node* temp;//探したnodeを指すnode
+    struct node* n;//探したnode
+	struct node* deleted;
+    temp = t;
+    while(true){
+		if (temp->data.id < id) {
+			if (temp->right->data.id == id) {
+				direction = RIGHT;
+				break;
 			}
 			else {
-				tmp = tmp->left;
+				temp = temp->right;
 			}
 		}
+		else {
+			if (temp->left->data.id == id) {
+				direction = LEFT;
+				break;
+			}else{
+				temp = temp->left;
+			}
+		}
+    }
+	;
+	if (direction == RIGHT) {
+		n = temp->right;
 	}
-	deleted = tmp;
-    //削除すべきデータをnとする
-	if (tmp->right == NULL) {
-		//nの右の子が葉であるとき、
-		//nがあったところにnの左の子がそのまま入る
-		tmp = tmp->left;
+	else {
+		n = temp->left;
 	}
-	else if (tmp->right->left == NULL) {
-		//nの右の子の左の子が葉であるとき、
-		//nがあったところにはnの右の子の節点が入り、その左の子としてnの左の子が、右の子としてnの右の子の右の子が入る
-		left = tmp->left;
-		right = tmp->right->right;
-		tmp = tmp->right;
-	}
-    else{
-		//そうでなければ、n->right->left...->left == NULLとなる直前まで探索し、
-		//そのデータをnがあったところに入れ、そのデータがあったところにはその右の子を入れる
-		n = tmp;
-		if (tmp->right == NULL) {
-			;
+	deleted = n;
+	if (n->right == NULL) {
+		if (direction == RIGHT) {
+			temp->right = n->left;
 		}
 		else {
-			tmp = tmp->right;
+			temp->left = n->left;
 		}
-		while (tmp->left == NULL) {
-			tmp = tmp->left;
-		}
-		n = tmp;
-		tmp = tmp->right;
+		free(deleted);
 	}
-	//free(deleted);
+	else if (n->right->left == NULL) {
+		struct node* left;
+		struct node* right;
+		//"n"の右の子の節点の左の子として"n"の左の子
+		n->right->left = n->left;
+		//"n"の右の子の節点の右の子として"n"の右の子の右の子
+		n->right->right = n->right->right;
+		//"n"の部分に"n"の右の子の節点が入る
+		if (direction == RIGHT) {
+			temp->right = n->right;
+		}
+		else {
+			temp->left = n->right;
+		}
+		free(deleted);
+	}
+	else {
+		struct node* min;//最小値のアドレス
+		struct node* left;//削除されるnodeの左
+		struct node* right;//削除されるnodeの右
+		struct node* min_root;//最小値を指すnodeのアドレス
+		int min_root_dir;
+		left = n->left;
+		right = n->right;
+		//最小値(葉ではない)をn->right->left...->leftのようにして探す
+		min = n;
+		
+		//見つけた最小値を"n"に入れる
+
+		//最小値のあった場所に最小値の右を入れる
+	}
 	return t;
-	
 }
 
 int main()
