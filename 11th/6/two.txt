@@ -1,0 +1,18 @@
+10456,David Beckham,77
+10012,Hideki Matsui,55
+.
+10034,Akira Kurosawa,34
+.
+.
+10777,Douglas Adams,42
+10567,Yuto Nagatomo,55
+10555,Tetsuro Tamba,75
+.
+.
+.
+10789,Cristiano Ronaldo,7
+.
+12017,Osamu Dazai,50
+.
+.
+10777
