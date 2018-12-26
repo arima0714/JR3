@@ -72,6 +72,20 @@ struct node* find_id(struct node* t, int id) //ok
     return tmp;
 }
 
+void print_tree(struct node* t) {
+	//うめる
+	if (t == NULL) {
+		printf("-");
+	}
+	else {
+		printf("%d(", t->data.id);
+		print_tree(t->left);
+		printf(",");
+		print_tree(t->right);
+		printf(")");
+	}
+}
+
 struct node* find_id_root(struct node* t, int id)
 {
     struct node* tmp;
@@ -79,12 +93,19 @@ struct node* find_id_root(struct node* t, int id)
     if (tmp->data.id == id) {
         return NULL;
     } else {
-        while (tmp->left->data.id != id && tmp->right->data.id != id) {
-            if (tmp->data.id < id) {
-                tmp = tmp->right;
-            } else {
-                tmp = tmp->left;
-            }
+		while (true) {
+			if (tmp->left != NULL && tmp->left->data.id == id) {
+				break;
+			}
+			else if (tmp->right != NULL && tmp->right->data.id == id) {
+				break;
+			}
+			if (tmp->data.id < id) {
+				tmp = tmp->right;
+			}
+			else {
+				tmp = tmp->left;
+			}
         }
         return tmp;
     }
@@ -135,10 +156,9 @@ struct node* bst_delete(struct node* t, int id)
     //print_node(key_root);
     left = key->left;
     right = key->right;
-
     if (key->right == NULL) {
         //条件１//clear?
-        //printf("one\n");
+    	//printf("one\n");
         //nがあったところに、nの左の子が入る
         if (key_root != NULL) {
             if (key_root->left == key) {
@@ -200,6 +220,7 @@ struct node* bst_delete(struct node* t, int id)
 int main()
 {
     struct node* t = get_tree();
+	//print_tree(t);printf("\n");
     int id;
     scanf("%d ", &id);
     t = bst_delete(t, id);

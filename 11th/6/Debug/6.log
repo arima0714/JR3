@@ -1,5 +1,2 @@
 ﻿  6.cpp
-c:\for_git\jr3\11th\6\6.cpp(114): warning C4101: 'deleted': ローカル変数は 1 度も使われていません。
-c:\for_git\jr3\11th\6\6.cpp(117): warning C4101: 'min': ローカル変数は 1 度も使われていません。
-c:\for_git\jr3\11th\6\6.cpp(118): warning C4101: 'min_root': ローカル変数は 1 度も使われていません。
   6.vcxproj -> C:\for_git\JR3\11th\6\Debug\6.exe

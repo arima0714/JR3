@@ -10,3 +10,8 @@ two:
 
 three:
 	./a.out < three.txt
+
+git:
+	git add .
+	git commit -m "auto commit & push"
+	git push
