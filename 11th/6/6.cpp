@@ -122,20 +122,6 @@ struct node* find_min(struct node* t)
     return tmp;
 }
 
-struct node* find_min_root(struct node* t)
-{
-    struct node* tmp;
-    tmp = t;
-    if (tmp->right->left == NULL) {
-        return tmp->right;
-    } else {
-        while (tmp->left->left != NULL) {
-            tmp = tmp->left;
-        }
-    }
-    return tmp;
-}
-
 //tの指す節点を根とする二分探索木から、学籍番号がidと一致する学生の節点を削除し、得られた二分探索木の根の節点のアドレスを返す関数
 struct node* bst_delete(struct node* t, int id)
 {
@@ -149,16 +135,11 @@ struct node* bst_delete(struct node* t, int id)
     struct node* min_root; //削除されるノードの右側の最小値の根
     //2分探索でkeyを見つける
     key = find_id(t, id);
-    //printf("key = ");
-    //print_node(key);
     key_root = find_id_root(t, id);
-    //printf("key_root = ");
-    //print_node(key_root);
     left = key->left;
     right = key->right;
     if (key->right == NULL) {
         //条件１//clear?
-    	//printf("one\n");
         //nがあったところに、nの左の子が入る
         if (key_root != NULL) {
             if (key_root->left == key) {
@@ -169,7 +150,6 @@ struct node* bst_delete(struct node* t, int id)
         }
     } else if (key->right->left == NULL) {
         //条件２
-        //printf("two\n");
         //keyの右の子の節点の左の子の節点にkeyの左の子が入る
         key->right->left = key->left;
         //keyの右の子の節点の右の子の節点にkeyの右の子の右の子が入る
@@ -184,13 +164,8 @@ struct node* bst_delete(struct node* t, int id)
         }
     } else {
         //条件３
-        //printf("three\n");
         //keyの右側の最小値をminとする
-        min = t;
-        min = min->right;
-        while (min->left != NULL) {
-            min = min->left;
-        }
+		min = find_min(key);
         min_root = find_id_root(t, min->data.id);
 		//printf("min = ");
 		//print_node(min);
@@ -220,9 +195,9 @@ struct node* bst_delete(struct node* t, int id)
 int main()
 {
     struct node* t = get_tree();
-	//print_tree(t);printf("\n");
     int id;
     scanf("%d ", &id);
+	//print_tree(t);printf("\n");
     t = bst_delete(t, id);
     print_bst(t);
     return 0;
