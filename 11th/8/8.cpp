@@ -100,7 +100,7 @@ void find_info(struct node* t, int id) {
 		printf("Not found.\n");
 	}
 	else {
-		printf("%d,%s,%d\n", temp->data.id, temp->data.name, temp->data.score);
+		printf("%s,%d\n",temp->data.name, temp->data.score);
 	}
 }
 
