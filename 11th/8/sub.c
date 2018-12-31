@@ -96,7 +96,7 @@ void find_info(struct node* t, int id) {
 			temp = temp->left;
 		}
 	}
-	if (temp->left == temp->right) {
+	if (temp == temp->right) {
 		printf("Not found.\n");
 	}
 	else {
