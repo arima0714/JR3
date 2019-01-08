@@ -35,24 +35,15 @@ int height(struct avl_node *t) {
 }
 
 //左右の部分木の高さが正しく設定されているときにメンバheightを適切に設定しなおす関数
-void put_height(struct avl_node *t, int direction) {
-	if (direction == LEFT) {
-		if (t->left->right != NULL) {
-			t->left->height = t->left->right->height + 1;
-		}
-		else {
-			t->left->height = t->left->left->height + 1;
-		}
-		t->height = t->left->height + 1;
+void put_height(struct avl_node *t) {
+	if (t == NULL) {
+		return;
+	}
+	if (t->left != NULL) {
+		t->height = t->left->height+1;
 	}
 	else {
-		if(t->right->left != NULL){
-			t->right->height = t->right->left->height + 1;
-		}
-		else {
-			t->right->height = t->right->right->height + 1;
-		}
-		t->height = t->right->height + 1;
+		t->height = t->right->height+1;
 	}
 }
 
@@ -73,6 +64,9 @@ struct avl_node *get_avl() {
 struct avl_node* rotate_right(struct avl_node *t) {
 	struct avl_node* large_a = t;
 	struct avl_node* large_b = t->left;
+	if (large_b == NULL) {
+		return t;
+	}
 	struct avl_node* tree_one = large_b->left;
 	struct avl_node* tree_two = large_b->right;
 	struct avl_node* tree_thr = large_a->right;
@@ -80,13 +74,18 @@ struct avl_node* rotate_right(struct avl_node *t) {
 	large_b->right = large_a;
 	large_a->left = tree_two;
 	large_a->right = tree_thr;
-	put_height(large_b, RIGHT);
+
+	put_height(large_a);
+	put_height(large_b);
 	return large_b;
 }
 
 struct avl_node* rotate_left(struct avl_node *t) {
 	struct avl_node* large_b = t;
 	struct avl_node* large_a = large_b->right;
+	if (large_a == NULL) {
+		return t;
+	}
 	struct avl_node* tree_one = large_b->left;
 	struct avl_node* tree_two = large_a->left;
 	struct avl_node* tree_thr = large_a->right;
@@ -94,7 +93,9 @@ struct avl_node* rotate_left(struct avl_node *t) {
 	large_a->right = tree_thr;
 	large_b->left = tree_one;
 	large_b->right = tree_two;
-	put_height(large_a, LEFT);
+
+	put_height(large_b);
+	put_height(large_a);
 	return large_a;
 }
 
