@@ -1,13 +1,21 @@
-[3]14982,Kento Itagaki,48
-[2]13094,Yuutarou Murakami,96
-[1]11738,Shuuto Tahara,44
+[4]56636,Kazuhiro Aoki,53
+[3]21021,Haruka Adachi,76
+[2]11738,Shuuto Tahara,44
+[1]10232,Ryuusuke Ishida,34
 .
 .
 .
-[2]60503,Hayato Honda,30
-[1]27726,Ryou Tanaka,51
+[2]51814,Yuuta Yatsuka,72
+[1]23711,Yuuki Murakami,63
 .
 .
-[1]70789,Makoto Kanahyou,1
+.
+[3]97791,Masato Kawamura,22
+[2]92044,Tomoya Sawahata,24
+[1]91297,Akira Yoshida,51
+.
+.
+.
+[1]98983,Kyouhei Seki,11
 .
 .

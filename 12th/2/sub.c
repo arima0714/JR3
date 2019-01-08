@@ -165,7 +165,7 @@ struct avl_node* balance(struct avl_node* t) {
 			tree_three = large_a->left;
 			if (tree_one->height >= tree_two->height) {
 				//t1の高さがt2の高さより大きいか等しい場合
-				large_a = rotate_right(large_a);
+				large_a = rotate_left(large_a);
 				return large_a;
 			}
 			else if (tree_two->height > tree_one->height) {
