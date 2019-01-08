@@ -39,7 +39,15 @@ void put_height(struct avl_node *t) {
 	if (t == NULL) {
 		return;
 	}
-	if (t->left != NULL) {
+	if (t->left != NULL && t->right != NULL) {
+		if (t->left->height > t->right->height) {
+			t->height = t->left->height + 1;
+		}
+		else {
+			t->height = t->right->height + 1;
+		}
+	}
+	else if (t->left != NULL) {
 		t->height = t->left->height+1;
 	}
 	else {
