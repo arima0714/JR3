@@ -170,7 +170,7 @@ struct avl_node* balance(struct avl_node* t) {
 			}
 			else if (tree_two->height > tree_one->height) {
 				//t2の高さがt1の高さよりも大きい場合
-				large_b = rotate_left(large_b);
+				large_a->right = rotate_right(large_a->right);
 				large_a = rotate_left(large_a);
 				return large_a;
 			}
