@@ -37,22 +37,12 @@ int height(struct avl_node *t) {
 //左右の部分木の高さが正しく設定されているときにメンバheightを適切に設定しなおす関数
 void put_height(struct avl_node *t, int direction) {
 	if (direction == LEFT) {
-		if (t->left->right != NULL) {
-			t->left->height = t->left->right->height + 1;
-		}
-		else {
-			t->left->height = t->left->left->height + 1;
-		}
-		t->height = t->left->height + 1;
+		t->height = t->right->height + 1;
+		t->left->height = t->left->right->height + 1;
 	}
 	else {
-		if(t->right->left != NULL){
-			t->right->height = t->right->left->height + 1;
-		}
-		else {
-			t->right->height = t->right->right->height + 1;
-		}
-		t->height = t->right->height + 1;
+		t->height = t->left->height + 1;
+		t->right->height = t->right->left->height + 1;
 	}
 }
 
