@@ -51,11 +51,29 @@ struct avl_node *get_avl() {
 }
 
 struct avl_node* rotate_right(struct avl_node *t) {
-	return t;
+	struct avl_node* large_a = t;
+	struct avl_node* large_b = t->left;
+	struct avl_node* tree_one = large_b->left;
+	struct avl_node* tree_two = large_b->right;
+	struct avl_node* tree_thr = large_a->right;
+	large_b->left = tree_one;
+	large_b->right = large_a;
+	large_a->left = tree_two;
+	large_a->right = tree_thr;
+	return large_b;
 }
 
 struct avl_node* rotate_left(struct avl_node *t) {
-	return t;
+	struct avl_node* large_b = t;
+	struct avl_node* large_a = large_b->right;
+	struct avl_node* tree_one = large_b->left;
+	struct avl_node* tree_two = large_a->left;
+	struct avl_node* tree_thr = large_a->right;
+	large_a->left = large_b;
+	large_a->right = tree_thr;
+	large_b->left = tree_one;
+	large_b->right = tree_two;
+	return large_a;
 }
 
 void print_avl(struct avl_node *t)
