@@ -24,6 +24,15 @@ struct avl_node {
 	int height;
 };
 
+int height(struct avl_node* t) {
+	if (t == NULL) {
+		return 0;
+	}
+	else {
+		return t->height;
+	}
+}
+
 //左右の部分木の高さが正しく設定されているときにメンバheightを適切に設定しなおす関数
 void put_height(struct avl_node *t) {
 	if (t == NULL) {
@@ -108,8 +117,74 @@ void print_avl(struct avl_node *t) {
 	}
 }
 
+//int return_abs_heights(struct avl_node* t) {
+//	int height_left = height(t->left);
+//	int height_right = height(t->right);
+//	int sub = height_left - height_right;
+//	if (sub < 0) {
+//		sub = sub * -1;
+//	}
+//	return sub;
+//}
+
 struct avl_node* balance(struct avl_node* t) {
-	return t;
+	int left_height = t->left->height;
+	int right_height = t->right->height;
+	int sub = left_height - right_height;
+	struct avl_node* large_a;
+	struct avl_node* large_b;
+	struct avl_node* tree_one;
+	struct avl_node* tree_two;
+	struct avl_node* tree_three;
+
+	if (sub < 0) {
+		sub = sub * -1;
+	}
+	if (sub > 2) {
+		return t;
+	}
+	else {
+		if (sub <= 1) {
+			return t;
+		}
+		else if(left_height - right_height == 2){
+			//左の部分木の高さが右の部分木の高さよりちょうど2大きいとき
+			large_a = t;
+			large_b = t->left;
+			tree_one = large_b->left;
+			tree_two = large_b->right;
+			tree_three = large_a->right;
+			if (tree_one->height >= tree_two->height) {
+				//t1の高さがt2の高さより大きいか等しい場合
+				large_a = rotate_right(large_a);
+				return large_a;
+			}
+			else if (tree_two->height > tree_one->height) {
+				//t2の高さがt1の高さよりも大きい場合
+				large_b = rotate_left(large_b);
+				large_a = rotate_left(large_a);
+				return large_a;
+			}
+		}else if(right_height - left_height==2){
+			//右の部分木の高さが左の部分木の高さよりちょうど2大きいとき
+			large_a = t;
+			large_b = t->right;
+			tree_one = large_a->left;
+			tree_two = large_b->left;
+			tree_three = large_a->left;
+			if (tree_one->height >= tree_two->height) {
+				//t1の高さがt2の高さより大きいか等しい場合
+				large_a = rotate_right(large_a);
+				return large_a;
+			}
+			else if (tree_two->height > tree_one->height) {
+				//t2の高さがt1の高さよりも大きい場合
+				large_b = rotate_left(large_b);
+				large_a = rotate_left(large_a);
+				return large_a;
+			}
+		}
+	}
 }
 
 int main()
