@@ -39,18 +39,18 @@ void put_height(struct avl_node *t) {
 		return;
 	}
 	if (t->left != NULL && t->right != NULL) {
-		if (t->left->height > t->right->height) {
-			t->height = t->left->height + 1;
+		if (height(t->left) > height(t->right)) {
+			t->height = height(t->left) + 1;
 		}
 		else {
-			t->height = t->right->height + 1;
+			t->height = height(t->right) + 1;
 		}
 	}
 	else if (t->left != NULL) {
-		t->height = t->left->height + 1;
+		t->height = height(t->left) + 1;
 	}
 	else {
-		t->height = t->right->height + 1;
+		t->height = height(t->right) + 1;
 	}
 }
 
@@ -117,19 +117,9 @@ void print_avl(struct avl_node *t) {
 	}
 }
 
-//int return_abs_heights(struct avl_node* t) {
-//	int height_left = height(t->left);
-//	int height_right = height(t->right);
-//	int sub = height_left - height_right;
-//	if (sub < 0) {
-//		sub = sub * -1;
-//	}
-//	return sub;
-//}
-
 struct avl_node* balance(struct avl_node* t) {
-	int left_height = t->left->height;
-	int right_height = t->right->height;
+	int left_height = height(t->left);
+	int right_height = height(t->right);
 	int sub = left_height - right_height;
 	struct avl_node* large_a;
 	struct avl_node* large_b;
@@ -154,12 +144,12 @@ struct avl_node* balance(struct avl_node* t) {
 			tree_one = large_b->left;
 			tree_two = large_b->right;
 			tree_three = large_a->right;
-			if (tree_one->height >= tree_two->height) {
+			if (height(tree_one) >= height(tree_two)) {
 				//t1の高さがt2の高さより大きいか等しい場合
 				large_a = rotate_right(large_a);
 				return large_a;
 			}
-			else if (tree_two->height > tree_one->height) {
+			else if (height(tree_two) > height(tree_one)) {
 				//t2の高さがt1の高さよりも大きい場合
 				large_b = rotate_left(large_b);
 				large_a = rotate_left(large_a);
