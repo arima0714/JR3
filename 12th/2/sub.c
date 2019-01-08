@@ -151,11 +151,12 @@ struct avl_node* balance(struct avl_node* t) {
 			}
 			else if (height(tree_two) > height(tree_one)) {
 				//t2の高さがt1の高さよりも大きい場合
-				large_b = rotate_left(large_b);
-				large_a = rotate_left(large_a);
+				large_a->left = rotate_left(large_a->left);
+				large_a = rotate_right(large_a);
 				return large_a;
 			}
-		}else if(right_height - left_height==2){
+		}
+		else if(right_height - left_height==2){
 			//右の部分木の高さが左の部分木の高さよりちょうど2大きいとき
 			large_a = t;
 			large_b = t->right;
