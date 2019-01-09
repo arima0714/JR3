@@ -15,3 +15,6 @@ git:
 	git add .
 	git commit -m "auto commit & push"
 	git push
+
+check:
+	/ced-home/staff/18jr3/11/checker1 6 sub.c
