@@ -107,6 +107,67 @@ struct avl_node* rotate_left(struct avl_node *t) {
 	return large_a;
 }
 
+struct avl_node* balance(struct avl_node* t) {
+	int left_height = height(t->left);
+	int right_height = height(t->right);
+	int sub = left_height - right_height;
+	struct avl_node* large_a;
+	struct avl_node* large_b;
+	struct avl_node* tree_one;
+	struct avl_node* tree_two;
+	struct avl_node* tree_three;
+
+	if (sub < 0) {
+		sub = sub * -1;
+	}
+	if (sub > 2) {
+		return t;
+	}
+	else {
+		if (sub <= 1) {
+			return t;
+		}
+		else if (left_height - right_height == 2) {
+			//左の部分木の高さが右の部分木の高さよりちょうど2大きいとき
+			large_a = t;
+			large_b = t->left;
+			tree_one = large_b->left;
+			tree_two = large_b->right;
+			tree_three = large_a->right;
+			if (height(tree_one) >= height(tree_two)) {
+				//t1の高さがt2の高さより大きいか等しい場合
+				large_a = rotate_right(large_a);
+				return large_a;
+			}
+			else if (height(tree_two) > height(tree_one)) {
+				//t2の高さがt1の高さよりも大きい場合
+				large_a->left = rotate_left(large_a->left);
+				large_a = rotate_right(large_a);
+				return large_a;
+			}
+		}
+		else if (right_height - left_height == 2) {
+			//右の部分木の高さが左の部分木の高さよりちょうど2大きいとき
+			large_a = t;
+			large_b = t->right;
+			tree_one = large_a->left;
+			tree_two = large_b->left;
+			tree_three = large_a->left;
+			if (tree_one->height >= tree_two->height) {
+				//t1の高さがt2の高さより大きいか等しい場合
+				large_a = rotate_left(large_a);
+				return large_a;
+			}
+			else if (tree_two->height > tree_one->height) {
+				//t2の高さがt1の高さよりも大きい場合
+				large_a->right = rotate_right(large_a->right);
+				large_a = rotate_left(large_a);
+				return large_a;
+			}
+		}
+	}
+}
+
 void print_avl(struct avl_node *t){
     if(t == NULL){
         printf(".\n");
@@ -119,16 +180,39 @@ void print_avl(struct avl_node *t){
 
 //構造体avl_nodeのアドレスtの指す接点を根とするAVL木に構造体studentの値dを挿入してAVL木の条件を満たすように調節し、挿入後の根の節点のアドレスを返す関数
 struct avl_node* avl_insert(struct avl_node* t, struct student d){
+	struct avl_node* new_node;
     //tが葉(NULL)かどうか
+	if (t == NULL) {
 		//葉なら、節点のメモリを確保し、この節点の左右の部分木を葉とし、データとしてdをいれ高さを1として、この節点のアドレスを返す
+		new_node = (struct avl_node*)malloc(sizeof(struct avl_node));
+		new_node->data = d;
+		new_node->height = 1;
+		new_node->left = NULL;
+		new_node->right = NULL;
+		return new_node;
+	}
+	else {
 		//葉でないならそのデータの学籍番号とdの学籍番号を比較する
-			//dの学籍番号のほうが小さければ、左の部分木を「左の部分木にdを挿入した木」で置き換える
-			//dの学籍番号のほうが大きければ、右の部分木を「右の部分木にdを挿入した木」で置き換える
+			if(t->data.id > d.id){
+				//dの学籍番号のほうが小さければ、左の部分木を「左の部分木にdを挿入した木」で置き換える
+				t->left = avl_insert(t->left, d);
+			}
+			else {
+				//dの学籍番号のほうが大きければ、右の部分木を「右の部分木にdを挿入した木」で置き換える
+				t->right = avl_insert(t->right, d);
+			}
+	}
 	//tの指す接点のメンバheightを適切に更新する
+	if (height(t->left) > height(t->right)) {
+		t->height = height(t->left) + 1;
+	}
+	else {
+		t->height = height(t->right) + 1;
+	}
 	//挿入によってAVL木の条件を満たさなくなっていたら「balance」を用いてAVL木の条件を満たす形にする
+	new_node = balance(t);
 	//根の節点のアドレスを返す
-
-    return t;
+	return new_node;
 }
 
 int main()
