@@ -125,7 +125,6 @@ struct avl_node* balance(struct avl_node* t) {
 	struct avl_node* large_b;
 	struct avl_node* tree_one;
 	struct avl_node* tree_two;
-	struct avl_node* tree_three;
 
 	if (sub < 0) {
 		sub = sub * -1;
@@ -137,13 +136,12 @@ struct avl_node* balance(struct avl_node* t) {
 		if (sub <= 1) {
 			return t;
 		}
-		else if(left_height - right_height == 2){
+		else if (left_height - right_height == 2) {
 			//左の部分木の高さが右の部分木の高さよりちょうど2大きいとき
 			large_a = t;
 			large_b = t->left;
 			tree_one = large_b->left;
 			tree_two = large_b->right;
-			tree_three = large_a->right;
 			if (height(tree_one) >= height(tree_two)) {
 				//t1の高さがt2の高さより大きいか等しい場合
 				large_a = rotate_right(large_a);
@@ -156,19 +154,18 @@ struct avl_node* balance(struct avl_node* t) {
 				return large_a;
 			}
 		}
-		else if(right_height - left_height==2){
+		else if (right_height - left_height == 2) {
 			//右の部分木の高さが左の部分木の高さよりちょうど2大きいとき
 			large_a = t;
 			large_b = t->right;
 			tree_one = large_a->left;
 			tree_two = large_b->left;
-			tree_three = large_a->left;
-			if (tree_one->height >= tree_two->height) {
+			if (height(tree_one) >= height(tree_two)) {
 				//t1の高さがt2の高さより大きいか等しい場合
 				large_a = rotate_left(large_a);
 				return large_a;
 			}
-			else if (tree_two->height > tree_one->height) {
+			else if (height(tree_two) > height(tree_one)) {
 				//t2の高さがt1の高さよりも大きい場合
 				large_a->right = rotate_right(large_a->right);
 				large_a = rotate_left(large_a);
