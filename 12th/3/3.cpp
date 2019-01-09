@@ -115,7 +115,6 @@ struct avl_node* balance(struct avl_node* t) {
 	struct avl_node* large_b;
 	struct avl_node* tree_one;
 	struct avl_node* tree_two;
-	struct avl_node* tree_three;
 
 	if (sub < 0) {
 		sub = sub * -1;
@@ -133,7 +132,6 @@ struct avl_node* balance(struct avl_node* t) {
 			large_b = t->left;
 			tree_one = large_b->left;
 			tree_two = large_b->right;
-			tree_three = large_a->right;
 			if (height(tree_one) >= height(tree_two)) {
 				//t1の高さがt2の高さより大きいか等しい場合
 				large_a = rotate_right(large_a);
@@ -152,13 +150,12 @@ struct avl_node* balance(struct avl_node* t) {
 			large_b = t->right;
 			tree_one = large_a->left;
 			tree_two = large_b->left;
-			tree_three = large_a->left;
-			if (tree_one->height >= tree_two->height) {
+			if (height(tree_one) >= height(tree_two)) {
 				//t1の高さがt2の高さより大きいか等しい場合
 				large_a = rotate_left(large_a);
 				return large_a;
 			}
-			else if (tree_two->height > tree_one->height) {
+			else if (height(tree_two) > height(tree_one)) {
 				//t2の高さがt1の高さよりも大きい場合
 				large_a->right = rotate_right(large_a->right);
 				large_a = rotate_left(large_a);
@@ -176,6 +173,12 @@ void print_avl(struct avl_node *t){
         print_avl(t->left);
         print_avl(t->right);
     }
+}
+
+void print_debug(struct avl_node* t) {
+	printf("!@#$&*\n");
+	print_avl(t);
+	printf("!@#$*\n");
 }
 
 //構造体avl_nodeのアドレスtの指す接点を根とするAVL木に構造体studentの値dを挿入してAVL木の条件を満たすように調節し、挿入後の根の節点のアドレスを返す関数
@@ -210,6 +213,7 @@ struct avl_node* avl_insert(struct avl_node* t, struct student d){
 		t->height = height(t->right) + 1;
 	}
 	//挿入によってAVL木の条件を満たさなくなっていたら「balance」を用いてAVL木の条件を満たす形にする
+	//print_debug(t);
 	new_node = balance(t);
 	//根の節点のアドレスを返す
 	return new_node;
