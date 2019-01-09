@@ -177,6 +177,7 @@ struct avl_node* balance(struct avl_node* t) {
 
 int main()
 {
+	
 	struct avl_node* t = get_avl();
 	t = balance(t);
 	print_avl(t);
