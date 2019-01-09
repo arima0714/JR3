@@ -148,7 +148,7 @@ struct avl_node* balance(struct avl_node* t) {
 			//右の部分木の高さが左の部分木の高さよりちょうど2大きいとき
 			large_a = t;
 			large_b = t->right;
-			tree_one = large_a->left;
+			tree_one = large_b->left;
 			tree_two = large_b->left;
 			if (height(tree_one) >= height(tree_two)) {
 				//t1の高さがt2の高さより大きいか等しい場合
@@ -262,7 +262,7 @@ struct avl_node* avl_delete(struct avl_node* t, int id){
 		}
 		else if (id == t->data.id && t->left == NULL) {
 			//idがtの根の節点の学生の学籍番号と等しい以外で左の部分木が葉の時
-				//右no部分木を返す
+				//右の部分木を返す
 			return t->right;
 		}
 		else if (id == t->data.id && t->right == NULL) {
