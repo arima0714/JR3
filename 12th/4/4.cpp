@@ -226,11 +226,12 @@ struct avl_node* delete_max(struct avl_node* t,struct avl_node **p){
 			//その根の節点(A)のアドレスを*pに入れ、左の部分木を返す
 		*p = t;
 		return t->left;
-	}else{
+	}
+	else{
 		//右の部分木が葉でないとき
 			//右の部分木を「右の部分木から最大値を削除した木」で置き換える
 				//右の部分木から最大値を削除した木を計算するためにdelete_max()を使う
-		t->right = delete_max(t, p);
+		t->right = delete_max(t->right, p);
 			//削除によってtの高さが変わる可能性あるので、heightを適切に更新する
 		put_height(t);
 			//削除によってAVL木の条件が崩れている可能性があるので「回転して調節」を行ってAVL木を作成しする
