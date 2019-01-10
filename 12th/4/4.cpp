@@ -148,7 +148,7 @@ struct avl_node* balance(struct avl_node* t) {
 			//右の部分木の高さが左の部分木の高さよりちょうど2大きいとき
 			large_a = t;
 			large_b = t->right;
-			tree_one = large_a->left;
+			tree_one = large_b->right;
 			tree_two = large_b->left;
 			if (height(tree_one) >= height(tree_two)) {
 				//t1の高さがt2の高さより大きいか等しい場合
