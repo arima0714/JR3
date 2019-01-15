@@ -129,17 +129,29 @@ struct rb_node* resolve_red_pair(struct rb_node* t)
 		if (is_red(t_4)) {
 			//case1.1
 			large_a->black = RED;
-			large_b->black = BLACK;
-			large_c->black = RED;
-			large_d->black = BLACK;
+			if (large_b != NULL) {
+				large_b->black = BLACK;
+			}
+			if (large_c != NULL) {
+				large_c->black = RED;
+			}
+			if (large_d != NULL) {
+				large_d->black = BLACK;
+			}
 			return large_a;
 		}
 		else {
 			//case1.2
 			large_a->black = RED;
-			large_b->black = BLACK;
-			large_c->black = RED;
-			large_d->black = BLACK;
+			if (large_b != NULL) {
+				large_b->black = BLACK;
+			}
+			if (large_c != NULL) {
+				large_c->black = RED;
+			}
+			if (large_d != NULL) {
+				large_d->black = BLACK;
+			}
 			return rotate_right(large_a);
 		}
 	}
@@ -156,17 +168,29 @@ struct rb_node* resolve_red_pair(struct rb_node* t)
 		if (is_red(t_4)) {
 			//case2.1
 			large_a->black = RED;
-			large_b->black = BLACK;
-			large_c->black = RED;
-			large_d->black = BLACK;
+			if (large_b != NULL) {
+				large_b->black = BLACK;
+			}
+			if (large_c != NULL) {
+				large_c->black = RED;
+			}
+			if (large_d != NULL) {
+				large_d->black = BLACK;
+			}
 			return large_a;
 		}
 		else {
 			//case2.2
 			large_a->black = BLACK;
-			large_b->black = RED;
-			large_c->black = RED;
-			large_d->black = BLACK;
+			if (large_b != NULL) {
+				large_b->black = RED;
+			}
+			if (large_c != NULL) {
+				large_c->black = RED;
+			}
+			if (large_d != NULL) {
+				large_d->black = BLACK;
+			}
 			return resolve_red_pair(rotate_left(large_a));
 		}
 	}
@@ -183,16 +207,29 @@ struct rb_node* resolve_red_pair(struct rb_node* t)
 		//case3.1
 		if (is_red(t_4)) {
 			large_a->black = RED;
-			large_b->black = BLACK;
-			large_c->black = RED;
-			large_d->black = BLACK;
+			if (large_b != NULL) {
+				large_b->black = BLACK;
+			}
+			if (large_c != NULL) {
+				large_c->black = RED;
+			}
+			if (large_d != NULL) {
+				large_d->black = BLACK;
+			}
+			return large_a;
 		}
 		else {
 			//case3.2
 			large_a->black = BLACK;
-			large_b->black = RED;
-			large_c->black = RED;
-			large_d->black = BLACK;
+			if (large_b != NULL) {
+				large_b->black = RED;
+			}
+			if (large_c != NULL) {
+				large_c->black = RED;
+			}
+			if (large_d != NULL) {
+				large_c->black = RED;
+			}
 			return resolve_red_pair(rotate_right(large_a));
 		}
 	}
@@ -209,17 +246,29 @@ struct rb_node* resolve_red_pair(struct rb_node* t)
 		if (is_red(t_4)) {
 			//case4.1
 			large_a->black = RED;
-			large_b->black = BLACK;
-			large_c->black = RED;
-			large_d->black = BLACK;
+			if (large_b != NULL) {
+				large_b->black = BLACK;
+			}
+			if (large_c != NULL) {
+				large_c->black = RED;
+			}
+			if (large_d != NULL) {
+				large_d->black = BLACK;
+			}
 			return large_a;
 		}
 		else {
 			//case4.2
 			large_a->black = RED;
-			large_b->black = BLACK;
-			large_c->black = RED;
-			large_d->black = BLACK;
+			if (large_b != NULL) {
+				large_b->black = BLACK;
+			}
+			if (large_c != NULL) {
+				large_c->black = RED;
+			}
+			if (large_d != NULL) {
+				large_d->black = BLACK;
+			}
 			return rotate_left(large_a);
 		}
 	}
