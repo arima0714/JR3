@@ -1,4 +1,3 @@
 ﻿  5.cpp
-c:\for_git\jr3\13th\5\5.cpp(311): warning C4715: 'rb_insert_rec': 値を返さないコントロール パスがあります。
-c:\for_git\jr3\13th\5\5.cpp(357): warning C4715: 'rb_update': 値を返さないコントロール パスがあります。
+c:\for_git\jr3\13th\5\5.cpp(281): warning C4715: 'rb_update': 値を返さないコントロール パスがあります。
   5.vcxproj -> C:\for_git\JR3\13th\5\Debug\5.exe

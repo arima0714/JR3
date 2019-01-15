@@ -33,23 +33,6 @@ int is_red(struct rb_node* t)
 	return (t != NULL && !t->black);
 }
 
-struct rb_node* get_rbtree()
-{
-	struct rb_node* t;
-	char c;
-	if (fgets(buf, sizeof(buf), stdin) == NULL || buf[0] == '.') {
-		return NULL;
-	}
-	else {
-		t = (struct rb_node*)malloc(sizeof(struct rb_node));
-		sscanf(buf, "[%c]%d,%[^,],%d", &c, &t->data.id, &t->data.name, &t->data.score);
-		t->black = (c == 'b');
-		t->left = get_rbtree();
-		t->right = get_rbtree();
-		return t;
-	}
-}
-
 struct rb_node* rotate_right(struct rb_node* t)
 {
 	struct rb_node* large_a;
@@ -112,18 +95,12 @@ struct rb_node* resolve_red_pair(struct rb_node* t)
 	struct rb_node* large_b;
 	struct rb_node* large_c;
 	struct rb_node* large_d;
-	struct rb_node* t_1;
-	struct rb_node* t_2;
-	struct rb_node* t_3;
 	struct rb_node* t_4;
 	if (is_red(t->left) && is_red(t->left->left)) {
 		large_a = t;
 		large_b = large_a->left;
 		large_c = large_b->left;
 		large_d = large_a->right;
-		t_1 = large_c->left;
-		t_2 = large_c->right;
-		t_3 = large_b->right;
 		t_4 = large_d;
 		//case1
 		if (is_red(t_4)) {
@@ -161,9 +138,6 @@ struct rb_node* resolve_red_pair(struct rb_node* t)
 		large_b = large_a->left;
 		large_c = large_b->right;
 		large_d = large_a->right;
-		t_1 = large_b->left;
-		t_2 = large_c->left;
-		t_3 = large_c->right;
 		t_4 = large_d;
 		if (is_red(t_4)) {
 			//case2.1
@@ -201,9 +175,6 @@ struct rb_node* resolve_red_pair(struct rb_node* t)
 		large_b = large_a->right;
 		large_c = large_b->left;
 		large_d = large_a->left;
-		t_1 = large_b->right;
-		t_2 = large_c->right;
-		t_3 = large_c->left;
 		t_4 = large_d;
 		//case3.1
 		if (is_red(t_4)) {
@@ -241,9 +212,6 @@ struct rb_node* resolve_red_pair(struct rb_node* t)
 		large_b = large_a->right;
 		large_c = large_b->right;
 		large_d = large_a->left;
-		t_1 = large_c->right;
-		t_2 = large_c->left;
-		t_3 = large_b->left;
 		t_4 = large_d;
 		if (is_red(t_4)) {
 			//case4.1
@@ -277,53 +245,9 @@ struct rb_node* resolve_red_pair(struct rb_node* t)
 	return t;
 }
 
-struct rb_node* rb_insert_rec(struct rb_node* t, struct student d)
-{
-	struct rb_node* new_node;
-	//umeru
-	if (t == NULL) {
-		//tが葉なら
-			//節点のメモリを確保し、この節点の左右の部分木を葉とし、データをdとして入れる
-		new_node = (struct rb_node*)malloc(sizeof(struct rb_node));
-		new_node->left = NULL;
-		new_node->right = NULL;
-		new_node->data = d;
-		//色を赤とする
-		new_node->black = RED;
-		//この節点のアドレスを返す
-		return new_node;
-	}
-	else {
-		//tが葉でないならtの学籍番号と比較
-		if (t->data.id > d.id) {
-			//dの学籍番号が小さければ
-				//左の部分木を「左の部分木にdを挿入した木」で置き換える
-			t->left = rb_insert_rec(t->left, d);
-		}
-		else {
-			//dの学籍番号が大きければ
-				//右の部分木を「右の部分木にdを挿入した木」で置き換える
-			t->right = rb_insert_rec(t->right, d);
-		}
-		//resolve_red_pair()を実行
-		resolve_red_pair(t);
-	}
-}
-
-struct rb_node* rb_insert(struct rb_node* t, struct student d)
-{
-	t = rb_insert_rec(t, d);
-	t->black = 1;
-	return t;
-}
 
 struct rb_node* rb_update(struct rb_node* t, struct student d) {
-	//dと同じ学籍番号が無ければ
-		//dを挿入
-	//dと同じ学籍番号があれば
-		//dの得点を加える
 	struct rb_node* new_node;
-	//umeru
 	if (t == NULL) {
 		//tが葉なら
 			//節点のメモリを確保し、この節点の左右の部分木を葉とし、データをdとして入れる
@@ -335,9 +259,6 @@ struct rb_node* rb_update(struct rb_node* t, struct student d) {
 		new_node->black = RED;
 		//この節点のアドレスを返す
 		return new_node;
-	}
-	else if (t->data.id == d.id) {
-		t->data.score += d.score;
 	}
 	else {
 		//tが葉でないならtの学籍番号と比較
@@ -346,10 +267,13 @@ struct rb_node* rb_update(struct rb_node* t, struct student d) {
 				//左の部分木を「左の部分木にdを挿入した木」で置き換える
 			t->left = rb_update(t->left, d);
 		}
-		else {
+		else if(t->data.id < d.id){
 			//dの学籍番号が大きければ
 				//右の部分木を「右の部分木にdを挿入した木」で置き換える
 			t->right = rb_update(t->right, d);
+		}
+		else if (t->data.id == d.id) {
+			t->data.score += d.score;
 		}
 		//resolve_red_pair()を実行
 		resolve_red_pair(t);
