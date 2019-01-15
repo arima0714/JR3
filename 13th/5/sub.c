@@ -246,7 +246,7 @@ struct rb_node* resolve_red_pair(struct rb_node* t)
 }
 
 
-struct rb_node* rb_update(struct rb_node* t, struct student d) {
+struct rb_node* rb_update_rec(struct rb_node* t, struct student d) {
 	struct rb_node* new_node;
 	if (t == NULL) {
 		//tが葉なら
@@ -265,20 +265,25 @@ struct rb_node* rb_update(struct rb_node* t, struct student d) {
 		if (t->data.id > d.id) {
 			//dの学籍番号が小さければ
 				//左の部分木を「左の部分木にdを挿入した木」で置き換える
-			t->left = rb_update(t->left, d);
+			t->left = rb_update_rec(t->left, d);
 		}
 		else if(t->data.id < d.id){
 			//dの学籍番号が大きければ
 				//右の部分木を「右の部分木にdを挿入した木」で置き換える
-			t->right = rb_update(t->right, d);
+			t->right = rb_update_rec(t->right, d);
 		}
 		else if (t->data.id == d.id) {
 			t->data.score += d.score;
-			t->black = BLACK;
 		}
 		//resolve_red_pair()を実行
 		resolve_red_pair(t);
 	}
+}
+
+struct rb_node* rb_update(struct rb_node* t, struct student d) {
+	t = rb_update_rec(t,d);
+	t->black = BLACK;
+	return t;
 }
 
 int main()
