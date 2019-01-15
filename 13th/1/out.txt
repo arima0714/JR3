@@ -1,0 +1,9 @@
+[b}10123,Ichiro Suzuki,51
+.
+[b}10456,David Beckham,77
+.
+[b}12017,Osamu Dazai,50
+[r}10789,Cristiano Ronaldo,7
+.
+.
+.
