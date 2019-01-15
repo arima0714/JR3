@@ -160,7 +160,7 @@ struct rb_node* resolve_red_pair(struct rb_node* t)
 		large_a = t;
 		large_b = large_a->left;
 		large_c = large_b->right;
-		large_d = large_a->left;
+		large_d = large_a->right;
 		t_1 = large_b->left;
 		t_2 = large_c->left;
 		t_3 = large_c->right;
@@ -191,7 +191,8 @@ struct rb_node* resolve_red_pair(struct rb_node* t)
 			if (large_d != NULL) {
 				large_d->black = BLACK;
 			}
-			return resolve_red_pair(rotate_left(large_a));
+			large_a->left = rotate_left(large_b);
+			return resolve_red_pair(large_a);
 		}
 	}
 	else if (is_red(t->right) && is_red(t->right->left)) {
@@ -230,7 +231,8 @@ struct rb_node* resolve_red_pair(struct rb_node* t)
 			if (large_d != NULL) {
 				large_c->black = RED;
 			}
-			return resolve_red_pair(rotate_right(large_a));
+			large_a->right = rotate_right(large_b);
+			return resolve_red_pair(large_a);
 		}
 	}
 	else if (is_red(t->right) && is_red(t->right->right)) {
