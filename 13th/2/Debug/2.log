@@ -1,3 +1,3 @@
-﻿  pch.cpp
-  2.cpp
+﻿  2.cpp
+c:\for_git\jr3\13th\2\2.cpp(221): warning C4715: 'resolve_red_pair': 値を返さないコントロール パスがあります。
   2.vcxproj -> C:\for_git\JR3\13th\2\Debug\2.exe
