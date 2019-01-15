@@ -274,6 +274,7 @@ struct rb_node* resolve_red_pair(struct rb_node* t)
 			return rotate_left(large_a);
 		}
 	}
+	return t;
 }
 
 int main()
