@@ -274,6 +274,7 @@ struct rb_node* rb_update(struct rb_node* t, struct student d) {
 		}
 		else if (t->data.id == d.id) {
 			t->data.score += d.score;
+			t->black = BLACK;
 		}
 		//resolve_red_pair()を実行
 		resolve_red_pair(t);
