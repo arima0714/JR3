@@ -1,7 +1,0 @@
-[r]10456,David Beckham,77
-.
-[b]10678,Shinji Kagawa,23
-[r]10567,Yuto Nagatomo,55
-.
-.
-.

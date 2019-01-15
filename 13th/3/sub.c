@@ -200,7 +200,7 @@ struct rb_node* resolve_red_pair(struct rb_node* t)
 		large_a = t;
 		large_b = large_a->right;
 		large_c = large_b->left;
-		large_d = large_a->right;
+		large_d = large_a->left;
 		t_1 = large_b->right;
 		t_2 = large_c->right;
 		t_3 = large_c->left;
