@@ -78,8 +78,8 @@ bool rule_2(struct rb_node* t) {
 		return true;
 	}
 	else {
-		left_child_color = is_black(t);
-		right_child_color = is_black(t);
+		left_child_color = is_black(t->left);
+		right_child_color = is_black(t->right);
 		if (parent_color == RED) {
 			if (left_child_color == RED) {
 				return false;
@@ -99,24 +99,32 @@ bool rule_2(struct rb_node* t) {
 	}
 }
 
-int rule_3_rec(struct rb_node* t) {
-	int result;
+bool rule_3_rec(struct rb_node* t) {
+	int left_result;
+	int right_result;
 	if (t == NULL) {
-		return 1;
+		return true;
 	}
 	else {
-		result = rule_3_rec(t->left) + rule_3_rec(t->right) + is_black(t);
-		return result;
+		left_result = rule_3_rec(t->left);
+		right_result = rule_3_rec(t->right);
+		if (left_result == true && right_result == true) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }
 
 bool rule_3(struct rb_node* t) {
 	// 3. 根から葉にたどり着くまで通る黒い節点の数がすべて同じ
-	int left_result;
-	int right_result;
+	// 深さ優先探索でNULLまでの距離を探していく…
+	bool left_result;
+	bool right_result;
 	left_result = rule_3_rec(t->left);
 	right_result = rule_3_rec(t->right);
-	return (left_result == right_result);
+	return (left_result == true && right_result == true);
 }
 
 bool is_rbtree(struct rb_node* t){
