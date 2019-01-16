@@ -106,6 +106,7 @@ int rule_3_rec(struct rb_node* t) {
 	}
 	else {
 		result = rule_3_rec(t->left) + rule_3_rec(t->right) + is_black(t);
+		return result;
 	}
 }
 
@@ -119,10 +120,10 @@ bool rule_3(struct rb_node* t) {
 }
 
 bool is_rbtree(struct rb_node* t){
-	if (rule_2 == false) {
+	if (rule_2(t) == false) {
 		return false;
 	}
-	if (rule_3 == false) {
+	if (rule_3(t) == false) {
 		return false;
 	}
     return true;
