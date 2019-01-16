@@ -8,8 +8,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define BLACK 1;
-#define RED 0;
+#define BLACK 1
+#define RED 0
 
 char buf[128];
 
@@ -49,50 +49,6 @@ struct rb_node* get_rbtree()
     }
 }
 
-struct rb_node* rotate_right(struct rb_node* t)
-{
-    struct rb_node* large_a;
-    struct rb_node* large_b;
-    struct rb_node* t_1;
-    struct rb_node* t_2;
-    struct rb_node* t_3;
-    large_a = t;
-    large_b = large_a->left;
-    if (large_b == NULL) {
-        return t;
-    }
-    t_1 = large_b->left;
-    t_2 = large_b->right;
-    t_3 = large_a->right;
-    large_b->right = large_a;
-    large_b->left = t_1;
-    large_a->left = t_2;
-    large_a->right = t_3;
-    return large_b;
-}
-
-struct rb_node* rotate_left(struct rb_node* t)
-{
-    struct rb_node* large_a;
-    struct rb_node* large_b;
-    struct rb_node* t_1;
-    struct rb_node* t_2;
-    struct rb_node* t_3;
-    large_b = t;
-    large_a = large_b->right;
-    if (large_a == NULL) {
-        return t;
-    }
-    t_1 = large_b->left;
-    t_2 = large_a->left;
-    t_3 = large_a->right;
-    large_a->left = large_b;
-    large_a->right = t_3;
-    large_b->left = t_1;
-    large_b->right = t_2;
-    return large_a;
-}
-
 void print_rbtree(struct rb_node* t)
 {
     if (t == NULL) {
@@ -104,127 +60,82 @@ void print_rbtree(struct rb_node* t)
     }
 }
 
-struct rb_node* resolve_red_pair(struct rb_node* t)
-{
-    struct rb_node* large_a;
-    struct rb_node* large_b;
-    struct rb_node* large_c;
-    struct rb_node* large_d;
-    struct rb_node* t_1;
-    struct rb_node* t_2;
-    struct rb_node* t_3;
-    struct rb_node* t_4;
-    if (is_red(t->left) && is_red(t->left->left)) {
-        large_a = t;
-        large_b = large_a->left;
-        large_c = large_b->left;
-        large_d = large_a->right;
-        t_1 = large_c->left;
-        t_2 = large_c->right;
-        t_3 = large_b->right;
-        t_4 = large_d;
-        //case1
-        if(is_red(t_4)){
-        	//case1.1
-			large_a->black = RED;
-			large_b->black = BLACK;
-			large_c->black = RED;
-			large_d->black = BLACK;
-			return large_a;
+// 1. 葉は必ず黒
+
+int is_black(struct rb_node* t) {
+	return (t == NULL || t->black);
+}
+
+bool rule_2(struct rb_node* t) {
+	int parent_color;
+	int left_child_color;
+	int right_child_color;
+	bool left_result;
+	bool right_result;
+	parent_color = is_black(t);
+	// 2. 赤の節点の子は必ず黒
+	if (t == NULL) {
+		return true;
+	}
+	else {
+		left_child_color = is_black(t);
+		right_child_color = is_black(t);
+		if (parent_color == RED) {
+			if (left_child_color == RED) {
+				return false;
+			}
+			else if (right_child_color == RED) {
+				return false;
+			}
 		}
-		else{
-        	//case1.2
-			large_a->black = RED;
-			large_b->black = BLACK;
-			large_c->black = RED;
-			large_d->black = BLACK;
-			return rotate_right(large_a);
-		}
-    } else if (is_red(t->left) && is_red(t->left->right)) {
-        //case2
-        large_a = t;
-        large_b = large_a->left;
-        large_c = large_b->right;
-        large_d = large_a->left;
-        t_1 = large_b->left;
-        t_2 = large_c->left;
-        t_3 = large_c->right;
-        t_4 = large_d;
-		if (is_red(t_4)) {
-			//case2.1
-			large_a->black = RED;
-			large_b->black = BLACK;
-			large_c->black = RED;
-			large_d->black = BLACK;
-			return large_a;
+		left_result =  rule_2(t->left);
+		right_result = rule_2(t->right);
+		if (left_result == true && right_result == true) {
+			return true;
 		}
 		else {
-			//case2.2
-			large_a->black = BLACK;
-			large_b->black = RED;
-			large_c->black = RED;
-			large_d->black = BLACK;
-			return resolve_red_pair(rotate_left(large_a));
+			return false;
 		}
-    } else if (is_red(t->right) && is_red(t->right->left)) {
-        //case3//case2の左右逆
-		large_a = t;
-		large_b = large_a->right;
-		large_c = large_b->left;
-		large_d = large_a->right;
-		t_1 = large_b->right;
-		t_2 = large_c->right;
-		t_3 = large_c->left;
-		t_4 = large_d;
-        //case3.1
-		if (is_red(t_4)) {
-			large_a->black = RED;
-			large_b->black = BLACK;
-			large_c->black = RED;
-			large_d->black = BLACK;
-		}
-		else {
-			//case3.2
-			large_a->black = BLACK;
-			large_b->black = RED;
-			large_c->black = RED;
-			large_d->black = BLACK;
-			return resolve_red_pair(rotate_right(large_a));
-		}
-    } else if (is_red(t->right) && is_red(t->right->right)) {
-        //case4//case1の左右逆
-		large_a = t;
-		large_b = large_a->right;
-		large_c = large_b->right;
-		large_d = large_a->left;
-		t_1 = large_c->right;
-		t_2 = large_c->left;
-		t_3 = large_b->left;
-		t_4 = large_d;
-		if (is_red(t_4)) {
-			//case4.1
-			large_a->black = RED;
-			large_b->black = BLACK;
-			large_c->black = RED;
-			large_d->black = BLACK;
-			return large_a;
-		}
-		else {
-			//case4.2
-			large_a->black = RED;
-			large_b->black = BLACK;
-			large_c->black = RED;
-			large_d->black = BLACK;
-			return rotate_left(large_a);
-		}
-    }
+	}
+}
+
+int rule_3_rec(struct rb_node* t) {
+	int result;
+	if (t == NULL) {
+		return 1;
+	}
+	else {
+		result = rule_3_rec(t->left) + rule_3_rec(t->right) + is_black(t);
+	}
+}
+
+bool rule_3(struct rb_node* t) {
+	// 3. 根から葉にたどり着くまで通る黒い節点の数がすべて同じ
+	int left_result;
+	int right_result;
+	left_result = rule_3_rec(t->left);
+	right_result = rule_3_rec(t->right);
+	return (left_result == right_result);
+}
+
+bool is_rbtree(struct rb_node* t){
+	if (rule_2 == false) {
+		return false;
+	}
+	if (rule_3 == false) {
+		return false;
+	}
+    return true;
 }
 
 int main()
 {
     struct rb_node* t = get_rbtree();
-    t = resolve_red_pair(t);
-    print_rbtree(t);
+    if(is_rbtree(t)){
+        printf("Yes.\n");
+    }else{
+        printf("No.\n");
+    }
     return 0;
 }
 
