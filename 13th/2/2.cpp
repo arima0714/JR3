@@ -99,15 +99,15 @@ bool rule_2(struct rb_node* t) {
 	}
 }
 
-bool rule_3_rec(struct rb_node* t) {
+int rule_3_rec(struct rb_node* t,int num) {
 	int left_result;
 	int right_result;
 	if (t == NULL) {
-		return true;
+		return num + 1;
 	}
 	else {
-		left_result = rule_3_rec(t->left);
-		right_result = rule_3_rec(t->right);
+		left_result = rule_3_rec(t->left,num+is_black(t->left));
+		right_result = rule_3_rec(t->right,num+is_black(t->right));
 		if (left_result == true && right_result == true) {
 			return true;
 		}
@@ -122,8 +122,8 @@ bool rule_3(struct rb_node* t) {
 	// 深さ優先探索でNULLまでの距離を探していく…
 	bool left_result;
 	bool right_result;
-	left_result = rule_3_rec(t->left);
-	right_result = rule_3_rec(t->right);
+	left_result = rule_3_rec(t->left,0);
+	right_result = rule_3_rec(t->right,0);
 	return (left_result == true && right_result == true);
 }
 
