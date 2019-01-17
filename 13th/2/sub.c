@@ -14,53 +14,74 @@
 char buf[128];
 
 struct student {
-    int id;
-    char name[32];
-    int score;
+	int id;
+	char name[32];
+	int score;
 };
 
 typedef struct student datatype;
 
 struct rb_node {
-    datatype data;
-    struct rb_node* left;
-    struct rb_node* right;
-    int black;
+	datatype data;
+	struct rb_node* left;
+	struct rb_node* right;
+	int black;
 };
 
 int is_red(struct rb_node* t)
 {
-    return (t != NULL && !t->black);
+	return (t != NULL && !t->black);
 }
 
 struct rb_node* get_rbtree()
 {
-    struct rb_node* t;
-    char c;
-    if (fgets(buf, sizeof(buf), stdin) == NULL || buf[0] == '.') {
-        return NULL;
-    } else {
-        t = (struct rb_node*)malloc(sizeof(struct rb_node));
-        sscanf(buf, "[%c]%d,%[^,],%d", &c, &t->data.id, &t->data.name, &t->data.score);
-        t->black = (c == 'b');
-        t->left = get_rbtree();
-        t->right = get_rbtree();
-        return t;
-    }
+	struct rb_node* t;
+	char c;
+	if (fgets(buf, sizeof(buf), stdin) == NULL || buf[0] == '.') {
+		return NULL;
+	}
+	else {
+		t = (struct rb_node*)malloc(sizeof(struct rb_node));
+		sscanf(buf, "[%c]%d,%[^,],%d", &c, &t->data.id, &t->data.name, &t->data.score);
+		t->black = (c == 'b');
+		t->left = get_rbtree();
+		t->right = get_rbtree();
+		return t;
+	}
 }
 
 void print_rbtree(struct rb_node* t)
 {
-    if (t == NULL) {
-        printf(".\n");
-    } else {
-        printf("[%c]%d,%s,%d\n", t->black ? 'b' : 'r', t->data.id, t->data.name, t->data.score);
-        print_rbtree(t->left);
-        print_rbtree(t->right);
-    }
+	if (t == NULL) {
+		printf(".\n");
+	}
+	else {
+		printf("[%c]%d,%s,%d\n", t->black ? 'b' : 'r', t->data.id, t->data.name, t->data.score);
+		print_rbtree(t->left);
+		print_rbtree(t->right);
+	}
 }
 
 // 1. 葉は必ず黒
+
+int checker(int num_black_node, int last_check) {
+	static int route_num = -1;
+	static int route_num_update = 0;
+	if (last_check == 1) {
+		if (route_num_update == 1) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	if (num_black_node != route_num) {
+		route_num = num_black_node;
+		route_num_update++;
+		//printf("route_num = %d, route_num_update = %d\n", route_num, route_num_update);
+		return NULL;
+	}
+}
 
 int is_black(struct rb_node* t) {
 	return (t == NULL || t->black);
@@ -88,7 +109,7 @@ bool rule_2(struct rb_node* t) {
 				return false;
 			}
 		}
-		left_result =  rule_2(t->left);
+		left_result = rule_2(t->left);
 		right_result = rule_2(t->right);
 		if (left_result == true && right_result == true) {
 			return true;
@@ -99,53 +120,44 @@ bool rule_2(struct rb_node* t) {
 	}
 }
 
-int rule_3_rec(struct rb_node* t,int num) {
-	int left_result;
-	int right_result;
+void rule_3_rec(struct rb_node* t, int num) {
 	if (t == NULL) {
-		return num + 1;
+		checker(num + 1, false);
 	}
 	else {
-		left_result = rule_3_rec(t->left,num+is_black(t->left));
-		right_result = rule_3_rec(t->right,num+is_black(t->right));
-		if (left_result == true && right_result == true) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		rule_3_rec(t->left, num + is_black(t));
+		rule_3_rec(t->right, num + is_black(t));
 	}
 }
 
 bool rule_3(struct rb_node* t) {
 	// 3. 根から葉にたどり着くまで通る黒い節点の数がすべて同じ
-	// 深さ優先探索でNULLまでの距離を探していく…
-	bool left_result;
-	bool right_result;
-	left_result = rule_3_rec(t->left,0);
-	right_result = rule_3_rec(t->right,0);
-	return (left_result == true && right_result == true);
+	// 深さ優先探索でNULLまで探していく…
+	rule_3_rec(t->left, 0);
+	rule_3_rec(t->right, 0);
+	return checker(0, true);
 }
 
-bool is_rbtree(struct rb_node* t){
+bool is_rbtree(struct rb_node* t) {
 	if (rule_2(t) == false) {
 		return false;
 	}
 	if (rule_3(t) == false) {
 		return false;
 	}
-    return true;
+	return true;
 }
 
 int main()
 {
-    struct rb_node* t = get_rbtree();
-    if(is_rbtree(t)){
-        printf("Yes.\n");
-    }else{
-        printf("No.\n");
-    }
-    return 0;
+	struct rb_node* t = get_rbtree();
+	if (is_rbtree(t)) {
+		printf("Yes.\n");
+	}
+	else {
+		printf("No.\n");
+	}
+	return 0;
 }
 
 // プログラムの実行: Ctrl + F5 または [デバッグ] > [デバッグなしで開始] メニュー
