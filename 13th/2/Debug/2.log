@@ -1,3 +1,2 @@
 ﻿  2.cpp
-c:\for_git\jr3\13th\2\2.cpp(111): warning C4805: '==': 演算中の 'int' 型と 'bool' 型の混用は安全ではありません
-  2.vcxproj -> C:\for_git\JR3\13th\2\Debug\2.exe
+c:\for_git\jr3\13th\2\2.cpp(122): error C2059: 構文エラー: ')'

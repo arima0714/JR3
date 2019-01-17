@@ -100,31 +100,26 @@ bool rule_2(struct rb_node* t) {
 }
 
 int rule_3_rec(struct rb_node* t,int num) {
-	int left_result;
-	int right_result;
-	if (t == NULL) {
-		return num + 1;
-	}
-	else {
-		left_result = rule_3_rec(t->left,num+is_black(t->left));
-		right_result = rule_3_rec(t->right,num+is_black(t->right));
-		if (left_result == true && right_result == true) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+
 }
 
 bool rule_3(struct rb_node* t) {
 	// 3. 根から葉にたどり着くまで通る黒い節点の数がすべて同じ
 	// 深さ優先探索でNULLまでの距離を探していく…
-	bool left_result;
-	bool right_result;
-	left_result = rule_3_rec(t->left,0);
-	right_result = rule_3_rec(t->right,0);
-	return (left_result == true && right_result == true);
+	int left;
+	int right;
+	struct rb_node* temp = t;
+	int most_left_result = 0;
+
+	//最も左までの最初に探索する
+	while (temp != NULL) {
+		most_left_result += is_black(temp);
+		temp = temp->left;
+	}
+	//深さ優先で探索を実施し、引数として与えられた最も左の場合と異なればfalseを返す
+	left = rule_3_rec(t->left,most_left_result);
+	right = rule_3_rec(t->right,most_left_result);
+	if()
 }
 
 bool is_rbtree(struct rb_node* t){
