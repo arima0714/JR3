@@ -1,5 +1,8 @@
 gcc:
-	cp 1.cpp sub.c
-	gcc -Wall -std=c99 -O2 sub.c
+	gcc -Wall -std=c99 -O2 1.c
 
+debug:
+	gcc -Wall -std=c99 -O2 -g3 1.c
 
+d:
+	gcc -g3 1.c

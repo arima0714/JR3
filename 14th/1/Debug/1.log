@@ -1,6 +1,0 @@
-﻿  1.cpp
-c:\for_git\jr3\14th\1\1.cpp(24): warning C4552: '-': 式の結果が使用されていません
-c:\for_git\jr3\14th\1\1.cpp(45): error C2131: 式は定数に評価されませんでした
-  c:\for_git\jr3\14th\1\1.cpp(45): note: 期限切れの変数の読み取りによってエラーが発生しました
-  c:\for_git\jr3\14th\1\1.cpp(45): note: 'ekisu' の使用量を参照してください
-c:\for_git\jr3\14th\1\1.cpp(47): error C3863: 配列型 'node *[ekisu]' を割り当てることはできません。
