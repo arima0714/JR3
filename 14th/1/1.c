@@ -17,8 +17,6 @@ void add_edge(struct node* adjlist[], int eki1, int eki2, int rosen, float kyori
 {
     struct node* new_node_1;
     struct node* new_node_2;
-    struct node* temp_1;
-    struct node* temp_2;
     new_node_1 = (struct node*)malloc(sizeof(struct node));
     new_node_2 = (struct node*)malloc(sizeof(struct node));
     new_node_1->eki = eki2;
