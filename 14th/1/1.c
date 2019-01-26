@@ -39,6 +39,8 @@ void add_edge(struct node* adjlist[], int eki1, int eki2, int rosen, float kyori
 {
     struct node* new_node_1;
     struct node* new_node_2;
+    struct node* temp_1;
+    struct node* temp_2;
     new_node_1 = (struct node*)malloc(sizeof(struct node));
     new_node_2 = (struct node*)malloc(sizeof(struct node));
     new_node_1->eki = eki2;
@@ -48,22 +50,44 @@ void add_edge(struct node* adjlist[], int eki1, int eki2, int rosen, float kyori
     new_node_1->rosen = rosen;
     new_node_2->rosen = rosen;
 
-    //eki1連結リストの先頭にeki2を含むnodeを追加
-	if(adjlist[eki1] == NULL){
+    	//eki1連結リストの先頭にeki2を含むnodeを追加
+    // temp_1 = adjlist[eki1];
+	// if(temp_1 == NULL){
+	// 	temp_1 = new_node_1;
+	// 	new_node_1->next = NULL;
+	// }else{
+	// 	while(temp_1->next != NULL){
+	// 		temp_1 = temp_1->next;
+	// 	}
+	// 	new_node_1->next = temp_1->next;
+	// 	temp_1->next = new_node_1;
+	// }
+    if(adjlist[eki1] == NULL){
         adjlist[eki1] = new_node_1;
         new_node_1->next = NULL;
     }
 	else{
-        new_node_1->next = adjlist[eki1]->next;
-        adjlist[eki1]->next = new_node_1;
+        new_node_1->next = adjlist[eki1];
+        adjlist[eki1] = new_node_1;
     }
     //eki2連結リストの先頭にeki1を含むnodeを追加
+    // temp_2 = adjlist[eki2];
+    // if(temp_2 == NULL){
+    // 	temp_2 = new_node_2;
+    // 	new_node_2->next = NULL;
+    // }else{
+    // 	while(temp_2->next != NULL){
+    // 		temp_2 = temp_2->next;
+    // 	}
+    // 	new_node_2->next = temp_2->next;
+    // 	temp_2->next = new_node_2;
+    // }
     if (adjlist[eki2] == NULL) {
         adjlist[eki2] = new_node_2;
-        new_node_1->next = NULL;
+        new_node_2->next = NULL;
     } else {
-        new_node_2->next = adjlist[eki2]->next;
-        adjlist[eki2]->next = new_node_2;
+        new_node_2->next = adjlist[eki2];
+        adjlist[eki2] = new_node_2;
     }
 }
 
