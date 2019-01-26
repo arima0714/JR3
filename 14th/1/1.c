@@ -13,56 +13,6 @@ struct node {
 	struct node *next;
 };
 
-// void add_edge(struct node *adjlist[], int eki1, int eki2, int rosen,
-// 	      float kyori)
-// {
-// 	struct node **temp = adjlist;
-// 	struct node *node_one;
-// 	struct node *node_two;
-// 	struct node *temp_node;
-// 	if (temp[eki1] == NULL) {
-// 		node_one = (struct node *)malloc(sizeof(struct node));
-// 		node_one->eki = eki2;
-// 		node_one->rosen = rosen;
-// 		node_one->kyori = kyori;
-// 		node_one->next = NULL;
-// 		temp[eki1] = node_one;
-// 	} else {
-// 		temp_node = temp[eki1];
-// 		while (temp_node->next != NULL || temp_node->eki > eki1) {
-// 			temp_node = temp_node->next;
-// 		}
-// 		node_one = (struct node *)malloc(sizeof(struct node));
-// 		node_one->eki = eki2;
-// 		node_one->rosen = rosen;
-// 		node_one->kyori = kyori;
-// 		node_one->next = temp_node->next;
-// 		temp_node->next = node_one;
-// 	}
-
-// 	if (temp[eki2] == NULL) {
-// 		printf("hel\n");
-// 		node_two = (struct node *)malloc(sizeof(struct node));
-// 		node_two->eki = eki2;
-// 		node_two->rosen = rosen;
-// 		node_two->kyori = kyori;
-// 		node_two->next = NULL;
-// 		temp[eki2] = node_two;
-// 	} else {
-// 		printf("here\n");
-// 		temp_node = temp[eki2];
-// 		while (temp_node->next != NULL || temp_node->eki > eki2) {
-// 			temp_node = temp_node->next;
-// 		}
-// 		node_two = (struct node *)malloc(sizeof(struct node));
-// 		node_two->eki = eki1;
-// 		node_two->rosen = rosen;
-// 		node_two->kyori = kyori;
-// 		node_two->next = temp_node->next;
-// 		temp_node->next = node_two;
-// 	}
-// }
-
 void add_edge(struct node* adjlist[], int eki1, int eki2, int rosen, float kyori){
 	
 }
