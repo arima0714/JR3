@@ -13,29 +13,58 @@ struct node {
     struct node* next;
 };
 
-void put_node(struct node* list, int eki, int rosen, float kyori)
-{
-    struct node* new_node;
-    new_node = (struct node*)malloc(sizeof(struct node));
-    new_node->eki = eki;
-    new_node->kyori = kyori;
-    new_node->rosen = rosen;
-    if (list == NULL) {
-        new_node->next = NULL;
-    } else {
-        new_node->next = list->next;
-        list->next = new_node;
-    }
-}
+// void put_node(struct node** list, int eki, int rosen, float kyori)
+// {
+//     struct node* new_node;
+//     new_node = (struct node*)malloc(sizeof(struct node));
+//     new_node->eki = eki;
+//     new_node->kyori = kyori;
+//     new_node->rosen = rosen;
+//     if (list == NULL) {
+//         #ifdef DEBUG
+//         printf("list == NULL\n");
+//         #endif
+//         new_node->next = NULL;
+//         list = new_node;
+//     } else {
+// 		#ifdef DEBUG
+//         printf("list != NULL\n");
+// 		#endif
+//         new_node->next = list->next;
+//         list->next = new_node;
+//     }
+// }
 
 void add_edge(struct node* adjlist[], int eki1, int eki2, int rosen, float kyori)
 {
-    struct node* new_n1;
-    struct node* new_n2;
+    struct node* new_node_1;
+    struct node* new_node_2;
+    new_node_1 = (struct node*)malloc(sizeof(struct node));
+    new_node_2 = (struct node*)malloc(sizeof(struct node));
+    new_node_1->eki = eki2;
+    new_node_2->eki = eki1;
+    new_node_1->kyori = kyori;
+    new_node_2->kyori = kyori;
+    new_node_1->rosen = rosen;
+    new_node_2->rosen = rosen;
+
     //eki1連結リストの先頭にeki2を含むnodeを追加
-    put_node(adjlist[eki1], eki2, rosen, kyori);
+	if(adjlist[eki1] == NULL){
+        adjlist[eki1] = new_node_1;
+        new_node_1->next = NULL;
+    }
+	else{
+        new_node_1->next = adjlist[eki1]->next;
+        adjlist[eki1]->next = new_node_1;
+    }
     //eki2連結リストの先頭にeki1を含むnodeを追加
-    put_node(adjlist[eki2], eki1, rosen, kyori);
+    if (adjlist[eki2] == NULL) {
+        adjlist[eki2] = new_node_2;
+        new_node_1->next = NULL;
+    } else {
+        new_node_2->next = adjlist[eki2]->next;
+        adjlist[eki2]->next = new_node_2;
+    }
 }
 
 void print_adjlist(struct node* adjlist[], int n)
