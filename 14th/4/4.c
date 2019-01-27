@@ -108,6 +108,11 @@ void warshall(int n, int adjmat[n][n], int result[n][n]){
     //         for each j ∈ {1,...,n}
     //             if (di,j > di,k + dk,j)
     //                 di,j ← di,k + dk,j
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            result[i][j] = adjmat[i][j];
+        }
+    }
     for (int k = 0; k < n;k++){
         for (int i = 0; i < n;i++){
             for (int j = 0; j < n;j++){
@@ -115,10 +120,10 @@ void warshall(int n, int adjmat[n][n], int result[n][n]){
                 printf("adjmat[%d][%d](%d) + adjmat[%d][%d](%d)\n",i,k,adjmat[i][k],k,j,adjmat[k][j]);
                 #endif
                 // if(adjmat[i][j] > adjmat[i][k]+adjmat[k][j]){
-                if(1<(adjmat[i][k]+adjmat[k][j])){
+                if(1<(result[i][k]+result[k][j])){
                     #ifdef DEBUG
                         printf("this is DEBUG\n");
-                        adjmat[i][j] = true;
+                        //adjmat[i][j] = true;
                     #endif
                     result[i][j] = true;
                 }
@@ -146,7 +151,6 @@ int main()
     for (int i = 0; i < ekisu; i++) {
         for (int j = 0; j < ekisu; j++) {
             adjmat[i][j] = 0;
-            result[i][j] = 0;
         }
     }
     while (fgets(buf, sizeof(buf), stdin) != NULL) {

@@ -20,4 +20,13 @@ d2:
 2:
 	make gcc
 	./a.out < ./counterexamples/2.in > out.txt
-	diff out.txt ./counterexamples/2.out	
+	diff out.txt ./counterexamples/2.out
+
+d3:
+	make debug
+	./a.out < ./counterexamples/3.in
+
+3:
+	make gcc
+	./a.out < ./counterexamples/3.in > out.txt
+	diff -u out.txt ./counterexamples/3.out	
