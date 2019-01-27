@@ -152,6 +152,8 @@ int diameter(int n, int adjmat[n][n])
             if(adjmat[i][j]== 0){
                 if (i != j) {
                     adjmat[i][j] = n + 1;
+                }else{
+                    adjmat[i][j] = 1;
                 }
             }
         }
