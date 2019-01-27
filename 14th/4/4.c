@@ -96,6 +96,38 @@ float two_hop_kyori(struct node* adjlist[], int eki)
     return answer;
 }
 
+void warshall(int n, int adjmat[n][n], int result[n][n]){
+    // // 初期化
+    // for each i ∈ {1,...,n}
+    //     for each j ∈ {1,...,n}
+    //         di,j ← i と j を結ぶ辺 e があれば length(e) なければ 無限大
+
+    // // 本計算
+    // for each k ∈ {1,...,n}
+    //     for each i ∈ {1,...,n}
+    //         for each j ∈ {1,...,n}
+    //             if (di,j > di,k + dk,j)
+    //                 di,j ← di,k + dk,j
+    for (int k = 0; k < n;k++){
+        for (int i = 0; i < n;i++){
+            for (int j = 0; j < n;j++){
+                #ifdef DEBUG
+                printf("adjmat[%d][%d](%d) + adjmat[%d][%d](%d)\n",i,k,adjmat[i][k],k,j,adjmat[k][j]);
+                #endif
+                // if(adjmat[i][j] > adjmat[i][k]+adjmat[k][j]){
+                if(0!=(adjmat[i][k]+adjmat[k][j])){
+                    #ifdef DEBUG
+                        printf("this is DEBUG\n");
+                    #endif
+                    adjmat[i][j] = true;
+                    result[i][j] = true;
+                }
+            }
+        }
+    }
+    result = adjmat;
+}
+
 int main()
 {
     int ekisu;
@@ -105,9 +137,11 @@ int main()
     float kyori;
     scanf("%d ", &ekisu);
     int adjmat[ekisu][ekisu];
+    int result[ekisu][ekisu];
     for (int i = 0; i < ekisu; i++) {
         for (int j = 0; j < ekisu; j++) {
             adjmat[i][j] = 0;
+            result[i][j] = 0;
         }
     }
     while (fgets(buf, sizeof(buf), stdin) != NULL) {
@@ -116,11 +150,20 @@ int main()
         adjmat[eki1][eki2] = 1;
         adjmat[eki2][eki1] = 1;
     }
-    for (int i = 0; i < ekisu;i++){
-        for (int j = 0; j < ekisu;j++){
+    warshall(ekisu, adjmat, result);
+    for (int i = 0; i < ekisu; i++) {
+        for (int j = 0; j < ekisu; j++) {
+            printf("%d", result[i][j]);
+        }
+        printf("\n");
+    }
+    #ifdef DEBUG
+    for (int i = 0; i < ekisu; i++) {
+        for (int j = 0; j < ekisu; j++) {
             printf("%d", adjmat[i][j]);
         }
         printf("\n");
     }
-        return 0;
+    #endif
+    return 0;
 }

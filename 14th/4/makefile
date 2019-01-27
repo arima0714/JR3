@@ -1,8 +1,8 @@
 gcc:
-	gcc -Wall -std=c99 -O2 3.c
+	gcc -Wall -std=c99 -O2 4.c
 
 debug:
-	gcc -Wall -std=c99 -O2 -DDEBUG 3.c
+	gcc -Wall -std=c99 -O2 -DDEBUG 4.c
 
 d1:
 	make debug
