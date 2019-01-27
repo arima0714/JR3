@@ -115,17 +115,19 @@ void warshall(int n, int adjmat[n][n], int result[n][n]){
                 printf("adjmat[%d][%d](%d) + adjmat[%d][%d](%d)\n",i,k,adjmat[i][k],k,j,adjmat[k][j]);
                 #endif
                 // if(adjmat[i][j] > adjmat[i][k]+adjmat[k][j]){
-                if(0!=(adjmat[i][k]+adjmat[k][j])){
+                if(1<(adjmat[i][k]+adjmat[k][j])){
                     #ifdef DEBUG
                         printf("this is DEBUG\n");
+                        adjmat[i][j] = true;
                     #endif
-                    adjmat[i][j] = true;
+                    result[i][j] = true;
+                }
+                if(i==j){
                     result[i][j] = true;
                 }
             }
         }
     }
-    result = adjmat;
 }
 
 int main()
@@ -136,6 +138,9 @@ int main()
     int rosen;
     float kyori;
     scanf("%d ", &ekisu);
+    #ifdef DEBUG
+    printf("ekisu is %d", ekisu);
+    #endif
     int adjmat[ekisu][ekisu];
     int result[ekisu][ekisu];
     for (int i = 0; i < ekisu; i++) {
@@ -151,6 +156,9 @@ int main()
         adjmat[eki2][eki1] = 1;
     }
     warshall(ekisu, adjmat, result);
+    #ifdef DEBUG
+    printf("this is result\n");
+    #endif
     for (int i = 0; i < ekisu; i++) {
         for (int j = 0; j < ekisu; j++) {
             printf("%d", result[i][j]);
@@ -158,6 +166,7 @@ int main()
         printf("\n");
     }
     #ifdef DEBUG
+    printf("this is adjmat\n");
     for (int i = 0; i < ekisu; i++) {
         for (int j = 0; j < ekisu; j++) {
             printf("%d", adjmat[i][j]);
