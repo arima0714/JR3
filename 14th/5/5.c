@@ -202,7 +202,6 @@ int main()
     float kyori;
     scanf("%d ", &ekisu);
     int adjmat[ekisu][ekisu];
-    int result[ekisu][ekisu];
     for (int i = 0; i < ekisu; i++) {
         for (int j = 0; j < ekisu; j++) {
             adjmat[i][j] = 0;
