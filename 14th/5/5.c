@@ -96,7 +96,7 @@ float two_hop_kyori(struct node* adjlist[], int eki)
     return answer;
 }
 
-void warshall(int n, int adjmat[n][n], int result[n][n]){
+int warshall(int n, int adjmat[n][n], int result[n][n]){
     // // 初期化
     // for each i ∈ {1,...,n}
     //     for each j ∈ {1,...,n}
@@ -108,6 +108,7 @@ void warshall(int n, int adjmat[n][n], int result[n][n]){
     //         for each j ∈ {1,...,n}
     //             if (di,j > di,k + dk,j)
     //                 di,j ← di,k + dk,j
+    int answer = 0;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             result[i][j] = adjmat[i][j];
@@ -119,13 +120,12 @@ void warshall(int n, int adjmat[n][n], int result[n][n]){
                 #ifdef DEBUG
                 printf("adjmat[%d][%d](%d) + adjmat[%d][%d](%d)\n",i,k,adjmat[i][k],k,j,adjmat[k][j]);
                 #endif
-                // if(adjmat[i][j] > adjmat[i][k]+adjmat[k][j]){
-                if(1<(result[i][k]+result[k][j])){
+                if(1<(result[i][k]+result[k][j])){//つながりがあるということ
                     #ifdef DEBUG
                         printf("this is DEBUG\n");
                         //adjmat[i][j] = true;
                     #endif
-                    result[i][j] = true;
+                    result[i][j]++;
                 }
                 if(i==j){
                     result[i][j] = true;
@@ -133,6 +133,15 @@ void warshall(int n, int adjmat[n][n], int result[n][n]){
             }
         }
     }
+    answer = result[0][1];
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if(answer > result[i][j]){
+                answer = result[i][j];
+            }
+        }
+    }
+    return answer;
 }
 
 int main()
@@ -159,17 +168,18 @@ int main()
         adjmat[eki1][eki2] = 1;
         adjmat[eki2][eki1] = 1;
     }
-    warshall(ekisu, adjmat, result);
+    #ifdef DEBUG
+    printf("this is answer\n");
+    #endif
+    printf("%d\n",warshall(ekisu, adjmat, result);
     #ifdef DEBUG
     printf("this is result\n");
-    #endif
     for (int i = 0; i < ekisu; i++) {
         for (int j = 0; j < ekisu; j++) {
             printf("%d", result[i][j]);
         }
         printf("\n");
     }
-    #ifdef DEBUG
     printf("this is adjmat\n");
     for (int i = 0; i < ekisu; i++) {
         for (int j = 0; j < ekisu; j++) {
