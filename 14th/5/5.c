@@ -122,10 +122,6 @@ void warshall(int n, int adjmat[n][n], int result[n][n])
 #endif
                 // if(adjmat[i][j] > adjmat[i][k]+adjmat[k][j]){
                 if (1 < (result[i][k] + result[k][j])) {
-#ifdef DEBUG
-                    printf("this is DEBUG\n");
-                    //adjmat[i][j] = true;
-#endif
                     result[i][j] = true;
                 }
                 if (i == j) {
@@ -152,7 +148,13 @@ int diameter(int n, int adjmat[n][n])
     //             if (di,j > di,k + dk,j)
     //                 di,j ← di,k + dk,j
     for (int i = 0; i < n; i++) {
-        adjmat[i][i] = 1;
+        for (int j = 0; j < n;j++){
+            if(adjmat[i][j]== 0){
+                if (i != j) {
+                    adjmat[i][j] = n + 1;
+                }
+            }
+        }
     }
     #ifdef DEBUG
     printf("this is adjmat\n");
@@ -211,7 +213,15 @@ int main()
         adjmat[eki2][eki1] = 1;
     }
     #ifdef DEBUG
-    printf("this is answer");
+    printf("this is answer ");
+    #endif
+    #ifdef TEST
+    for (int i = 0; i < ekisu;i++){
+        for (int j = 0; j < ekisu;j++){
+            printf("%d", adjmat[i][j]);
+        }
+        printf("\n");
+    }
     #endif
     printf("%d\n", diameter(ekisu, adjmat));
     #ifdef DEBUG
