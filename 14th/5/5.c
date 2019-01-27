@@ -96,7 +96,8 @@ float two_hop_kyori(struct node* adjlist[], int eki)
     return answer;
 }
 
-int warshall(int n, int adjmat[n][n], int result[n][n]){
+void warshall(int n, int adjmat[n][n], int result[n][n])
+{
     // // 初期化
     // for each i ∈ {1,...,n}
     //     for each j ∈ {1,...,n}
@@ -108,36 +109,80 @@ int warshall(int n, int adjmat[n][n], int result[n][n]){
     //         for each j ∈ {1,...,n}
     //             if (di,j > di,k + dk,j)
     //                 di,j ← di,k + dk,j
-    int answer = 0;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             result[i][j] = adjmat[i][j];
         }
     }
-    for (int k = 0; k < n;k++){
-        for (int i = 0; i < n;i++){
-            for (int j = 0; j < n;j++){
-                #ifdef DEBUG
-                printf("adjmat[%d][%d](%d) + adjmat[%d][%d](%d)\n",i,k,adjmat[i][k],k,j,adjmat[k][j]);
-                #endif
-                if(1<(result[i][k]+result[k][j])){//つながりがあるということ
-                    #ifdef DEBUG
-                        printf("this is DEBUG\n");
-                        //adjmat[i][j] = true;
-                    #endif
-                    result[i][j]++;
+    for (int k = 0; k < n; k++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+#ifdef DEBUG
+                printf("adjmat[%d][%d](%d) + adjmat[%d][%d](%d)\n", i, k, adjmat[i][k], k, j, adjmat[k][j]);
+#endif
+                // if(adjmat[i][j] > adjmat[i][k]+adjmat[k][j]){
+                if (1 < (result[i][k] + result[k][j])) {
+#ifdef DEBUG
+                    printf("this is DEBUG\n");
+                    //adjmat[i][j] = true;
+#endif
+                    result[i][j] = true;
                 }
-                if(i==j){
+                if (i == j) {
                     result[i][j] = true;
                 }
             }
         }
     }
-    answer = result[0][1];
+}
+
+int diameter(int n, int adjmat[n][n])
+{
+    int answer = 0;
+    // // 初期化
+    // for each i ∈ {1,...,n}
+    //     for each j ∈ {1,...,n}
+    //         di,j ← i と j を結ぶ辺 e があれば length(e) なければ 無限大
+    //  //このプログラムでいうと、dはadjmatである
+
+    // // 本計算
+    // for each k ∈ {1,...,n}
+    //     for each i ∈ {1,...,n}
+    //         for each j ∈ {1,...,n}
+    //             if (di,j > di,k + dk,j)
+    //                 di,j ← di,k + dk,j
+    for (int i = 0; i < n; i++) {
+        adjmat[i][i] = 1;
+    }
+    #ifdef DEBUG
+    printf("this is adjmat\n");
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            if(answer > result[i][j]){
-                answer = result[i][j];
+            printf("%d ", adjmat[i][j]);
+        }
+        printf("\n");
+    }
+    #endif
+    for (int k = 0; k < n; k++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (adjmat[i][k] + adjmat[k][j] >= 2) {
+                    if (adjmat[i][j] == 0) {
+                        adjmat[i][j] = adjmat[i][k] + adjmat[k][j];
+                    } else if (adjmat[i][j] > adjmat[i][k] + adjmat[k][j]) {
+                        #ifdef DEBUG
+                        printf("adjmat[%d][%d] = %d\n", i, j, adjmat[i][j]);
+                        #endif
+                        adjmat[i][j] = adjmat[i][k] + adjmat[k][j];
+                    }
+                }
+            }
+        }
+    }
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (adjmat[i][j] > answer) {
+                answer = adjmat[i][j];
             }
         }
     }
@@ -152,9 +197,6 @@ int main()
     int rosen;
     float kyori;
     scanf("%d ", &ekisu);
-    #ifdef DEBUG
-    printf("ekisu is %d", ekisu);
-    #endif
     int adjmat[ekisu][ekisu];
     int result[ekisu][ekisu];
     for (int i = 0; i < ekisu; i++) {
@@ -169,21 +211,21 @@ int main()
         adjmat[eki2][eki1] = 1;
     }
     #ifdef DEBUG
-    printf("this is answer\n");
+    printf("this is answer");
     #endif
-    printf("%d\n",warshall(ekisu, adjmat, result));
+    printf("%d\n", diameter(ekisu, adjmat));
     #ifdef DEBUG
-    printf("this is result\n");
-    for (int i = 0; i < ekisu; i++) {
-        for (int j = 0; j < ekisu; j++) {
-            printf("%d", result[i][j]);
-        }
-        printf("\n");
-    }
+    // printf("this is result\n");
+    // for (int i = 0; i < ekisu; i++) {
+    //     for (int j = 0; j < ekisu; j++) {
+    //         printf("%d", result[i][j]);
+    //     }
+    //     printf("\n");
+    // }
     printf("this is adjmat\n");
     for (int i = 0; i < ekisu; i++) {
         for (int j = 0; j < ekisu; j++) {
-            printf("%d", adjmat[i][j]);
+            printf("%d ", adjmat[i][j]);
         }
         printf("\n");
     }
