@@ -171,7 +171,7 @@ int main()
     #ifdef DEBUG
     printf("this is answer\n");
     #endif
-    printf("%d\n",warshall(ekisu, adjmat, result);
+    printf("%d\n",warshall(ekisu, adjmat, result));
     #ifdef DEBUG
     printf("this is result\n");
     for (int i = 0; i < ekisu; i++) {
