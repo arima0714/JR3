@@ -44,7 +44,7 @@ int delete_min_int(struct set* p){
         return -1;
     }else{//2
         min = p->elements[0];
-        for (int j = 0; j < p->size - 1;j++){
+        for (int j = 0; j <= p->size - 1;j++){
             if(min > p->elements[j]){
                 min = p->elements[j];
                 i = j;
