@@ -110,28 +110,7 @@ int dijkstra(struct node* adjlist[], int eki1, int eki2, int ekisu)
     cur = eki1;
     struct set unknown;
     init_set(&unknown, ekisu, eki1);
-    //3
-    while(unknown.size != 0 || cur != eki2){
-        #ifdef DEBUG
-        printf("before 3-i\n");
-        #endif
-        //i
-        temp = adjlist[cur];
-        while(temp != NULL){
-            dist[temp->eki] = dist[cur] + temp->kyori;
-            temp = temp->next;
-        }
-        #ifdef DEBUG
-        printf("before 3-ii\n");
-        #endif
-        //ii
-        cur = delete_min(&unknown);
-    }
-    #ifdef DEBUG
-    printf("before 4\n");
-    #endif
-    //4
-    return dist[eki2];
+    
 }
 
 int main()
