@@ -28,13 +28,7 @@ void init_set(struct set* p, int n, int e)
 {
     int j = 0;
     int i = 0;
-    #ifdef DEBUG
-    printf("n = %d`\n",n);
-    #endif
     p->size = n - 1;
-    #ifdef DEBUG
-    printf("after `p->size = n - 1`\n");
-    #endif
     while (i < n) {
         if (i != e) {
             p->elements[j] = i;
@@ -113,7 +107,12 @@ int dijkstra(struct node* adjlist[], int eki1, int eki2, int ekisu)
     cur = eki1;
     struct set unknown;
     init_set(&unknown, ekisu, eki1);
-    
+    //3
+    #ifdef DEBUG
+    printf("here\n");
+    #endif
+
+    return 0;
 }
 
 int main()
@@ -136,9 +135,6 @@ int main()
     }
     fclose(fp);
     scanf("%d %d ", &eki1, &eki2);
-    #ifdef DEBUG
-    printf("before excuting dijkstra\n");
-    #endif
     printf("%d\n", dijkstra(adjlist, eki1, eki2, ekisu));
     return 0;
 }
