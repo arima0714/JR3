@@ -23,6 +23,7 @@ struct set {
     int size;
 };
 
+//eを除く0からn-1までの整数を要素とする集合を、アドレスpの指す構造体に格納する関数
 void init_set(struct set* p, int n, int e)
 {
     int j = 0;
@@ -43,6 +44,7 @@ void init_set(struct set* p, int n, int e)
     }
 }
 
+//アドレスpの指す構造体setが表す集合の要素のうち、dist[m]の値が最も小さくなる要素mを削除し、その要素を返す関数
 int delete_min(struct set* p)
 {
     int min;
@@ -96,6 +98,7 @@ void add_edge(struct node* adjlist[], int eki1, int eki2, int rosen, int kyori)
 
 int dijkstra(struct node* adjlist[], int eki1, int eki2, int ekisu)
 {
+    //直前に最短距離を確定した駅を格納する変数
     int cur;
     struct node* temp;
     //1
