@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define ROSENZU "rosenzu.txt"
+#define ROSENZU "rosenzu-s.txt"
 #define SETMAX 10600
 
 char buf[256];
@@ -42,13 +42,12 @@ void init_set(struct set* p, int n, int e)
 int delete_min(struct set* p)
 {
     int min;
-    int i = 0;
     int min_index = 0;
     if (p->size == 0) {
         return -1;
     } else {
         min = dist[0];
-        for (i = 0; i < p->size; i++) {
+        for (int i = 0; i < p->size; i++) {
             if (min > dist[p->elements[i]]) {
                 min = dist[p->elements[i]];
                 min_index = i;
@@ -135,6 +134,7 @@ int dijkstra(struct node* adjlist[], int eki1, int eki2, int ekisu)
         }
         #ifdef DEBUG
         printf("==========\n");
+        printf("dijkstra\n");
         printf("cur = %d\n", cur);
         for (int i = 0; i < ekisu;i++){
             printf("dist[%d] = %d\n", i, dist[i]);
