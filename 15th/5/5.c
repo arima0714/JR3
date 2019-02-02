@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define ROSENZU "rosenzu.txt"
+#define ROSENZU "rosenzu-s.txt"
 #define SETMAX 10600
 
 char buf[256];
@@ -181,6 +181,10 @@ int dijkstra_path(struct node* adjlist[], int eki1, int eki2, int ekisu)
                 //cur => cur
                 dist[temp->eki] = dist[cur] + temp->kyori;
                 hop[temp->eki] = hop[cur] + 1;
+                #ifdef DEBUG
+                printf("1st---->>>> prev[%d] = %d\n",temp->eki,prev[temp->eki]);
+                printf("prev[%d] = %d\n",temp->eki,cur);
+                #endif
                 prev[temp->eki] = cur;
             }
             else if(dist[temp->eki] == dist[cur]+temp->kyori && hop[temp->eki] > hop[cur]+1){
@@ -188,6 +192,10 @@ int dijkstra_path(struct node* adjlist[], int eki1, int eki2, int ekisu)
                 //cur => cur
                 dist[temp->eki] = dist[cur] + temp->kyori;
                 hop[temp->eki] = hop[cur] + 1;
+                #ifdef DEBUG
+                printf("2nd---->>>> prev[%d] = %d\n",temp->eki,prev[temp->eki]);
+                printf("prev[%d] = %d\n",temp->eki,cur);
+                #endif
                 prev[temp->eki] = cur;
             }
             else if(dist[temp->eki] == dist[cur]+ temp->kyori && hop[temp->eki] == hop[cur] && prev[temp->eki]>cur){
@@ -195,6 +203,10 @@ int dijkstra_path(struct node* adjlist[], int eki1, int eki2, int ekisu)
                 //cur => cur
                 dist[temp->eki] = dist[cur] + temp->kyori;
                 hop[temp->eki] = hop[cur] + 1;
+                #ifdef DEBUG
+                printf("prev[%d] = %d\n",temp->eki,cur);
+                printf("3rd---->>>> prev[%d] = %d\n",temp->eki,prev[temp->eki]);
+                #endif                
                 prev[temp->eki] = cur;
             }
             temp = temp->next;
@@ -237,6 +249,11 @@ int main()
     eki = eki2;
     for (i = 0; i < hop[eki2];++i){
         printf(" %d <-", eki);
+        // #ifdef DEBUG
+        // if(prev[eki]== 2){
+        //     printf(" ( prev[%d] = %d ) ", eki, prev[eki]);
+        // }
+        // #endif
         eki = prev[eki];
     }
     if(eki!=eki1){
