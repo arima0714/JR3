@@ -41,35 +41,24 @@ void init_set(struct set* p, int n, int e)
 //アドレスpの指す構造体setが表す集合の要素のうち、dist[m]の値が最も小さくなる要素mを削除し、その要素を返す関数
 int delete_min(struct set* p)
 {
+    int min;
+    int i = 0;
     int min_index = 0;
-    #ifdef DEBUG
-    printf("delete_min\n");
-    for (int i = 0; i < p->size;i++){
-        printf("dist[%d] = %d\n", i, dist[i]);
-    }
-    printf("p->size = %d\n",p->size);
-    #endif
     if (p->size == 0) {
         return -1;
     } else {
-        for (int i = 0; i < p->size; i++) {
-            #ifdef DEBUG
-            printf("%d > %d\n", dist[p->elements[min_index]], dist[p->elements[i]]);
-            #endif
-            if (dist[p->elements[min_index]] > dist[p->elements[i]]) {
+        min = dist[0];
+        for (i = 0; i < p->size; i++) {
+            if (min > dist[p->elements[i]]) {
+                min = dist[p->elements[i]];
                 min_index = i;
-                #ifdef DEBUG
-                printf("min_index = %d\n", min_index);
-                #endif
             }
         }
+        min = p->elements[min_index];
         p->elements[min_index] = p->elements[p->size - 1];
         p->size--;
-        #ifdef DEBUG
-        printf("min = %d\nmin_index = %d\n",p->elements[min_index],min_index);
-        #endif
-        return min_index;
     }
+    return min;
 }
 
 void add_edge(struct node* adjlist[], int eki1, int eki2, int rosen, int kyori)
