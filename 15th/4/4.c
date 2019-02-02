@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define ROSENZU "rosenzu-s.txt"
+#define ROSENZU "rosenzu.txt"
 #define SETMAX 10600
 
 char buf[256];
@@ -46,28 +46,16 @@ int delete_min(struct set* p)
     if (p->size == 0) {
         return -1;
     } else {
-        min = dist[min_index];
-
-        for (int i = 1; i < p->size; i++) {
-            #ifdef DEBUG                            
-            printf("%d > %d\n", min, dist[p->elements[i]]);                        
-            #endif                        
-            if (min > dist[p->elements[i]]) {
-                #ifdef DEBUG                        
-                printf("TRUE\n");                    
-                #endif                        
-                min = dist[p->elements[i]];
+        for (int i = 0; i < p->size; i++) {
+            if (dist[p->elements[min_index]] > dist[p->elements[i]]) {
                 min_index = i;
             }
         }
         min = p->elements[min_index];
         p->elements[min_index] = p->elements[p->size - 1];
         p->size--;
+        return min;
     }
-    #ifdef DEBUG
-    printf("min = %d\n",min);
-    #endif    
-    return min;
 }
 
 void add_edge(struct node* adjlist[], int eki1, int eki2, int rosen, int kyori)
