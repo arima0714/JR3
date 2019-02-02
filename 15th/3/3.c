@@ -59,22 +59,25 @@ int delete_min_int(struct set* p)
     return answer;
 }
 
-int delete_min(struct set* p)
-{
-    if (p->size == 0) {
+int delete_min(struct set* p){
+    int min;
+    int i = 0;
+    int min_index = 0;
+    if(p->size == 0){
         return -1;
     } else {
-        int min, min_soeji = 0;
-        for (int i = 0; i < p->size; i++) {
-            if (dist[p->elements[min_soeji]] > dist[p->elements[i]]) {
-                min_soeji = i;
+        min = dist[0];
+        for (i = 0; i < p->size ;i++){
+            if(min > dist[p->elements[i]]){
+                min = dist[p->elements[i]];
+                min_index = i;
             }
         }
-        min = p->elements[min_soeji];
-        p->elements[min_soeji] = p->elements[p->size - 1];
+        min = p->elements[min_index];
+        p->elements[min_index] = p->elements[p->size-1];
         p->size--;
-        return min;
     }
+    return min;
 }
 
 int main()
