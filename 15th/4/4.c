@@ -46,9 +46,16 @@ int delete_min(struct set* p)
     if (p->size == 0) {
         return -1;
     } else {
-        min = dist[0];
-        for (int i = 0; i < p->size; i++) {
+        min = dist[min_index];
+
+        for (int i = 1; i < p->size; i++) {
+            #ifdef DEBUG                            
+            printf("%d > %d\n", min, dist[p->elements[i]]);                        
+            #endif                        
             if (min > dist[p->elements[i]]) {
+                #ifdef DEBUG                        
+                printf("TRUE\n");                    
+                #endif                        
                 min = dist[p->elements[i]];
                 min_index = i;
             }
@@ -57,6 +64,9 @@ int delete_min(struct set* p)
         p->elements[min_index] = p->elements[p->size - 1];
         p->size--;
     }
+    #ifdef DEBUG
+    printf("min = %d\n",min);
+    #endif    
     return min;
 }
 
