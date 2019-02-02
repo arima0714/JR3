@@ -5,11 +5,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define ROSENZU "rosenzu.txt"
+#define ROSENZU "rosenzu-s.txt"
 #define SETMAX 10600
 
 char buf[256];
 int dist[SETMAX];
+int prev[SETMAX];
+int hop[SETMAX];
 
 struct node {
     int eki;
@@ -47,8 +49,19 @@ int delete_min(struct set* p)
         return -1;
     } else {
         for (int i = 0; i < p->size; i++) {
-            if (dist[p->elements[min_index]] > dist[p->elements[i]]) {
+            if (dist[p->elements[min_index]] > dist[p->elements[i]]) {//distの値が最小のもの
                 min_index = i;
+            }
+            else if(dist[p->elements[min_index]] == dist[p->elements[i]]){//distの値が最小でhopの値が最小のもの
+                if (hop[p->elements[min_index]] > hop[p->elements[i]]){
+                    min_index = i;
+                } else if (hop[p->elements[min_index]] == hop[p->elements[i]]) {
+                    if (prev[p->elements[min_index]] > prev[p->elements[i]]) { //hopの値が最小でprevの値が最小のもの
+                        min_index = i;
+                    }
+                }else{
+                    ;
+                }
             }
         }
         min = p->elements[min_index];
@@ -101,21 +114,12 @@ int dijkstra(struct node* adjlist[], int eki1, int eki2, int ekisu)
         }
     }
 #ifdef DEBUG
-    printf("eki1 = %d\n", eki1);
-    for (int i = 0; i < ekisu - 1; i++) {
-        printf("%d = dist[%d]\n", i, dist[i]);
-    }
 #endif
     //2
     cur = eki1;
     struct set unknown;
     init_set(&unknown, ekisu, eki1);
 #ifdef DEBUG
-    printf("cur = %d\n", cur);
-    printf("ekisu-1 = %d\n", ekisu - 1);
-    for (int i = 0; i < ekisu - 1; i++) {
-        printf("%d\n", unknown.elements[i]);
-    }
 #endif
     //3
     while (unknown.size != 0 || cur != eki2) {
@@ -131,26 +135,84 @@ int dijkstra(struct node* adjlist[], int eki1, int eki2, int ekisu)
             temp = temp->next;
         }
 #ifdef DEBUG
-        printf("==========\n");
-        printf("dijkstra\n");
-        printf("cur = %d\n", cur);
-        for (int i = 0; i < ekisu; i++) {
-            printf("dist[%d] = %d\n", i, dist[i]);
-        }
-        printf("==========\n");
 #endif
         //3-ii
         cur = delete_min(&unknown);
     }
 //4
 #ifdef DEBUG
-    printf("before 4\n");
+#endif
+    return dist[eki2];
+}
+
+int dijkstra_path(struct node* adjlist[], int eki1, int eki2, int ekisu)
+{
+    //直前に最短距離を確定した駅を格納する変数
+    int cur;
+    struct node* temp;
+    //1
+    for (int i = 0; i < SETMAX; i++) {
+        if (i != eki1) {
+            dist[i] = INT_MAX;
+            hop[i] = INT_MAX;
+        } else {
+            dist[i] = 0;
+            hop[i] = 0;
+        }
+    }
+#ifdef DEBUG
+#endif
+    //2
+    cur = eki1;
+    struct set unknown;
+    init_set(&unknown, ekisu, eki1);
+#ifdef DEBUG
+#endif
+    //3
+    while (unknown.size != 0 || cur != eki2) {
+        if (cur < 0) {
+            break;
+        }
+        //3-i
+        temp = adjlist[cur];
+        while (temp != NULL) {
+            if (dist[temp->eki] > dist[cur] + temp->kyori) {
+                //eki => temp->eki
+                //cur => cur
+                dist[temp->eki] = dist[cur] + temp->kyori;
+                hop[temp->eki] = hop[cur] + 1;
+                prev[temp->eki] = cur;
+            }
+            else if(dist[temp->eki] == dist[cur]+temp->kyori && hop[temp->eki] > hop[cur]+1){
+                //eki => temp->eki
+                //cur => cur
+                dist[temp->eki] = dist[cur] + temp->kyori;
+                hop[temp->eki] = hop[cur] + 1;
+                prev[temp->eki] = cur;
+            }
+            else if(dist[temp->eki] == dist[cur]+ temp->kyori && hop[temp->eki] == hop[cur] && prev[temp->eki]>cur){
+                //eki => temp->eki
+                //cur => cur
+                dist[temp->eki] = dist[cur] + temp->kyori;
+                hop[temp->eki] = hop[cur] + 1;
+                prev[temp->eki] = cur;
+            }
+            temp = temp->next;
+        }
+#ifdef DEBUG
+#endif
+        //3-ii
+        cur = delete_min(&unknown);
+    }
+//4
+#ifdef DEBUG
 #endif
     return dist[eki2];
 }
 
 int main()
 {
+    int eki;
     int eki1;
     int eki2;
     int rosen;
@@ -169,6 +231,18 @@ int main()
     }
     fclose(fp);
     scanf("%d %d ", &eki1, &eki2);
-    printf("%d\n", dijkstra(adjlist, eki1, eki2, ekisu));
+
+    kyori = dijkstra_path(adjlist, eki1, eki2, ekisu);
+    printf("%d:", kyori);
+    eki = eki2;
+    for (i = 0; i < hop[eki2];++i){
+        printf(" %d <-", eki);
+        eki = prev[eki];
+    }
+    if(eki!=eki1){
+        fprintf(stderr, "hop or prev is invalid.\n");
+        exit(1);
+    }
+    printf(" %d\n", eki);
     return 0;
 }
