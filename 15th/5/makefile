@@ -33,15 +33,15 @@ d3:
 
 s-alld:
 	make debug
-	echo "========== 3.in =========="
+	@echo "========== 3.in =========="
 	./a.out < ./counterexamples/3.in
-	echo "answer = 1 <- 0 <- 4"
-	echo "========== 4.in =========="
+	@echo "answer = 1 <- 0 <- 4"
+	@echo "========== 4.in =========="
 	./a.out < ./counterexamples/4.in
-	echo "answer = 3 <- 1 <- 0"
-	echo "========== 2.in =========="
+	@echo "answer = 3 <- 1 <- 0"
+	@echo "========== 2.in =========="
 	./a.out < ./counterexamples/2.in
-	echo "answer = 4 <- 0 <- 1 <- 5"
+	@echo "answer = 4 <- 0 <- 1 <- 5"
 
 s-all:
 	make gcc

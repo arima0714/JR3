@@ -49,20 +49,18 @@ int delete_min(struct set* p)
         return -1;
     } else {
         for (int i = 0; i < p->size; i++) {
-            if (dist[p->elements[min_index]] > dist[p->elements[i]]) {//distの値が最小のもの
+            if(dist[p->elements[min_index]] > dist[p->elements[i]]){
                 min_index = i;
-            }
-            else if(dist[p->elements[min_index]] == dist[p->elements[i]]){//distの値が最小でhopの値が最小のもの
-                if (hop[p->elements[min_index]] > hop[p->elements[i]]){
+            } else if (dist[p->elements[min_index]] == dist[p->elements[i]]){
+                if(hop[p->elements[min_index]] > hop[p->elements[i]]){
                     min_index = i;
-                } else if (hop[p->elements[min_index]] == hop[p->elements[i]]) {
-                    if (prev[p->elements[min_index]] > prev[p->elements[i]]) { //hopの値が最小でprevの値が最小のもの
+                } else if (hop[p->elements[min_index]] > hop[p->elements[i]]){
+                    if(prev[p->elements[min_index]]> prev[p->elements[i]]){
                         min_index = i;
                     }
-                }else{
-                    ;
                 }
             }
+
         }
         min = p->elements[min_index];
         p->elements[min_index] = p->elements[p->size - 1];
@@ -176,15 +174,16 @@ int dijkstra_path(struct node* adjlist[], int eki1, int eki2, int ekisu)
         //3-i
         temp = adjlist[cur];
         while (temp != NULL) {
+            #ifdef DEBUG
+            #endif
             if (dist[temp->eki] > dist[cur] + temp->kyori) {
                 //eki => temp->eki
                 //cur => cur
+                #ifdef DEBUG
+                printf("prev[%d] = %d\n", temp->eki, cur);
+                #endif
                 dist[temp->eki] = dist[cur] + temp->kyori;
                 hop[temp->eki] = hop[cur] + 1;
-                #ifdef DEBUG
-                printf("1st---->>>> prev[%d] = %d\n",temp->eki,prev[temp->eki]);
-                printf("prev[%d] = %d\n",temp->eki,cur);
-                #endif
                 prev[temp->eki] = cur;
             }
             else if(dist[temp->eki] == dist[cur]+temp->kyori && hop[temp->eki] > hop[cur]+1){
@@ -193,17 +192,18 @@ int dijkstra_path(struct node* adjlist[], int eki1, int eki2, int ekisu)
                 dist[temp->eki] = dist[cur] + temp->kyori;
                 hop[temp->eki] = hop[cur] + 1;
                 #ifdef DEBUG
+                printf(" && %d > %d\n",hop[temp->eki],hop[cur] + 1);
                 printf("2nd---->>>> prev[%d] = %d\n",temp->eki,prev[temp->eki]);
                 printf("prev[%d] = %d\n",temp->eki,cur);
                 #endif
                 prev[temp->eki] = cur;
-            }
-            else if(dist[temp->eki] == dist[cur]+ temp->kyori && hop[temp->eki] == hop[cur] && prev[temp->eki]>cur){
+            } else if (dist[temp->eki] == dist[cur] + temp->kyori && hop[temp->eki] == hop[cur] + 1 && prev[temp->eki] > cur) {
                 //eki => temp->eki
                 //cur => cur
                 dist[temp->eki] = dist[cur] + temp->kyori;
                 hop[temp->eki] = hop[cur] + 1;
                 #ifdef DEBUG
+                printf(" && %d > %d\n", prev[temp->eki],cur);
                 printf("prev[%d] = %d\n",temp->eki,cur);
                 printf("3rd---->>>> prev[%d] = %d\n",temp->eki,prev[temp->eki]);
                 #endif                
@@ -211,10 +211,11 @@ int dijkstra_path(struct node* adjlist[], int eki1, int eki2, int ekisu)
             }
             temp = temp->next;
         }
-#ifdef DEBUG
-#endif
         //3-ii
         cur = delete_min(&unknown);
+        #ifdef DEBUG
+        printf("cur = %d\n",cur);
+        #endif
     }
 //4
 #ifdef DEBUG
