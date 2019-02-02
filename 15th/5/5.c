@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define ROSENZU "rosenzu-s.txt"
+#define ROSENZU "rosenzu.txt"
 #define SETMAX 10600
 
 char buf[256];
