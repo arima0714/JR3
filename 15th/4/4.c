@@ -5,8 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define ROSENZU "rosenzu.txt"
-#define SETMAX 1600
+#define ROSENZU "rosenzu-s.txt"
+#define SETMAX 10600
 
 char buf[256];
 int dist[SETMAX];
@@ -41,24 +41,33 @@ void init_set(struct set* p, int n, int e)
 //アドレスpの指す構造体setが表す集合の要素のうち、dist[m]の値が最も小さくなる要素mを削除し、その要素を返す関数
 int delete_min(struct set* p)
 {
-    int min;
-    int i = 0;
     int min_index = 0;
+    #ifdef DEBUG
+    printf("delete_min\n");
+    for (int i = 0; i < p->size;i++){
+        printf("dist[%d] = %d\n", i, dist[i]);
+    }
+    printf("p->size = %d\n",p->size);
+    #endif
     if (p->size == 0) {
         return -1;
     } else {
-        min = dist[0];
-        for (i = 0; i < p->size; i++) {
-            if (min > dist[p->elements[i]]) {
-                min = dist[p->elements[i]];
+        for (int i = 0; i < p->size; i++) {
+            printf("%d > %d\n", dist[p->elements[min_index]], dist[p->elements[i]]);
+            if (dist[p->elements[min_index]] > dist[p->elements[i]]) {
                 min_index = i;
+                #ifdef DEBUG
+                printf("min_index = %d\n", min_index);
+                #endif
             }
         }
-        min = p->elements[min_index];
         p->elements[min_index] = p->elements[p->size - 1];
         p->size--;
+        #ifdef DEBUG
+        printf("min = %d\nmin_index = %d\n",p->elements[min_index],min_index);
+        #endif
+        return min_index;
     }
-    return min;
 }
 
 void add_edge(struct node* adjlist[], int eki1, int eki2, int rosen, int kyori)
@@ -103,16 +112,49 @@ int dijkstra(struct node* adjlist[], int eki1, int eki2, int ekisu)
             dist[i] = 0;
         }
     }
+    #ifdef DEBUG
+    printf("eki1 = %d\n", eki1);
+    for(int i = 0;i<ekisu-1;i++){
+        printf("%d = dist[%d]\n", i, dist[i]);
+    }
+    #endif
     //2
     cur = eki1;
     struct set unknown;
     init_set(&unknown, ekisu, eki1);
-    //3
     #ifdef DEBUG
-    printf("here\n");
+    printf("cur = %d\n", cur);
+    printf("ekisu-1 = %d\n", ekisu - 1);
+    for(int i = 0;i<ekisu-1;i++){
+        printf("%d\n", unknown.elements[i]);
+    }
     #endif
-
-    return 0;
+    //3
+    while(unknown.size != 0 || cur != eki2){
+        //3-i
+        temp = adjlist[cur];
+        while(temp != NULL){
+            if (dist[temp->eki] > dist[cur] + temp->kyori) {
+                dist[temp->eki] = dist[cur] + temp->kyori;
+            }
+            temp = temp->next;
+        }
+        #ifdef DEBUG
+        printf("==========\n");
+        printf("cur = %d\n", cur);
+        for (int i = 0; i < ekisu;i++){
+            printf("dist[%d] = %d\n", i, dist[i]);
+        }
+        printf("==========\n");
+        #endif
+        //3-ii
+        cur = delete_min(&unknown);
+    }
+    //4
+    #ifdef DEBUG
+    printf("before 4\n");
+    #endif
+    return dist[eki2];
 }
 
 int main()
