@@ -66,7 +66,6 @@ int delete_min(struct set* p)
     if (p->size == 0) {
         return -1;
     } else {
-        min = dist[0];
         for (int i = 0; i < p->size; i++) {
             if (dist[p->elements[min_index]] > dist[p->elements[i]]) {
                 min_index = i;
