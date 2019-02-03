@@ -21,7 +21,6 @@ int main()
     int l;
     int r;
     int m;
-    struct station* center_eki;
     struct station* ekidata[SETMAX];
     struct station* st;
     char ekiname[64];
