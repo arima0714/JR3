@@ -12,10 +12,9 @@ struct station {
     int eki;
     char name[64];
     char rosen[64];
-}
+};
 
-int
-main()
+int main()
 {
     int i = 0;
     int ekisize;
@@ -24,18 +23,26 @@ main()
     int m;
     struct station* ekidata[SETMAX];
     struct station* st;
-    char ekname[64];
+    char ekiname[64];
     FILE* fp = fopen("./ekisen.txt", "r");
     while (fgets(buf, sizeof(buf), fp) != NULL && i < SETMAX) {
         st = (struct station*)malloc(sizeof(struct station));
+        sscanf(buf, "%[^:]:%d:%[^\n]*c", st->name, &st->eki, st->rosen);
         ekidata[i] = st;
         ++i;
     }
     fclose(fp);
     ekisize = i;
-    scanf("%[^\n]%+c", ekiname);
+    scanf("%[^\n]%*c", ekiname);
     l = 0;
     r = ekisize - 1;
+    #ifdef DEBUG
+    printf("ekisize = %d\n", ekisize);
+    printf("r = %d\n", r);
+    printf("l = %d\n", l);
+    printf("m = %d\n", m);
+    printf("ekidata[%d]: eki = %d,name = %s,rosen = %s\n", 0, ekidata[0]->eki, ekidata[0]->name, ekidata[0]->rosen);
+#endif
     //ここから二分探索
     while(l<=r){
         //umeru
@@ -46,4 +53,6 @@ main()
     }else{//駅名がある場合
         //umeru
     }
+    
+    return 0;
 }
