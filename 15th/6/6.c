@@ -73,8 +73,8 @@ int main()
             last = center;
         }else{
             //一致
-            break;
             m = center;
+            break;
         }
         l = first;
         r = last;
@@ -84,8 +84,20 @@ int main()
         fprintf(stderr, "%s: 駅名がありません\n", ekiname);
         exit(1);
     }else{//駅名がある場合
-        while(0< center && center < ekisize && strcmp(ekiname,ekidata[center]->name)!=0){
-            center--;
+        #ifdef DEBUG
+        printf("%d\n", strcmp(ekiname, ekidata[center]->name));
+        printf("-----ekiname = %s,ekidata[center] = %s------\n",ekiname,ekidata[center]->name);
+        printf("strcmp(%s,%s) = %d\n",ekiname,ekidata[center]->name,strcmp(ekiname,ekidata[center]->name));
+        #endif
+        while(0< center && center < ekisize && strcmp(ekiname,ekidata[center]->name)==0){
+            #ifdef DEBUG
+            printf("center = %d\nekisize = %d\n", center, ekisize);
+            #endif
+            if (strcmp(ekiname, ekidata[center-1]->name) == 0){
+                center--;
+            }else{
+                break;
+            }
         }
         while(strcmp(ekiname,ekidata[center]->name) == 0){
             printf("%d:%s\n",ekidata[center]->eki, ekidata[center]->rosen);
